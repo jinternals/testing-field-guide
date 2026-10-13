@@ -14,12 +14,16 @@ sourceSets {
     compileClasspath += sourceSets.main.get().output
     runtimeClasspath += sourceSets.main.get().output
   }
-  create("tools") { java.srcDir("src/tools") }
+  create("tools") {                // RedundantTests, LoadSmoke
+    java.srcDir("src/tools")
+    compileClasspath += sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().output
+  }
 }
-val integrationTestImplementation by configurations.getting {
+configurations.named("integrationTestImplementation") {
   extendsFrom(configurations.testImplementation.get())
 }
-val integrationTestRuntimeOnly by configurations.getting {
+configurations.named("integrationTestRuntimeOnly") {
   extendsFrom(configurations.testRuntimeOnly.get())
 }
 val mockitoAgent = configurations.create("mockitoAgent")
@@ -31,9 +35,9 @@ dependencies {
   testImplementation("org.mockito:mockito-junit-jupiter:5.24.0")
   testImplementation("org.assertj:assertj-core:3.27.7")
   mockitoAgent("org.mockito:mockito-core:5.24.0") { isTransitive = false }
-  integrationTestImplementation(
+  "integrationTestImplementation"(
       "org.testcontainers:testcontainers-postgresql:2.0.5")
-  integrationTestRuntimeOnly("org.postgresql:postgresql:42.7.14")
+  "integrationTestRuntimeOnly"("org.postgresql:postgresql:42.7.14")
 }
 
 // UNIT tests: one JVM, many threads
