@@ -60,3 +60,22 @@ jobs:
           cp -r build/test-results logs/test-results 2>/dev/null || true
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-gradle && git rm -rqf --cached . && git add -f logs && git commit -qm "Gradle logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-gradle
+
+  spring:
+    runs-on: ubuntu-latest
+    defaults: { run: { shell: 'bash -eo pipefail {0}', working-directory: spring } }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with: { distribution: temurin, java-version: '21', cache: maven }
+      - run: mkdir -p logs
+      - name: Spring Boot slice + full-context tests (Testcontainers)
+        run: mvn -B -ntp verify 2>&1 | tee logs/spring-verify.log
+      - name: Library versions managed by Spring Boot
+        if: always()
+        run: mvn -B -ntp -q dependency:list -DoutputFile=logs/spring-deps.txt -DincludeScope=test
+      - name: Publish logs
+        if: always()
+        run: |
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git checkout --orphan ci-logs-spring && git rm -rqf --cached .. && git add -f logs && git commit -qm "Spring logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-spring
