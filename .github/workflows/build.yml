@@ -264,5 +264,6 @@ jobs:
         if: always() && github.ref == 'refs/heads/main'
         run: |
           mkdir -p guide-logs && cp guide/java/*-output*.txt guide/java/*.csv guide-logs/ 2>/dev/null || true
+          cp guide/Testing-Field-Guide.pdf guide-logs/ 2>/dev/null || true     # also when a check failed
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout -q --orphan ci-logs-guide && git rm -rqf --cached . && git add -f guide-logs && git commit -qm "Guide logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-guide

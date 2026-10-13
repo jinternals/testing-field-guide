@@ -91,8 +91,8 @@ page("check", f'''
 IDX = {
  "AAA (Arrange · Act · Assert)": ["pyramid"], "Acceptance test": ["why"], "Access control tests": ["sec"], "ArgumentCaptor": ["mockito", "mockito2"],
  "assertAll": ["assert"], "AssertJ": ["assert", "params"], "assertThrows": ["assert"], "assertTimeoutPreemptively": ["tricky"], "Assumptions": ["params"],
- "Awaitility": ["tricky", "messaging"], "BDD / Gherkin": ["tdd"], "BDDMockito": ["mockito2"], "Boundary value analysis": ["design", "cov"], "Branch coverage": ["cov"],
- "Chaos engineering": ["sec"], "Classicist vs mockist": ["mockito"], "Clock (java.time)": ["tricky", "mockito"], "Code coverage": ["cov"],
+ "Awaitility": ["tricky", "messaging", "scheduled"], "BDD / Gherkin": ["tdd"], "BDDMockito": ["mockito2"], "Boundary value analysis": ["design", "cov"], "Branch coverage": ["cov"],
+ "Chaos engineering": ["sec"], "Classicist vs mockist": ["mockito"], "Clock (java.time)": ["tricky", "mockito", "scheduled"], "Code coverage": ["cov"],
  "Consumer-driven contracts": ["contract"], "Contract testing": ["contract", "interview"], "Coordinated omission": ["perf"], "CountDownLatch": ["tricky"],
  "@CsvSource": ["design", "params"], "Cucumber": ["tdd"], "Cypress": ["e2e"], "DAST": ["sec"], "@DataJpaTest": ["spring", "txtrap"], "Decision table": ["design"],
  "Dependency-Check (OWASP)": ["sec", "plugins"], "@DisplayName": ["junit"], "doReturn": ["mockpit", "mockito2"], "Dummy": ["doubles"], "End-to-end tests": ["e2e"],
@@ -125,6 +125,10 @@ IDX.update({
  "TCP_NODELAY": ["perf"], "Virtual threads": ["perf"], "Self-check questions": ["interview"], "Cheat sheet": ["cheat"],
  "BigDecimal money": ["assert"], "Record (Java)": ["junit", "mockpit"], "Lenient stubs": ["mockpit"], "MockitoSettings": ["mockpit"],
  "Flyway / Liquibase": ["migrations"], "Accessibility testing": ["e2e"], "Visual regression": ["e2e"],
+ "@Cacheable / @CacheEvict": ["caches"], "Redis": ["caches"], "Cache TTL": ["caches"], "Self-invocation (proxies)": ["caches"],
+ "@Scheduled": ["scheduled"], "Spring Batch": ["batch"], "@SpringBatchTest": ["batch"], "JobOperatorTestUtils": ["batch"], "Skip / filter (Batch)": ["batch"],
+ "jcstress": ["jcstress"], "Lost update (race)": ["jcstress"], "Feature flags": ["prod"], "Synthetic checks": ["prod"], "Canary release": ["prod"],
+ "ApplicationContextRunner": ["prod"], "Testing in production": ["prod"],
 })
 
 def idx_html():

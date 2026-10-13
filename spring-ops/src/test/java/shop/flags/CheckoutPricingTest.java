@@ -12,7 +12,8 @@ class CheckoutPricingTest {
       "false, 3, 100000",
       "true,  3,  90000",
       "true,  2, 100000"})
-  void bulkDiscountFollowsTheFlag(boolean on, int items, long total) {
+  void bulkDiscountFollowsTheFlag(boolean on, int items,
+      long total) {
     var pricing = new CheckoutPricing(new Features(on));
     assertThat(pricing.total(100_000, items)).isEqualTo(total);
   }

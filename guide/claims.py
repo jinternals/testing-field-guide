@@ -76,5 +76,22 @@ claim("missing the following keys: status" in read("ci-logs/extras/pact-breaking
 claim("Architecture Violation" in read("ci-logs/spring/spring-verify.log"), "ArchUnit reported the planted violation")
 claim("violates unique constraint" in read("ci-logs/spring/spring-verify.log"), "PostgreSQL rejected the duplicate reference")
 
+# ops job: synthetic checks, jcstress, caches, batch
+ops = J / "ci-logs" / "ops"
+syn, down = (ops / "synthetic.log").read_text(), (ops / "synthetic-redis-down.log").read_text()
+claim("synthetic check passed" in syn and "exit code 0" in syn, "synthetic check passes against the running jar")
+claim("/actuator/health  503" in down and "exit code 1" in down, "with Redis down: health 503, check exits 1")
+jc = re.sub(r"\n[ \t]*(?=\n)", "", (ops / "jcstress.log").read_text())
+racy = re.search(r"\[OK\] shop\.RacyCounterTest\n  Results across all configurations:\n  RESULT.*?\n((?:\s+\d.*\n)+)", jc)
+claim(racy is not None and re.search(r"^\s+1\s+[\d,]+\s+[\d.]+%\s+Interesting", racy.group(1), re.M) is not None,
+      "jcstress saw lost updates in RacyCounterTest")
+atomic = re.search(r"\[OK\] shop\.AtomicCounterTest\n  Results across all configurations:\n  RESULT.*?\n((?:\s+\d.*\n)+)", jc)
+claim(atomic is not None and re.findall(r"^\s+(\d)\s", atomic.group(1), re.M) == ["2"], "AtomicCounterTest: only the outcome 2")
+claim("BUILD SUCCESS" in jc, "jcstress run passed (no FORBIDDEN outcome)")
+ov = (ops / "ops-verify.log").read_text()
+for cls in ["PriceCacheIT", "ImportPricesJobIT", "CartCleanupScheduleIT", "SyntheticCheckIT", "NightlyReportCronTest", "CheckoutPricingTest", "FeatureWiringTest"]:
+    claim(re.search(r"Failures: 0, Errors: 0, Skipped: 0, .* -- in shop\.\w+\." + cls, ov) is not None, f"{cls} ran and passed")
+claim("Step: [importStep] executed" in ov and "status: [COMPLETED]" in ov, "the batch job completed")
+
 if problems:
     sys.exit(f"{len(problems)} claim(s) no longer hold")

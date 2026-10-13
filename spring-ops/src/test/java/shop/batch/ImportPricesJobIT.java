@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import shop.cache.Price;
 
-/** prices.csv: 2 good lines, 1 negative, 1 broken, 1 more good. */
+/** prices.csv: 3 good lines, 1 negative, 1 broken. */
 @SpringBootTest(properties = "spring.cache.type=none")
 @SpringBatchTest
 class ImportPricesJobIT {
@@ -20,11 +20,13 @@ class ImportPricesJobIT {
   @Autowired PriceCatalog catalog;
 
   @Test
-  void importsGoodLinesFiltersNegativeSkipsBroken() throws Exception {
+  void filtersNegativeAndSkipsBrokenLines() throws Exception {
     JobExecution run = jobs.startJob();
 
-    assertThat(run.getStatus()).isEqualTo(BatchStatus.COMPLETED);
-    StepExecution step = run.getStepExecutions().iterator().next();
+    assertThat(run.getStatus())
+        .isEqualTo(BatchStatus.COMPLETED);
+    StepExecution step =
+        run.getStepExecutions().iterator().next();
     assertThat(step.getReadCount()).isEqualTo(4);
     assertThat(step.getFilterCount()).isEqualTo(1);
     assertThat(step.getReadSkipCount()).isEqualTo(1);

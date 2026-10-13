@@ -21,7 +21,7 @@ public class PriceService {
   public void priceChanged(String sku) {
   }
 
-  /** Calls price() on "this", not on the proxy: never cached. */
+  /** Calls price() on "this", not the proxy: never cached. */
   public long priceWithTax(String sku) {
     return price(sku).paise() * 118 / 100;
   }

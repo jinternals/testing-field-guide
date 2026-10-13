@@ -1,7 +1,7 @@
 [
  [
   "Code is real",
-  "Unit tests pass on JUnit 6.1.3, Mockito 5.24.0, AssertJ 3.27.7, Java 21. The Maven, Gradle and Spring Boot 4.1 builds — Failsafe forks, PostgreSQL, Kafka, GreenMail, Moto, Azurite, WireMock, Pact, Flyway, Playwright, mock-oauth2-server, ArchUnit, JaCoCo, PIT, CPD, build cache, shards — run on GitHub Actions, failing cases included. The other examples (PIT, coverage, load, parallel, CPD) are re-run in the same pipeline, and this PDF is rebuilt from those outputs on every push.",
+  "Unit tests pass on JUnit 6.1.3, Mockito 5.24.0, AssertJ 3.27.7, Java 21. The Maven, Gradle and Spring Boot 4.1 builds — Failsafe forks, PostgreSQL, Redis, Kafka, GreenMail, Moto, Azurite, WireMock, Pact, Flyway, Playwright, mock-oauth2-server, ArchUnit, Spring Batch, jcstress, JaCoCo, PIT, CPD, build cache, shards — run on GitHub Actions, failing cases included. The other examples (PIT, coverage, load, parallel, CPD) are re-run in the same pipeline, and this PDF is rebuilt from those outputs on every push.",
   "<span class='yes'>Pass</span>"
  ],
  [

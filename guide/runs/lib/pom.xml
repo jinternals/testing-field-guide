@@ -8,9 +8,16 @@
   <version>1.0</version>
   <packaging>pom</packaging>
   <dependencies>
+    <!-- the launcher and the Jupiter engine only: the standalone jar also brings the
+         Vintage and Suite engines, which add nodes to the output tree -->
     <dependency>
       <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-console-standalone</artifactId>
+      <artifactId>junit-platform-console</artifactId>
+      <version>6.1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <version>6.1.3</version>
     </dependency>
     <dependency>

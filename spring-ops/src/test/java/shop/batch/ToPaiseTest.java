@@ -12,7 +12,8 @@ class ToPaiseTest {
 
   @Test
   void convertsRupeesToPaise() {
-    var line = new PriceLine("book-2", new BigDecimal("1299.50"));
+    var line = new PriceLine("book-2",
+        new BigDecimal("1299.50"));
     assertThat(toPaise.process(line))
         .isEqualTo(new Price("book-2", 129_950));
   }

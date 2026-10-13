@@ -8,7 +8,8 @@ import shop.cache.Price;
 
 @Component
 public class PriceCatalog {
-  private final Map<String, Price> prices = new ConcurrentHashMap<>();
+  private final Map<String, Price> prices =
+      new ConcurrentHashMap<>();
 
   public void put(Price price) {
     prices.put(price.sku(), price);

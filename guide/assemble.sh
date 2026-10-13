@@ -5,7 +5,7 @@
 set -euo pipefail
 G=guide; W=$G/java
 rm -rf "$W" && mkdir -p "$W/ci-logs"
-cp -r src pom.xml build.gradle.kts settings.gradle.kts gradlew gradle README.md extras spring spring-auth .github "$W/"
+cp -r src pom.xml build.gradle.kts settings.gradle.kts gradlew gradle README.md extras spring spring-auth spring-ops concurrency .github "$W/"
 cp -r $G/runs/. "$W/"
 
 mv "$W/ci-static/"* "$W/ci-logs/" && rmdir "$W/ci-static"

@@ -274,6 +274,6 @@ p + p{margin-top:1.4mm}
 .cover-chips{top:192mm !important}
 /* 42-page edition: denser contents and index */
 .toc-sub{display:none}
-.idx{line-height:1.36;font-size:7.1pt}
+.idx{line-height:1.27;font-size:7.1pt}
 .idx .L{margin:1.1mm 0 .2mm;font-size:10pt}
 .toc-item{line-height:1.3}

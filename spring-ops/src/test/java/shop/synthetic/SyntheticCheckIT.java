@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Import;
 import shop.RedisContainer;
 
-/** The production check, run against the app before it ships. */
+/** The production check, run before the app ships. */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Import(RedisContainer.class)
 class SyntheticCheckIT {

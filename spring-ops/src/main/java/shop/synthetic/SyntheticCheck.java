@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * What a user does, run against a deployed instance:
  * java -cp classes shop.synthetic.SyntheticCheck URL
- * The same class runs in a test against the app on a random port.
+ * The same class runs in a test, against a random port.
  */
 public final class SyntheticCheck {
   private static final HttpClient HTTP = HttpClient.newBuilder()
@@ -31,12 +31,15 @@ public final class SyntheticCheck {
     try {
       var req = HttpRequest.newBuilder(base.resolve(path))
           .timeout(Duration.ofSeconds(5)).build();
-      var res = HTTP.send(req, HttpResponse.BodyHandlers.ofString());
+      var res = HTTP.send(req,
+          HttpResponse.BodyHandlers.ofString());
       boolean ok = res.statusCode() == 200
           && res.body().contains(mustContain);
-      result = (ok ? "✔ " : "✘ ") + path + "  " + res.statusCode();
+      result = (ok ? "✔ " : "✘ ") + path
+          + "  " + res.statusCode();
     } catch (Exception e) {
-      result = "✘ " + path + "  " + e.getClass().getSimpleName();
+      result = "✘ " + path + "  "
+          + e.getClass().getSimpleName();
     }
     long ms = (System.nanoTime() - t0) / 1_000_000;
     System.out.println(result + "  " + ms + " ms");
@@ -47,7 +50,8 @@ public final class SyntheticCheck {
 
   public static void main(String[] args) {
     List<String> failures = run(URI.create(args[0]));
-    System.out.println(failures.isEmpty() ? "synthetic check passed"
+    System.out.println(failures.isEmpty()
+        ? "synthetic check passed"
         : "synthetic check FAILED: " + failures.size());
     System.exit(failures.isEmpty() ? 0 : 1);
   }

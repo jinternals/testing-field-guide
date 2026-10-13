@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-/** The wiring: the schedule really fires (every 200 ms here). */
+/** The wiring: the schedule really fires (here every 0.2 s). */
 @SpringBootTest(properties = {"shop.cleanup.every=PT0.2S",
     "spring.cache.type=none"})
 class CartCleanupScheduleIT {

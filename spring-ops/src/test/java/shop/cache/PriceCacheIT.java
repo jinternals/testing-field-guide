@@ -31,6 +31,7 @@ class PriceCacheIT {
   @Test
   void secondCallIsServedFromRedis() {
     prices.price("book-1");
+    assertThat(redis.hasKey("prices::book-1")).isTrue();
     prices.price("book-1");
 
     verify(source, times(1)).fetch("book-1");

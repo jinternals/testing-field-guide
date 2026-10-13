@@ -23,6 +23,7 @@ public class CartCleanup {
   }
 
   public int removeAbandoned() {
-    return carts.removeTouchedBefore(clock.instant().minus(MAX_AGE));
+    var cutoff = clock.instant().minus(MAX_AGE);
+    return carts.removeTouchedBefore(cutoff);
   }
 }

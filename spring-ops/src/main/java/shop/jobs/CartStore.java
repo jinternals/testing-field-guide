@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 /** Carts and when each was last touched. */
 @Component
 public class CartStore {
-  private final Map<String, Instant> touched = new ConcurrentHashMap<>();
+  private final Map<String, Instant> touched =
+      new ConcurrentHashMap<>();
 
   public void touch(String cartId, Instant at) {
     touched.put(cartId, at);
