@@ -11,7 +11,7 @@ cp -r $G/runs/. "$W/"
 mv "$W/ci-static/"* "$W/ci-logs/" && rmdir "$W/ci-static"
 
 if [ -n "${1:-}" ]; then        # CI: this run's logs, downloaded as artifacts logs-<job>
-  for j in maven gradle spring extras shard-1 shard-2; do
+  for j in maven gradle spring extras shard-1 shard-2 ops; do
     mkdir -p "$W/ci-logs/$j" && cp -r "$1/logs-$j/." "$W/ci-logs/$j/"
   done
 else                            # locally: the logs main's last run published to the ci-logs-* branches
@@ -22,5 +22,6 @@ else                            # locally: the logs main's last run published to
   }
   take maven logs maven; take gradle logs gradle; take spring spring/logs spring
   take extras logs extras; take shard-1 logs shard-1; take shard-2 logs shard-2
+  take ops logs ops
 fi
 echo "assembled $(find "$W" -type f | wc -l) files in $W"

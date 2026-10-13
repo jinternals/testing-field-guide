@@ -16,8 +16,14 @@ Integration tests need Docker.
 
 ## How the guide is built
 
-The PDF in `docs/` is rebuilt by CI on every push to `main` (the `guide` job). It
-collects this run's logs, re-runs the hand-run examples (`guide/runs/regenerate.sh`: PIT,
-coverage, load, parallel, CPD), regenerates the screenshots, and renders the PDF. It is
-only published if every check passes: no layout overflow, WCAG AA contrast, fonts embedded,
-and `guide/claims.py` — every sentence that interprets an output is checked against the new output.
+`docs/` holds the guide as a PDF and as the one-file HTML it is printed from
+(`docs/Testing-Field-Guide.html`, fonts and images inlined; open it in a browser). CI rebuilds both on
+every push to `main` (the `guide` job): it collects the run's logs, re-runs the hand-run examples
+(`guide/runs/regenerate.sh`: PIT, coverage, load, parallel, CPD), regenerates the screenshots,
+renders the pages and publishes only if every check passes: no layout overflow, WCAG AA contrast,
+fonts embedded, every stated version matching the builds (`guide/check_versions.py`) and every
+sentence that interprets an output matching the new output (`guide/claims.py`).
+
+To change the text, edit the page builders in `guide/` (`ch*.py`, `style.css`) and push; the files
+in `docs/` are outputs and are overwritten. Locally: `guide/assemble.sh`, then in `guide/java`
+`bash regenerate.sh`, then in `guide/` run `python3 shots.py`, `python3 build.py` and `python3 render.py`.

@@ -3,7 +3,7 @@
 version: 2
 updates:
   - package-ecosystem: maven
-    directories: ["/", "/spring", "/spring-auth", "/extras", "/guide/runs/lib", "/guide/catalogue"]
+    directories: ["/", "/spring", "/spring-auth", "/extras", "/spring-ops", "/concurrency", "/guide/runs/lib", "/guide/runs/lib/jacoco-api", "/guide/catalogue"]
     schedule: { interval: weekly, day: monday }
     groups:
       test-stack: { patterns: ["*"], update-types: [minor, patch] }

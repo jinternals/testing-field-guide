@@ -6,10 +6,10 @@ HERE=$(pwd)
 if [ -z "${LIB:-}" ]; then   # CI: fetch the official jars; locally, pass LIB/JACOCO_AGENT/JACOCO_API to reuse yours
   mvn -B -ntp -q -f lib/pom.xml dependency:copy-dependencies -DoutputDirectory=$HERE/lib/jars
   mvn -B -ntp -q dependency:copy -Dartifact=org.jacoco:org.jacoco.agent:0.8.15:jar:runtime -DoutputDirectory=$HERE/lib/jacoco -Dmdep.stripVersion=true
-  mvn -B -ntp -q dependency:copy -Dartifact=org.jacoco:org.jacoco.cli:0.8.15:jar:nodeps -DoutputDirectory=$HERE/lib/jacoco -Dmdep.stripVersion=true
+  mvn -B -ntp -q -f lib/jacoco-api/pom.xml dependency:copy-dependencies -DoutputDirectory=$HERE/lib/jacoco-api/jars
   export LIB=$HERE/lib/jars
   export JACOCO_AGENT=$HERE/lib/jacoco/org.jacoco.agent-runtime.jar
-  export JACOCO_API=$HERE/lib/jacoco/org.jacoco.cli-nodeps.jar
+  export JACOCO_API=$(ls $HERE/lib/jacoco-api/jars/*.jar | paste -sd: -)
 fi
 CP=$(ls $LIB/*.jar | tr '\n' ':')
 EX="--add-exports java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED"
@@ -18,6 +18,7 @@ echo "== unit suite";      ./run.sh --details=tree --details-theme=unicode > sui
 echo "== failing demos";   ./runfail.sh shop.FailingExamplesTest > failing-output.txt 2>&1 || true
 echo "== TDD/mutant demo"; bash demo/run-demos.sh > demo-output.txt 2>&1 || true
 echo "== coverage";        ./coverage.sh > coverage-output.txt 2>&1
+test -f coverage/html-unit/shop/index.html || { cat coverage-output.txt; exit 1; }
 
 echo "== PIT: STRONGER";   ./pit.sh --mutators STRONGER > pit-output-stronger.txt 2>&1
 echo "== PIT: before the fix (without OrderApiLifecycleTest)"

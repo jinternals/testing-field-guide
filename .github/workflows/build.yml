@@ -172,8 +172,47 @@ jobs:
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-shard-${{ matrix.shard }} && git rm -rqf --cached . && git add -f logs && git commit -qm "Shard logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-shard-${{ matrix.shard }}
 
+  ops:                                # caches, scheduled + batch jobs, flags, synthetic checks, jcstress
+    runs-on: ubuntu-latest
+    defaults: { run: { shell: 'bash -eo pipefail {0}' } }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with: { distribution: temurin, java-version: '21', cache: maven }
+      - run: mkdir -p logs
+      - name: Redis cache, scheduled job, Spring Batch, feature flags, synthetic check
+        working-directory: spring-ops
+        run: mvn -B -ntp verify 2>&1 | tee ../logs/ops-verify.log
+      - name: Synthetic check against the running app, then with Redis down
+        run: |
+          docker run -d --name redis -p 6379:6379 redis:8-alpine
+          java -jar spring-ops/target/shop-ops-1.0.jar > logs/app.log 2>&1 &
+          for i in $(seq 60); do curl -sf localhost:8080/actuator/health >/dev/null && break; sleep 1; done
+          check() {   # check <log>: run the synthetic check, keep its output and exit code
+            rc=0; java -cp spring-ops/target/classes shop.synthetic.SyntheticCheck http://localhost:8080 > out.txt 2>&1 || rc=$?
+            cat out.txt | tee -a "$1"; echo "exit code $rc" | tee -a "$1"; return $rc
+          }
+          echo '$ java -cp target/classes shop.synthetic.SyntheticCheck http://localhost:8080' | tee logs/synthetic.log
+          check logs/synthetic.log                       # must pass
+          docker stop redis
+          echo '$ docker stop redis; java -cp … SyntheticCheck http://localhost:8080' | tee logs/synthetic-redis-down.log
+          if check logs/synthetic-redis-down.log; then echo 'expected the check to fail'; exit 1; fi
+      - name: jcstress - the racy counter and the atomic one
+        working-directory: concurrency
+        run: |
+          nproc | tee ../logs/jcstress-nproc.txt
+          mvn -B -ntp compile exec:exec 2>&1 | tee ../logs/jcstress.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with: { name: logs-ops, path: logs }
+      - name: Publish logs to the ci-logs-ops branch
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git checkout --orphan ci-logs-ops && git rm -rqf --cached . && git add -f logs && git commit -qm "Ops logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-ops
+
   guide:                              # rebuilds the PDF from this run's outputs
-    needs: [maven, gradle, spring, extras, shard]
+    needs: [maven, gradle, spring, extras, shard, ops]
     runs-on: ubuntu-latest
     concurrency: { group: guide, cancel-in-progress: false }
     defaults: { run: { shell: 'bash -eo pipefail {0}' } }
@@ -209,16 +248,17 @@ jobs:
             python claims.py            # fails if an output no longer says what the text says
             python pdfcheck.py          # tagged, language set, fonts embedded
             python check_versions.py    # every version in the text is the one the builds use
+            python standalone.py        # one-file HTML: fonts and images inlined
           } 2>&1 | tee ../guide-logs/guide-build.log
       - uses: actions/upload-artifact@v7
-        with: { name: Testing-Field-Guide, path: guide/Testing-Field-Guide.pdf }
+        with: { name: Testing-Field-Guide, path: "guide/Testing-Field-Guide.*" }
       - name: Publish to docs/
         if: github.ref == 'refs/heads/main'
         run: |
-          cp guide/Testing-Field-Guide.pdf docs/Testing-Field-Guide.pdf
+          cp guide/Testing-Field-Guide.pdf guide/Testing-Field-Guide.html docs/
           git config user.name ci; git config user.email ci@users.noreply.github.com
-          git add docs/Testing-Field-Guide.pdf
-          git commit -qm "Rebuild the guide PDF from run ${GITHUB_RUN_NUMBER} [skip ci]"
+          git add docs/Testing-Field-Guide.pdf docs/Testing-Field-Guide.html
+          git commit -qm "Rebuild the guide (PDF and HTML) from run ${GITHUB_RUN_NUMBER} [skip ci]"
           git pull -q --rebase origin main && git push -q origin HEAD:main
       - name: Publish the guide log to the ci-logs-guide branch    # last: it leaves main
         if: always() && github.ref == 'refs/heads/main'
