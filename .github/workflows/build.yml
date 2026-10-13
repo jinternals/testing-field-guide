@@ -182,7 +182,9 @@ jobs:
       - run: mkdir -p logs
       - name: Redis cache, scheduled job, Spring Batch, feature flags, synthetic check
         working-directory: spring-ops
-        run: mvn -B -ntp verify 2>&1 | tee ../logs/ops-verify.log
+        run: |
+          mvn -B -ntp verify 2>&1 | tee ../logs/ops-verify.log
+          grep -h "\[async writes\]" ../logs/ops-verify.log | tee ../logs/cache-async.log
       - name: Synthetic check against the running app, then with Redis down
         run: |
           docker run -d --name redis -p 6379:6379 redis:8-alpine
