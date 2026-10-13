@@ -1,6 +1,7 @@
 package shop;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import org.testcontainers.containers.GenericContainer;
  * A real OAuth2/OIDC server in a container issues real signed
  * tokens; the app checks issuer, signature, audience and scope.
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 class MockAuthServerIT {
   static final GenericContainer<?> AUTH =
       new GenericContainer<>("ghcr.io/navikt/mock-oauth2-server:6.0.7")

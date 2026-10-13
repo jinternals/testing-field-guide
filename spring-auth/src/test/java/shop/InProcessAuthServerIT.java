@@ -1,6 +1,7 @@
 package shop;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import java.util.Map;
 import no.nav.security.mock.oauth2.MockOAuth2Server;
@@ -15,7 +16,7 @@ import org.springframework.web.client.*;
  * JVM as a library. Real signed tokens and a real JWKS endpoint,
  * no Docker, starts in milliseconds.
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 class InProcessAuthServerIT {
   static final MockOAuth2Server AUTH = new MockOAuth2Server();
   static { AUTH.start(); }

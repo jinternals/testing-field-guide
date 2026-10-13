@@ -13,9 +13,10 @@ import org.slf4j.LoggerFactory;
 class PaymentServiceTest {
   SimpleMeterRegistry registry = new SimpleMeterRegistry();
   ListAppender<ILoggingEvent> logs = new ListAppender<>();
-  Logger logger = (Logger) LoggerFactory.getLogger(PaymentService.class);
+  Logger logger =
+      (Logger) LoggerFactory.getLogger(PaymentService.class);
 
-  @BeforeEach void captureLogs() { logs.start(); logger.addAppender(logs); }
+  @BeforeEach void capture() { logs.start(); logger.addAppender(logs); }
   @AfterEach void release() { logger.detachAppender(logs); }
 
   @Test

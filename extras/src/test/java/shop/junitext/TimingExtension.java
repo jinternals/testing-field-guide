@@ -6,7 +6,8 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 /** Reports how long each test method took. */
 public class TimingExtension
     implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
-  private static final Namespace NS = Namespace.create(TimingExtension.class);
+  private static final Namespace NS =
+      Namespace.create(TimingExtension.class);
 
   @Override
   public void beforeTestExecution(ExtensionContext ctx) {
