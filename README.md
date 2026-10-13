@@ -11,5 +11,5 @@ AssertJ, Testcontainers 2). The same project builds with Maven and Gradle.
 
 Integration tests need Docker.
 
-`spring/` is a separate Spring Boot 4.1 project (`cd spring && mvn verify`): slice tests and full-context tests against PostgreSQL.
-`extras/` covers legacy code, Kafka, e-mail (GreenMail), JUnit extensions, logs and metrics, and AWS (Moto, LocalStack) and Azure (Azurite) emulators. `spring-auth/` tests a secured API with a mock OAuth2 server. Run each with `mvn verify`.
+`spring/` is a separate Spring Boot 4.1 project (`cd spring && mvn verify`): slice tests, full-context tests against PostgreSQL and ArchUnit rules.
+`extras/` covers legacy code, Kafka, e-mail (GreenMail), WireMock with retries, Pact contracts, Flyway migrations, Playwright, JUnit extensions, logs and metrics, and AWS (Moto, LocalStack) and Azure (Azurite) emulators. `spring-auth/` tests a secured API with a mock OAuth2 server. Run each with `mvn verify`.
