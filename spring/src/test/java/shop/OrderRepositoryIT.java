@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * @DataJpaTest: every test runs in a transaction that is ROLLED BACK.
- * Fast and tidy — but nothing is committed, and that hides bugs.
+ * @DataJpaTest: each test runs in a transaction that is
+ * ROLLED BACK. Fast and tidy, but nothing is ever committed.
  */
 @DataJpaTest
 @Import(TestcontainersConfiguration.class)
@@ -20,8 +20,8 @@ class OrderRepositoryIT {
 
   @Test
   void duplicateReferenceSlipsThroughUntilFlush() {
-    repository.save(new CustomerOrder("A-1", new BigDecimal("10")));
-    repository.save(new CustomerOrder("A-1", new BigDecimal("20")));
+    repository.save(new CustomerOrder("A-1", BigDecimal.ONE));
+    repository.save(new CustomerOrder("A-1", BigDecimal.TWO));
     // no error yet: the INSERTs are still waiting in the session
 
     assertThatThrownBy(repository::flush)
@@ -30,8 +30,9 @@ class OrderRepositoryIT {
 
   @Test
   void lazyLinesLoadBecauseTheTestHoldsATransaction() {
-    repository.saveAndFlush(new CustomerOrder("B-1", BigDecimal.TEN)
-        .addLine("BOOK", 2).addLine("PEN", 1));
+    repository.saveAndFlush(
+        new CustomerOrder("B-1", BigDecimal.TEN)
+            .addLine("BOOK", 2).addLine("PEN", 1));
 
     var order = repository.findByReference("B-1").orElseThrow();
     assertThat(order.getLines()).hasSize(2);   // green here …

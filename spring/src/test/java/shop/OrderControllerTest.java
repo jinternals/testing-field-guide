@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
-/** Controller slice: web layer only, the service is a Mockito mock. */
+/** Controller slice: web layer only; the service is a mock. */
 @WebMvcTest(OrderController.class)
 class OrderControllerTest {
   @Autowired MockMvcTester mvc;       // AssertJ-style MockMvc

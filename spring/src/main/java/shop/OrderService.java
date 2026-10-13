@@ -12,7 +12,7 @@ public class OrderService {
     this.repository = repository;
   }
 
-  /** Maps to a view inside the transaction, so nothing lazy escapes. */
+  /** Map to a view while the transaction is still open. */
   @Transactional(readOnly = true)
   public Optional<OrderView> find(String reference) {
     return repository.findWithLines(reference).map(OrderView::of);

@@ -24,31 +24,33 @@ class OrderFlowIT {
   @Autowired OrderRepository repository;
 
   @BeforeEach
-  void cleanSlate() { repository.deleteAll(); }   // no rollback here
+  void cleanSlate() { repository.deleteAll(); } // no rollback
 
   @Test
   void duplicateReferenceFailsOnSave() {
-    repository.save(new CustomerOrder("A-1", new BigDecimal("10")));
+    repository.save(new CustomerOrder("A-1", BigDecimal.ONE));
 
     assertThatThrownBy(() ->
-        repository.save(new CustomerOrder("A-1", new BigDecimal("20"))))
+        repository.save(new CustomerOrder("A-1", BigDecimal.TWO)))
         .isInstanceOf(DataIntegrityViolationException.class);
   }
 
   @Test
   void lazyLinesFailOutsideATransaction() {
-    repository.save(new CustomerOrder("B-1", BigDecimal.TEN)
-        .addLine("BOOK", 2).addLine("PEN", 1));
+    repository.save(
+        new CustomerOrder("B-1", BigDecimal.TEN)
+            .addLine("BOOK", 2).addLine("PEN", 1));
 
     var order = repository.findByReference("B-1").orElseThrow();
-    assertThatThrownBy(() -> order.getLines().size())   // … red here
+    assertThatThrownBy(() -> order.getLines().size()) // red here
         .isInstanceOf(LazyInitializationException.class);
   }
 
   @Test
   void apiReturnsTheOrderFromTheDatabase() {
-    repository.save(new CustomerOrder("C-1", new BigDecimal("1140.00"))
-        .addLine("BOOK", 2).addLine("PEN", 1));
+    repository.save(
+        new CustomerOrder("C-1", new BigDecimal("1140.00"))
+            .addLine("BOOK", 2).addLine("PEN", 1));
 
     assertThat(mvc.get().uri("/orders/C-1"))
         .hasStatusOk()

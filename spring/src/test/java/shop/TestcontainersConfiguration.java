@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
 /**
- * The container is a Spring bean: it starts with the test context,
- * is shared by every test class that reuses that (cached) context,
- * and stops when the context closes.
+ * The container is a Spring bean: it starts with the test
+ * context, is shared by every test class that reuses that
+ * (cached) context, and stops when the context closes.
  */
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
