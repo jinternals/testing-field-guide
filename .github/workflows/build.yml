@@ -53,6 +53,12 @@ jobs:
         run: ./gradlew --console=plain --warning-mode all cpdCheck 2>&1 | tee logs/gradle-cpd.log
       - name: Mutation testing + duplicate-test finder
         run: ./gradlew --console=plain --warning-mode all pitest findRedundantTests 2>&1 | tee logs/gradle-pit.log
+      - name: Build cache - the same tests twice after a clean
+        run: |
+          for i in 1 2; do
+            echo "### run $i: gradle clean test --build-cache" | tee -a logs/gradle-cache.log
+            ./gradlew --console=plain --build-cache clean test 2>&1 | grep -E "Task :(compileJava|compileTestJava|test)|BUILD|actionable" | tee -a logs/gradle-cache.log
+          done
       - name: Publish logs
         if: always()
         run: |
@@ -102,3 +108,32 @@ jobs:
         run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-extras && git rm -rqf --cached . && git add -f logs && git commit -qm "Extras logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-extras
+
+  shard:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { shard: [1, 2] }       # two machines, half the classes each
+    defaults: { run: { shell: 'bash -eo pipefail {0}' } }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with: { distribution: temurin, java-version: '21' }
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Run this shard's test classes
+        run: |
+          mkdir -p logs
+          classes=$(cd src/test/java && find . -name '*Test.java' \
+            | sed 's#^./##; s#.java$##; s#/#.#g' | sort \
+            | awk -v n=2 -v k=${{ matrix.shard }} 'NR % n == k % n')
+          echo "shard ${{ matrix.shard }}/2: $(echo $classes | wc -w) classes" | tee logs/shard.log
+          ./gradlew --console=plain test $(printf -- '--tests %s ' $classes) 2>&1 | tail -3 | tee -a logs/shard.log
+          python3 - <<'PY' | tee -a logs/shard.log
+          import glob, xml.etree.ElementTree as ET
+          n = sum(int(ET.parse(f).getroot().get("tests")) for f in glob.glob("build/test-results/test/*.xml"))
+          print(f"tests run in this shard: {n}")
+          PY
+      - name: Publish logs
+        if: always()
+        run: |
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git checkout --orphan ci-logs-shard-${{ matrix.shard }} && git rm -rqf --cached . && git add -f logs && git commit -qm "Shard logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-shard-${{ matrix.shard }}
