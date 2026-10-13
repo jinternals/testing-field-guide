@@ -16,7 +16,8 @@ class OrderMailerTest {
       new GreenMailExtension(ServerSetupTest.SMTP);
 
   OrderMailer mailer() {
-    return new OrderMailer("localhost", smtp.getSmtp().getPort());
+    int port = smtp.getSmtp().getPort();
+    return new OrderMailer("localhost", port);
   }
 
   @Test
@@ -26,8 +27,10 @@ class OrderMailerTest {
 
     assertThat(smtp.waitForIncomingEmail(2_000, 1)).isTrue();
     MimeMessage mail = smtp.getReceivedMessages()[0];
-    assertThat(mail.getSubject()).isEqualTo("Order ord-1 confirmed");
-    assertThat(mail.getAllRecipients()).extracting(Object::toString)
+    assertThat(mail.getSubject())
+        .isEqualTo("Order ord-1 confirmed");
+    assertThat(mail.getAllRecipients())
+        .extracting(Object::toString)
         .containsExactly("asha@example.com");
     assertThat((String) mail.getContent())
         .isEqualTo("Thank you! Total: ₹1,140.00");
@@ -37,8 +40,8 @@ class OrderMailerTest {
   void smtpServerDownIsAnError() {
     var nobodyListening = new OrderMailer("localhost", 1);
 
-    assertThatThrownBy(() -> nobodyListening
-        .sendConfirmation("asha@example.com", "ord-2", "₹10.00"))
+    assertThatThrownBy(() -> nobodyListening.sendConfirmation(
+            "asha@example.com", "ord-2", "₹10.00"))
         .isInstanceOf(MessagingException.class);
   }
 }

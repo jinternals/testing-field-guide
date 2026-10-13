@@ -21,7 +21,8 @@ public class OrderMailer {
     var message = new MimeMessage(session);
     message.setFrom(new InternetAddress("orders@shop.example"));
     message.setRecipients(Message.RecipientType.TO, to);
-    message.setSubject("Order " + orderId + " confirmed", "UTF-8");
+    message.setSubject("Order " + orderId + " confirmed",
+        "UTF-8");
     message.setText("Thank you! Total: " + total, "UTF-8");
     Transport.send(message);
   }
