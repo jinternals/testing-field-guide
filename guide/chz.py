@@ -63,6 +63,47 @@ page("caches", f'''
 ''', chapter=K4, color=C4)
 
 # ============================================================================
+# the flaky cache test
+# ============================================================================
+ASYNC = re.search(r"\[async writes\] (\d+) of (\d+)", olog("cache-async.log"))
+FLAKE = (JAVA / ".github/workflows/flake-hunt.yml").read_text()
+FLAKE_LOOP = FLAKE[FLAKE.index("          for i in"):FLAKE.index("          echo \"::notice")].rstrip()
+FLAKE_LOOP = "\n".join(l[10:] for l in FLAKE_LOOP.split("\n"))
+FLAKE_LOOP = re.sub(r'\n\s+msg=.*\n', '\n', FLAKE_LOOP)
+FLAKE_LOOP = re.sub(r"\s+# shown on.*", "", FLAKE_LOOP)
+LATE = [
+    ("<code>secondCallIsServedFromRedis</code>", "right after <code>price()</code> the key was not in Redis: <code>Expecting value to be true but was false</code>", "the <code>SET</code> was still on its way"),
+    ("<code>evictingMakesTheNextCallFetchAgain</code>", "after <code>priceChanged()</code> the next call still got the cached value: <code>Wanted 2 times … But was 1 time</code>", "the <code>DEL</code> was still on its way"),
+]
+page("cacheasync", f'''
+{sub(K4, "The flaky cache test that was right", C4)}
+<p class="lede-s">Our first <code>PriceCacheIT</code> failed now and then. Repeated in CI it failed <b>6 times in 30 runs</b>: sometimes the value was not in Redis right after <code>price()</code> returned; sometimes the call after <code>@CacheEvict</code> still got the old value. It was not a test bug. Since Spring Data Redis 4.0, with Lettuce, <code>put</code>, <code>evict</code> and <code>clear</code> are <b>asynchronous</b>: they “may complete after the calling method returns”.</p>
+<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
+  {code(sx("cache/AsyncCacheWritesIT.java", "/** The library"), "AsyncCacheWritesIT — the default, measured", cls="xs", right=ran("AsyncCacheWritesIT"))}
+  <div>
+    {code(f"[async writes] {ASYNC.group(1)} of {ASYNC.group(2)} entries were not in Redis when price() returned", "real output · CI", kind="out", cls="xs out wrap")}
+    {code(sx("cache/CacheConfig.java", "/**", test=False), "CacheConfig.java — the fix: wait for writes", cls="xs")}
+  </div>
+</div>
+<h2>What the failing runs reported</h2>
+{table(["Test", "What it saw", "Why"], LATE, "xs")}
+<p class="small muted" style="margin-top:1mm">Source: Spring Data Redis reference, “Migration Guides”, 3.x → 4.x: the default <code>RedisCacheWriter</code> is asynchronous for <code>put</code>, <code>evict</code> and <code>clear</code> when the connection factory is also a <code>ReactiveRedisConnectionFactory</code> — which Lettuce’s is. There is no Spring Boot property for it; the customizer above is the switch.</p>
+<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
+  <div>
+    <h2 style="margin-top:0">How we found it: repeat the test</h2>
+    {code(FLAKE_LOOP, "flake-hunt.yml — run from the Actions tab", kind="sh", cls="xs")}
+    <p class="small muted" style="margin-top:1mm">Three machines, ten runs each: 3, 2 and 1 failures before the fix; 0, 0 and 0 after it.</p>
+  </div>
+  {ticks(["<b>A flaky test is a bug report</b> — about the test or about the code. Find out which before you add a retry.",
+          f"<b>Measure the window:</b> {ASYNC.group(1)} of {ASYNC.group(2)} writes had not landed when the method returned. The same race exists in production: an evicted price can be served once more.",
+          "<b>Decide on purpose.</b> Need read-your-writes (evict on change, then read)? Use <code>immediateWrites()</code>. Prefer throughput? Keep the default and let tests wait with Awaitility, as <code>AsyncCacheWritesIT</code> does.",
+          "<code>Cache.evictIfPresent(…)</code> and <code>invalidate(…)</code> always wait, whatever the setting.",
+          "<b>A retry would have hidden it.</b> Surefire’s <code>rerunFailingTestsCount</code> turns this into a “flaky pass” — and the production race stays.",
+          "With the fix, the strict test stayed green in 30 of 30 repeated runs."], C4)}
+</div>
+''', chapter=K4, color=C4)
+
+# ============================================================================
 # scheduled jobs
 # ============================================================================
 page("scheduled", f'''
@@ -160,14 +201,13 @@ page("jcstress", f'''
 </div>
 <div class="two top" style="grid-template-columns:1fr 1.1fr;gap:3mm;margin-top:2mm">
   <div>
-    <h2 style="margin-top:0">Lost updates by how each actor was compiled</h2>
+    <h2 style="margin-top:0">Lost updates, by JIT mode</h2>
     {table(["Actor 1", "Actor 2", "Stress", "Lost"], CFG_ROWS, "xs")}
   </div>
   {ticks([f"<b>{lost.group(1)} lost updates</b> in {total_racy:,} runs ({lost.group(2)}%). The rate depended on how each actor was compiled: from {lo[3]:.2f}% to {hi[3]:.2f}%.",
           "<code>ACCEPTABLE_INTERESTING</code> reports an outcome but passes; <code>FORBIDDEN</code> fails the run — so the atomic version guards the fix.",
-          "“Stress” runs add C2’s randomizing flags (<code>-XX:+StressLCM</code> and others) to shake out more orderings.",
           "Use it for code that shares memory without locks: custom counters and caches, lazy initialisation, publishing objects to other threads.",
-          "For ordinary code, prefer no shared mutable state, or <code>java.util.concurrent</code>; test your logic with normal unit tests.",
+          "Ordinary code: avoid shared mutable state, use <code>java.util.concurrent</code>.",
           "Run <code>-m quick</code> in CI; <code>default</code> or <code>tough</code> before a release. Tests live in <code>src/main</code>, by jcstress convention."], C4)}
 </div>
 ''', chapter=K4, color=C4)

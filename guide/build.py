@@ -9,7 +9,7 @@ for m in ["ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch4t", "ch6q", "ch6p", "ch6
         if e.name != m: raise
         print("skip", m, file=sys.stderr)
 ORDER = ["cover", "toc", "why", "pyramid", "whattotest", "design", "setup", "junit", "assert", "params", "extensions", "observe", "doubles", "mockito", "mockito2", "mockpit", "legacy",
-         "integ", "spring", "txtrap", "migrations", "caches", "scheduled", "batch", "messaging", "email", "cloud", "authmock", "wiremock", "contract", "tricky", "jcstress", "e2e", "perf", "sec", "prod", "tdd", "cov", "pit", "pitci", "itcov", "dupes", "plugins", "archunit", "parallel", "singleton", "speed", "ci", "conventions", "interview", "cheat", "check", "index"]
+         "integ", "spring", "txtrap", "migrations", "caches", "cacheasync", "scheduled", "batch", "messaging", "email", "cloud", "authmock", "wiremock", "contract", "tricky", "jcstress", "e2e", "perf", "sec", "prod", "tdd", "cov", "pit", "pitci", "itcov", "dupes", "plugins", "archunit", "parallel", "singleton", "speed", "ci", "conventions", "interview", "cheat", "check", "index"]
 lib.PAGES.sort(key=lambda p: ORDER.index(p[0]))
 assert [p[0] for p in lib.PAGES] == ORDER, [p[0] for p in lib.PAGES]
 lib.STRICT = True

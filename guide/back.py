@@ -97,7 +97,7 @@ IDX = {
  "@CsvSource": ["design", "params"], "Cucumber": ["tdd"], "Cypress": ["e2e"], "DAST": ["sec"], "@DataJpaTest": ["spring", "txtrap"], "Decision table": ["design"],
  "Dependency-Check (OWASP)": ["sec", "plugins"], "@DisplayName": ["junit"], "doReturn": ["mockpit", "mockito2"], "Dummy": ["doubles"], "End-to-end tests": ["e2e"],
  "Equivalence partitioning": ["design"], "@ExtendWith": ["junit", "params"], "Fake": ["doubles", "integ"], "Failsafe (Maven)": ["ci", "parallel"], "Failure messages": ["assert", "mockpit"],
- "FastCSV": ["setup"], "@FieldSource": ["params"], "FIRST principles": ["pyramid"], "Flaky tests": ["tricky", "ci"], "Fuzzing (Jazzer)": ["sec"],
+ "FastCSV": ["setup"], "@FieldSource": ["params"], "FIRST principles": ["pyramid"], "Flaky tests": ["tricky", "ci", "cacheasync"], "Fuzzing (Jazzer)": ["sec"],
  "Gatling": ["perf"], "Given / When / Then": ["pyramid", "mockito2", "tdd"], "Gradle": ["setup", "ci"], "@InjectMocks": ["interview"], "InOrder": ["mockito2"],
  "Integration tests": ["integ"], "JaCoCo": ["cov"], "JMeter": ["perf"], "JMH": ["perf"], "JSpecify": ["setup"], "JUnit 4 migration": ["setup"],
  "JUnit 6 changes": ["setup", "params"], "JUnit Platform": ["setup"], "k6": ["perf"], "Lifecycle": ["junit"], "Little’s Law": ["perf"],
@@ -125,10 +125,10 @@ IDX.update({
  "TCP_NODELAY": ["perf"], "Virtual threads": ["perf"], "Self-check questions": ["interview"], "Cheat sheet": ["cheat"],
  "BigDecimal money": ["assert"], "Record (Java)": ["junit", "mockpit"], "Lenient stubs": ["mockpit"], "MockitoSettings": ["mockpit"],
  "Flyway / Liquibase": ["migrations"], "Accessibility testing": ["e2e"], "Visual regression": ["e2e"],
- "@Cacheable / @CacheEvict": ["caches"], "Redis": ["caches"], "Cache TTL": ["caches"], "Self-invocation (proxies)": ["caches"],
+ "@Cacheable / @CacheEvict": ["caches"], "Redis": ["caches", "cacheasync"], "Cache TTL": ["caches"], "Self-invocation (proxies)": ["caches"],
  "@Scheduled": ["scheduled"], "Spring Batch": ["batch"], "@SpringBatchTest": ["batch"], "JobOperatorTestUtils": ["batch"], "Skip / filter (Batch)": ["batch"],
  "jcstress": ["jcstress"], "Lost update (race)": ["jcstress"], "Feature flags": ["prod"], "Synthetic checks": ["prod"], "Canary release": ["prod"],
- "ApplicationContextRunner": ["prod"], "Testing in production": ["prod"],
+ "ApplicationContextRunner": ["prod"], "immediateWrites (Redis cache)": ["cacheasync"], "Repeating a flaky test": ["cacheasync"], "Testing in production": ["prod"],
 })
 
 def idx_html():

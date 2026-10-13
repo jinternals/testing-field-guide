@@ -86,10 +86,13 @@ racy = re.search(r"\[OK\] shop\.RacyCounterTest\n  Results across all configurat
 claim(racy is not None and re.search(r"^\s+1\s+[\d,]+\s+[\d.]+%\s+Interesting", racy.group(1), re.M) is not None,
       "jcstress saw lost updates in RacyCounterTest")
 atomic = re.search(r"\[OK\] shop\.AtomicCounterTest\n  Results across all configurations:\n  RESULT.*?\n((?:\s+\d.*\n)+)", jc)
-claim(atomic is not None and re.findall(r"^\s+(\d)\s", atomic.group(1), re.M) == ["2"], "AtomicCounterTest: only the outcome 2")
+rows = dict(re.findall(r"^\s+(\d)\s+([\d,]+)", atomic.group(1), re.M)) if atomic else {}
+claim(rows.get("1") == "0" and int(rows.get("2", "0").replace(",", "")) > 0, "AtomicCounterTest: lost update seen 0 times")
+async_n = re.search(r"\[async writes\] (\d+) of 1000", (ops / "cache-async.log").read_text())
+claim(async_n is not None and int(async_n.group(1)) > 0, f"async cache writes: {async_n.group(1) if async_n else '?'} of 1000 not yet in Redis")
 claim("BUILD SUCCESS" in jc, "jcstress run passed (no FORBIDDEN outcome)")
 ov = (ops / "ops-verify.log").read_text()
-for cls in ["PriceCacheIT", "ImportPricesJobIT", "CartCleanupScheduleIT", "SyntheticCheckIT", "NightlyReportCronTest", "CheckoutPricingTest", "FeatureWiringTest"]:
+for cls in ["PriceCacheIT", "AsyncCacheWritesIT", "ImportPricesJobIT", "CartCleanupScheduleIT", "SyntheticCheckIT", "NightlyReportCronTest", "CheckoutPricingTest", "FeatureWiringTest"]:
     claim(re.search(r"Failures: 0, Errors: 0, Skipped: 0, .* -- in shop\.\w+\." + cls, ov) is not None, f"{cls} ran and passed")
 claim("Step: [importStep] executed" in ov and "status: [COMPLETED]" in ov, "the batch job completed")
 
