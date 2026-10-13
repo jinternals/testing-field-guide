@@ -239,13 +239,15 @@ TECH = [("Equivalence partitioning", "Split inputs into groups the code treats t
         ("Pairwise", "Cover every <em>pair</em> of option values instead of every combination.", "Config and browser/OS matrices"),
         ("Property-based", "State a rule (“total ≥ 0”) and let a tool generate hundreds of inputs.", "Parsers, maths, serialisation (jqwik)"),
         ("Error guessing", "Use experience: null, empty, huge, Unicode, duplicates, time zones.", "Finds what specs forget")]
+DPT_TREE = "\n".join(suite_tree("DiscountPolicyTest").split("\n")[1:])     # order-independent slice
+DPT_N = len(re.findall(r"^\s+[├└]─ .*✔$", DPT_TREE, re.M))      # one line per invocation
 page("design", f'''
 {sub("01 · Foundations", "Designing test cases", CH["1"])}
 <p class="lede-s">You can’t test every input, so pick the few that are most likely to find bugs. The rule: <code>DiscountPolicy</code> gives 0% below ₹1000, 5% from ₹1000 and 10% from ₹5000.</p>
 {number_line()}
 <div class="two top" style="margin-top:2mm;grid-template-columns:1.32fr 1fr;gap:3mm">
   {code(jfile("DiscountPolicyTest.java", "  @ParameterizedTest", "\n  }", dedent=2), "DiscountPolicyTest.java", cls="xs")}
-  {code(capture("suite-output.txt").split("├─ DiscountPolicyTest ✔")[1].split("├─ PasswordPolicyTest")[0].replace("   │  ", "").replace("   │", "").strip(), "test output · JUnit 6.1.3", kind="out", cls="xs", right="7 / 7 passed")}
+  {code(DPT_TREE, "test output · JUnit 6.1.3", kind="out", cls="xs", right=f"{DPT_N} / {DPT_N} passed")}
 </div>
 <p class="small muted" style="margin-top:1.2mm">Mistype <code>&gt;=</code> as <code>&gt;</code> and only the <b>₹1000</b> row fails — see the mutation demo on {ref("cov")}. Middle-of-range values like ₹2000 would never notice.</p>
 <h2>Decision table for <code>placeOrder</code></h2>

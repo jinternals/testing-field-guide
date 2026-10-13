@@ -27,5 +27,3 @@ sentence that interprets an output matching the new output (`guide/claims.py`).
 To change the text, edit the page builders in `guide/` (`ch*.py`, `style.css`) and push; the files
 in `docs/` are outputs and are overwritten. Locally: `guide/assemble.sh`, then in `guide/java`
 `bash regenerate.sh`, then in `guide/` run `python3 shots.py`, `python3 build.py` and `python3 render.py`.
-On Linux, install `guide/fonts.conf` into `/etc/fonts/conf.d/` first, as CI does: with screen font
-settings (hinting, RGB subpixel) code blocks lay out wider and the layout check fails.

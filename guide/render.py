@@ -22,7 +22,10 @@ PROBLEMS = []
 
 async def main():
     async with async_playwright() as p:
-        b = await p.chromium.launch(channel="chromium")   # font settings: see fonts.conf
+        # The full Chromium build, not the headless shell that headless mode uses by default. On a
+        # GitHub runner the shell rounds every glyph advance to a whole pixel: 100 code characters
+        # measured 500.0 px there and 482.8 px with this build, so code blocks no longer fit.
+        b = await p.chromium.launch(channel="chromium")
         pg = await b.new_page()
         await pg.goto((ROOT / "guide.html").as_uri())
         await pg.evaluate("document.fonts.ready")
