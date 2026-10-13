@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class OrderMailerTest {
   @RegisterExtension                  // fresh mailbox per test
   static GreenMailExtension smtp = new GreenMailExtension(
-      ServerSetupTest.SMTP.dynamicPort());   // free port: no clashes
+      ServerSetupTest.SMTP.dynamicPort());   // any free port
 
   OrderMailer mailer() {
     int port = smtp.getSmtp().getPort();
