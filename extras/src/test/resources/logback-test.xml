@@ -1,0 +1,8 @@
+<configuration>
+  <appender name="OUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder><pattern>%d{HH:mm:ss.SSS} %-5level %logger{30} - %msg%n</pattern></encoder>
+  </appender>
+  <logger name="tc" level="INFO"/>           <!-- container start-up times -->
+  <logger name="shop" level="INFO"/>
+  <root level="WARN"><appender-ref ref="OUT"/></root>
+</configuration>
