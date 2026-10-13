@@ -30,8 +30,8 @@ class OrderFlowIT {
   void duplicateReferenceFailsOnSave() {
     repository.save(new CustomerOrder("A-1", BigDecimal.ONE));
 
-    assertThatThrownBy(() ->
-        repository.save(new CustomerOrder("A-1", BigDecimal.TWO)))
+    assertThatThrownBy(() -> repository.save(
+            new CustomerOrder("A-1", BigDecimal.TWO)))
         .isInstanceOf(DataIntegrityViolationException.class);
   }
 
