@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Shop</title></head>
+<body>
+  <h1>Shop</h1>
+  <p>Book — ₹600.00 <button aria-label="Add Book" onclick="add('Book', 600)">Add</button></p>
+  <p>Pen — ₹40.00 <button aria-label="Add Pen" onclick="add('Pen', 40)">Add</button></p>
+  <p>Cart: <span data-testid="cart-count">0</span> items</p>
+  <button data-testid="checkout" onclick="checkout()">Checkout</button>
+  <p>Total: <strong data-testid="order-total"></strong></p>
+  <script>
+    let subtotal = 0, count = 0;
+    function add(name, price) {
+      subtotal += price;
+      document.querySelector('[data-testid=cart-count]').textContent = ++count;
+    }
+    function checkout() {
+      // like a real backend call: the total arrives a little later
+      setTimeout(() => {
+        const total = subtotal >= 1000 ? subtotal * 0.95 : subtotal;
+        document.querySelector('[data-testid=order-total]').textContent =
+          '₹' + total.toLocaleString('en-IN', {minimumFractionDigits: 2});
+      }, 300);
+    }
+  </script>
+</body>
+</html>

@@ -94,11 +94,19 @@ jobs:
       - uses: actions/setup-java@v6
         with: { distribution: temurin, java-version: '21', cache: maven }
       - run: mkdir -p logs
+      - name: Install Chromium for Playwright
+        working-directory: extras
+        run: mvn -B -ntp -q test-compile exec:java -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps chromium"
       - name: Legacy, Kafka, extensions, logs/metrics, AWS + Azure
         working-directory: extras
         env:
           LOCALSTACK_AUTH_TOKEN: ${{ secrets.LOCALSTACK_AUTH_TOKEN }}
         run: mvn -B -ntp verify 2>&1 | tee ../logs/extras-verify.log
+      - name: Contract test against a breaking provider change
+        if: always()
+        continue-on-error: true            # expected to fail
+        working-directory: extras
+        run: mvn -B -ntp failsafe:integration-test failsafe:verify -Dit.test=OrderStatusProviderPactIT -Dorders.v2=true 2>&1 | tee ../logs/pact-breaking.log
       - name: Mock auth server (in-process and container)
         if: always()
         working-directory: spring-auth
@@ -107,6 +115,8 @@ jobs:
         if: always()
         run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
+          cp extras/target/*.png extras/target/pacts/*.json logs/ 2>/dev/null || true
+          ls -la extras/target/*-trace.zip > logs/traces.txt 2>/dev/null || true
           git checkout --orphan ci-logs-extras && git rm -rqf --cached . && git add -f logs && git commit -qm "Extras logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-extras
 
   shard:
