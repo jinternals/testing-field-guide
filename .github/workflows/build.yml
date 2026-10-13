@@ -53,11 +53,11 @@ jobs:
         run: ./gradlew --console=plain --warning-mode all cpdCheck 2>&1 | tee logs/gradle-cpd.log
       - name: Mutation testing + duplicate-test finder
         run: ./gradlew --console=plain --warning-mode all pitest findRedundantTests 2>&1 | tee logs/gradle-pit.log
-      - name: Build cache - the same tests twice after a clean
+      - name: Build cache - the same tests without and with the cache
         run: |
-          for i in 1 2; do
-            echo "### run $i: gradle clean test --build-cache" | tee -a logs/gradle-cache.log
-            ./gradlew --console=plain --build-cache clean test 2>&1 | grep -E "Task :(compileJava|compileTestJava|test)|BUILD|actionable" | tee -a logs/gradle-cache.log
+          for c in --no-build-cache --build-cache; do
+            echo "### gradle clean test $c" | tee -a logs/gradle-cache.log
+            ./gradlew --console=plain $c clean test 2>&1 | grep -E "Task :(compileJava|compileTestJava|test)|BUILD|actionable" | tee -a logs/gradle-cache.log
           done
       - name: Publish logs
         if: always()
