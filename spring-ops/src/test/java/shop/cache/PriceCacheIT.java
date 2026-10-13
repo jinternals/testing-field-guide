@@ -6,7 +6,6 @@ import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.io.NotSerializableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +60,8 @@ class PriceCacheIT {
   @Test
   void aValueThatIsNotSerializableFailsOnlyAtRuntime() {
     assertThatThrownBy(() -> prices.quote("book-1"))
-        .hasRootCauseInstanceOf(NotSerializableException.class);
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("Cannot serialize value of type "
+            + "shop.cache.Quote without a serializer");
   }
 }
