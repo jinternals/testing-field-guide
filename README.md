@@ -1,6 +1,6 @@
 # Testing Field Guide — example project
 
-Companion code for the *Testing Field Guide* (Java 21, JUnit 6, Mockito 5,
+Companion code for the [*Testing Field Guide*](docs/Testing-Field-Guide.pdf) (Java 21, JUnit 6, Mockito 5,
 AssertJ, Testcontainers 2). The same project builds with Maven and Gradle.
 
 | Command | What it runs |
@@ -10,3 +10,5 @@ AssertJ, Testcontainers 2). The same project builds with Maven and Gradle.
 | `mvn test-compile pitest:mutationCoverage exec:java` / `./gradlew pitest findRedundantTests` | mutation testing, then tests that kill the same mutants |
 
 Integration tests need Docker.
+
+`spring/` is a separate Spring Boot 4.1 project (`cd spring && mvn verify`): slice tests and full-context tests against PostgreSQL.
