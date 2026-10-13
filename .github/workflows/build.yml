@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-java@v6
         with: { distribution: temurin, java-version: '21', cache: maven }
       - run: mkdir -p logs && java -version 2>&1 | tee logs/java.txt && mvn -v | tee logs/mvn.txt && docker version --format '{{.Server.Version}}' | tee logs/docker.txt
+      - run: mvn -B -ntp help:effective-pom -Doutput=logs/effective-pom.xml
       - name: Unit (threads) + integration (forks) + coverage
         run: mvn -B -ntp verify 2>&1 | tee logs/maven-verify.log
       - name: Copy-paste detection, tests included
@@ -25,28 +26,5 @@ jobs:
           cp -r target/site/jacoco logs/jacoco 2>/dev/null || true
           cp target/pit-reports/mutations.xml logs/ 2>/dev/null || true
           git config user.name ci; git config user.email ci@users.noreply.github.com
-          git checkout --orphan ci-logs-maven && git rm -rqf --cached . && git add -f logs && git commit -qm "Maven logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-maven
+          git checkout --orphan ci-logs-debug && git rm -rqf --cached . && git add -f logs && git commit -qm "Maven logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-debug
 
-  gradle:
-    runs-on: ubuntu-latest
-    defaults: { run: { shell: 'bash -eo pipefail {0}' } }
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
-        with: { distribution: temurin, java-version: '21' }
-      - uses: gradle/actions/setup-gradle@v6
-      - run: mkdir -p logs
-      - name: Unit (threads) + integration (forks) + coverage
-        run: ./gradlew --console=plain test integrationTest jacocoTestReport 2>&1 | tee logs/gradle-verify.log
-      - name: Copy-paste detection, tests included
-        continue-on-error: true      # expected to find duplicates
-        run: ./gradlew --console=plain cpdCheck 2>&1 | tee logs/gradle-cpd.log
-      - name: Mutation testing + duplicate-test finder
-        run: ./gradlew --console=plain pitest findRedundantTests 2>&1 | tee logs/gradle-pit.log
-      - name: Publish logs
-        if: always()
-        run: |
-          cp -r build/reports/cpd logs/cpd 2>/dev/null || true
-          cp -r build/test-results logs/test-results 2>/dev/null || true
-          git config user.name ci; git config user.email ci@users.noreply.github.com
-          git checkout --orphan ci-logs-gradle && git rm -rqf --cached . && git add -f logs && git commit -qm "Gradle logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-gradle

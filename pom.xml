@@ -115,8 +115,9 @@
         <configuration>
           <forkCount>2</forkCount>
           <reuseForks>true</reuseForks>
-          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off -Dfork.arg=${surefire.forkNumber}</argLine>
           <systemPropertyVariables>
+            <fork.env>${surefire.forkNumber}</fork.env>
             <fork>${surefire.forkNumber}</fork>
           </systemPropertyVariables>
         </configuration>

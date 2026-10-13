@@ -24,7 +24,7 @@ abstract class SharedApi {
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
-    log("API started on " + BASE_URL);
+    log("API started on " + BASE_URL + " fork=[" + System.getProperty("fork") + "] fork.arg=[" + System.getProperty("fork.arg") + "] fork.env=[" + System.getProperty("fork.env") + "]");
   }                              // no stop(): JVM exit frees it
 
   static void log(String msg) {
