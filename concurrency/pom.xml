@@ -50,6 +50,7 @@
             <argument>org.openjdk.jcstress.Main</argument>
             <argument>-m</argument>
             <argument>quick</argument>
+            <argument>-v</argument>             <!-- print every test, not only the interesting ones -->
           </arguments>
         </configuration>
       </plugin>
