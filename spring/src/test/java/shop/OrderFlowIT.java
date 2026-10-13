@@ -7,13 +7,10 @@ import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.postgresql.PostgreSQLContainer;
 
 /**
  * Whole application, real PostgreSQL, NO test transaction:
@@ -21,12 +18,8 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-@Testcontainers
+@Import(TestcontainersConfiguration.class)
 class OrderFlowIT {
-  @Container @ServiceConnection
-  static PostgreSQLContainer postgres =
-      new PostgreSQLContainer("postgres:17-alpine");
-
   @Autowired MockMvcTester mvc;
   @Autowired OrderRepository repository;
 

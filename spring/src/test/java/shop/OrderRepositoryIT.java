@@ -6,23 +6,16 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.postgresql.PostgreSQLContainer;
 
 /**
  * @DataJpaTest: every test runs in a transaction that is ROLLED BACK.
  * Fast and tidy — but nothing is committed, and that hides bugs.
  */
 @DataJpaTest
-@Testcontainers
+@Import(TestcontainersConfiguration.class)
 class OrderRepositoryIT {
-  @Container @ServiceConnection
-  static PostgreSQLContainer postgres =
-      new PostgreSQLContainer("postgres:17-alpine");
-
   @Autowired OrderRepository repository;
 
   @Test
