@@ -228,7 +228,11 @@ jobs:
           python3 -m venv .venv && echo "$PWD/.venv/bin" >> $GITHUB_PATH
           .venv/bin/pip install -q playwright==1.56.0 pypdf pillow
           .venv/bin/python -m playwright install --with-deps chromium
-          cd guide && npm ci --no-audit --no-fund
+          (cd guide && npm ci --no-audit --no-fund)
+          mkdir -p guide-logs
+          { echo "## stock font settings"; .venv/bin/python guide/fontprobe.py
+            sudo cp guide/fonts.conf /etc/fonts/conf.d/12-unhinted-grayscale.conf && fc-cache -f
+            echo "## with guide/fonts.conf"; .venv/bin/python guide/fontprobe.py; } 2>&1 | tee guide-logs/fontprobe.txt
       - uses: actions/download-artifact@v8
         with: { pattern: logs-*, path: ci-artifacts }
       - name: Workspace - code, scripts, CI logs from this run

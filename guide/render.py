@@ -1,4 +1,4 @@
-import asyncio, os, pathlib, sys
+import asyncio, pathlib, sys
 from playwright.async_api import async_playwright
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import NameObject, BooleanObject, DictionaryObject
@@ -22,8 +22,8 @@ PROBLEMS = []
 
 async def main():
     async with async_playwright() as p:
-        b = await p.chromium.launch(env={**os.environ, "FONTCONFIG_FILE": str(ROOT / "fonts.conf")})
-        pg = await b.new_page(device_scale_factor=2)   # subpixel glyph positioning: same layout on every machine
+        b = await p.chromium.launch(channel="chromium")   # font settings: see fonts.conf
+        pg = await b.new_page()
         await pg.goto((ROOT / "guide.html").as_uri())
         await pg.evaluate("document.fonts.ready")
         await pg.wait_for_timeout(300)

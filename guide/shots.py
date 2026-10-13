@@ -11,7 +11,7 @@ J, IMG = G / "java", G / "img"
 UNIT = J / "coverage" / "html-unit" / "shop"
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(channel="chromium")
     pg = b.new_page(viewport={"width": 1100, "height": 900}, device_scale_factor=2)
 
     pg.goto((UNIT / "index.html").as_uri())
