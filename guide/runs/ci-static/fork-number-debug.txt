@@ -1,0 +1,4 @@
+# Failsafe 3.6.0, Maven 3.10.0 - how ${surefire.forkNumber} arrived in each fork
+# pom: argLine -Dfork.arg=${surefire.forkNumber}; systemPropertyVariables <fork>${surefire.forkNumber}</fork> and <fork.env>shop_${surefire.forkNumber}</fork.env>
+[fork [fork  pid  pid 2462] API started on http://127.0.0.1:43365 fork=[] fork.arg=[2] fork.env=[shop_2]
+2463] API started on http://127.0.0.1:42659 fork=[] fork.arg=[1] fork.env=[shop_1]

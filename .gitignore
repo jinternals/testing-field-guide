@@ -1,3 +1,12 @@
 target/
 build/
 .gradle/
+guide/java/
+guide/node_modules/
+guide/guide.html
+guide/Testing-Field-Guide.pdf
+guide/__pycache__/
+.venv/
+guide/raw.pdf
+guide/contrast-report.json
+guide/outline.txt

@@ -53,6 +53,11 @@ jobs:
         run: ./gradlew --console=plain --warning-mode all cpdCheck 2>&1 | tee logs/gradle-cpd.log
       - name: Mutation testing + duplicate-test finder
         run: ./gradlew --console=plain --warning-mode all pitest findRedundantTests 2>&1 | tee logs/gradle-pit.log
+      - name: Keep the reports (the cache runs below start with clean)
+        if: always()
+        run: |
+          cp -r build/reports/cpd logs/cpd 2>/dev/null || true
+          cp -r build/test-results logs/test-results 2>/dev/null || true
       - name: Build cache - the same tests without and with the cache
         run: |
           for c in --no-build-cache --build-cache; do
@@ -62,8 +67,6 @@ jobs:
       - name: Publish logs
         if: always()
         run: |
-          cp -r build/reports/cpd logs/cpd 2>/dev/null || true
-          cp -r build/test-results logs/test-results 2>/dev/null || true
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-gradle && git rm -rqf --cached . && git add -f logs && git commit -qm "Gradle logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-gradle
 
@@ -147,3 +150,44 @@ jobs:
         run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-shard-${{ matrix.shard }} && git rm -rqf --cached . && git add -f logs && git commit -qm "Shard logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-shard-${{ matrix.shard }}
+
+  guide:                              # rebuilds the PDF from this run's outputs
+    needs: [maven, gradle, spring, extras, shard]
+    runs-on: ubuntu-latest
+    concurrency: { group: guide, cancel-in-progress: false }
+    defaults: { run: { shell: 'bash -eo pipefail {0}' } }
+    env: { LANG: C.UTF-8, LC_ALL: C.UTF-8 }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with: { distribution: temurin, java-version: '21', cache: maven }
+      - name: Tools for the builder
+        run: |
+          python3 -m venv .venv && echo "$PWD/.venv/bin" >> $GITHUB_PATH
+          .venv/bin/pip install -q playwright==1.56.0 pypdf pillow
+          .venv/bin/python -m playwright install --with-deps chromium
+          cd guide && npm ci --no-audit --no-fund
+      - name: Workspace - code, scripts, CI logs from this run
+        run: bash guide/assemble.sh
+      - name: Re-run every hand-run example
+        working-directory: guide/java
+        run: bash regenerate.sh
+      - name: Build the PDF and check it
+        working-directory: guide
+        run: |
+          python shots.py
+          python build.py
+          python render.py            # fails on any layout overflow
+          python contrast.py          # fails on any WCAG AA contrast problem
+          python claims.py            # fails if an output no longer says what the text says
+          python pdfcheck.py          # tagged, language set, fonts embedded
+      - uses: actions/upload-artifact@v7
+        with: { name: Testing-Field-Guide, path: guide/Testing-Field-Guide.pdf }
+      - name: Publish to docs/
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cp guide/Testing-Field-Guide.pdf docs/Testing-Field-Guide.pdf
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git add docs/Testing-Field-Guide.pdf
+          git commit -qm "Rebuild the guide PDF from run ${GITHUB_RUN_NUMBER} [skip ci]"
+          git pull -q --rebase origin main && git push -q origin HEAD:main

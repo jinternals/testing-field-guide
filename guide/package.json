@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@fontsource/fraunces": "^5.0.21",
+    "@fontsource/inter": "^5.0.20",
+    "@fontsource/jetbrains-mono": "^5.0.20"
+  }
+}
