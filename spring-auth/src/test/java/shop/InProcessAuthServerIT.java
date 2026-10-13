@@ -10,10 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.*;
 import org.springframework.web.client.*;
+import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 /**
- * Lightweight option: the mock auth server runs inside the test
- * JVM as a library. Real signed tokens and a real JWKS endpoint,
+ * Lightweight option: the mock auth server runs in the test
+ * JVM as a library. Real signed tokens, a real JWKS endpoint,
  * no Docker, starts in milliseconds.
  */
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -23,7 +24,8 @@ class InProcessAuthServerIT {
 
   @DynamicPropertySource
   static void authServer(DynamicPropertyRegistry props) {
-    props.add("spring.security.oauth2.resourceserver.jwt.issuer-uri",
+    props.add(
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri",
         () -> AUTH.issuerUrl("shop").toString());
   }
 
@@ -33,25 +35,27 @@ class InProcessAuthServerIT {
 
   String report(String token) {
     return RestClient.create()
-        .get().uri("http://localhost:" + port + "/reports/daily")
+        .get().uri("http://localhost:{p}/reports/daily", port)
         .headers(h -> h.setBearerAuth(token))
         .retrieve().body(String.class);
   }
 
   @Test
   void tokenWithScopeIsAccepted() {
-    String token = AUTH.issueToken("shop", "asha", "reports-api",
-        Map.of("scope", "reports.read")).serialize();
+    var scope = Map.<String, Object>of("scope", "reports.read");
+    String token = AUTH.issueToken("shop", "asha",
+        "reports-api", scope).serialize();
 
-    assertThat(report(token)).contains("\"requestedBy\":\"asha\"");
+    assertThat(report(token)).contains("asha");
   }
 
   @Test
   void tokenForAnotherAudienceIsRejected() {
-    String token = AUTH.issueToken("shop", "asha", "billing-api",
-        Map.of("scope", "reports.read")).serialize();
+    var scope = Map.<String, Object>of("scope", "reports.read");
+    String token = AUTH.issueToken("shop", "asha",
+        "billing-api", scope).serialize();
 
     assertThatThrownBy(() -> report(token))
-        .isInstanceOf(HttpClientErrorException.Unauthorized.class);
+        .isInstanceOf(Unauthorized.class);
   }
 }

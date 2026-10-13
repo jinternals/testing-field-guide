@@ -10,22 +10,23 @@ import org.testcontainers.kafka.KafkaContainer;
 class OrderEventsIT {
   static final KafkaContainer KAFKA =
       new KafkaContainer("apache/kafka-native:4.3.1");
-  static { KAFKA.start(); }            // singleton per test JVM
+  static { KAFKA.start(); }      // singleton per test JVM
 
   @Test
   void redeliveredEventIsAppliedOnlyOnce() throws Exception {
     String kafka = KAFKA.getBootstrapServers();
-    try (var publisher = new OrderEventPublisher(kafka, "orders");
-         var consumer = new OrderEventConsumer(kafka, "orders")) {
+    String paid = "{\"status\":\"PAID\"}";
+    try (var out = new OrderEventPublisher(kafka, "orders");
+         var in = new OrderEventConsumer(kafka, "orders")) {
 
-      publisher.publish("evt-1", "ord-1", "{\"status\":\"PAID\"}");
-      publisher.publish("evt-1", "ord-1", "{\"status\":\"PAID\"}");
-      publisher.publish("evt-2", "ord-2", "{\"status\":\"PAID\"}");
+      out.publish("evt-1", "ord-1", paid);
+      out.publish("evt-1", "ord-1", paid);    // redelivered
+      out.publish("evt-2", "ord-2", paid);
 
-      await().atMost(Duration.ofSeconds(30))     // no Thread.sleep
+      await().atMost(Duration.ofSeconds(30))  // no sleep
           .untilAsserted(() -> {
-            assertThat(consumer.received()).isEqualTo(3);
-            assertThat(consumer.applied()).isEqualTo(2);
+            assertThat(in.received()).isEqualTo(3);
+            assertThat(in.applied()).isEqualTo(2);
           });
     }
   }

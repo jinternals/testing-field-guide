@@ -11,23 +11,26 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.*;
 import org.springframework.util.*;
 import org.springframework.web.client.*;
+import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 import org.testcontainers.containers.GenericContainer;
 
 /**
  * A real OAuth2/OIDC server in a container issues real signed
- * tokens; the app checks issuer, signature, audience and scope.
+ * tokens; the app checks issuer, signature, audience, scope.
  */
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class MockAuthServerIT {
   static final GenericContainer<?> AUTH =
-      new GenericContainer<>("ghcr.io/navikt/mock-oauth2-server:6.0.7")
+      new GenericContainer<>(
+          "ghcr.io/navikt/mock-oauth2-server:6.0.7")
           .withExposedPorts(8080)
           .withEnv("JSON_CONFIG", """
               {"tokenCallbacks": [{"issuerId": "shop",
                 "requestMappings": [{"requestParam": "scope",
                   "match": "reports.read",
                   "claims": {"sub": "reporting-job",
-                    "aud": ["reports-api"], "scope": "reports.read"}}]
+                    "aud": ["reports-api"],
+                    "scope": "reports.read"}}]
               }]}""");
   static { AUTH.start(); }
 
@@ -38,7 +41,8 @@ class MockAuthServerIT {
 
   @DynamicPropertySource
   static void authServer(DynamicPropertyRegistry props) {
-    props.add("spring.security.oauth2.resourceserver.jwt.issuer-uri",
+    props.add(
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri",
         () -> issuer("shop"));
   }
 
@@ -47,19 +51,21 @@ class MockAuthServerIT {
 
   /** client_credentials grant against the mock server. */
   String token(String issuerId, String scope) {
-    MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+    var form = new LinkedMultiValueMap<String, String>();
     form.add("grant_type", "client_credentials");
     form.add("client_id", "reporting-job");
     form.add("client_secret", "any");
     form.add("scope", scope);
-    Map<?, ?> body = http.post().uri(issuer(issuerId) + "/token")
+    Map<?, ?> body = http.post()
+        .uri(issuer(issuerId) + "/token")
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .body(form).retrieve().body(Map.class);
     return (String) body.get("access_token");
   }
 
   String report(String token) {
-    return http.get().uri("http://localhost:" + port + "/reports/daily")
+    return http.get()
+        .uri("http://localhost:{p}/reports/daily", port)
         .headers(h -> h.setBearerAuth(token))
         .retrieve().body(String.class);
   }
@@ -72,8 +78,9 @@ class MockAuthServerIT {
 
   @Test
   void tokenFromAnotherIssuerIsRejected() {
-    assertThatThrownBy(() -> report(token("evil", "reports.read")))
-        .isInstanceOf(HttpClientErrorException.Unauthorized.class);
+    String evil = token("evil", "reports.read");
+    assertThatThrownBy(() -> report(evil))
+        .isInstanceOf(Unauthorized.class);
   }
 
   @Test

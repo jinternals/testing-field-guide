@@ -9,14 +9,17 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.*;
 import org.slf4j.LoggerFactory;
 
-/** Logs and metrics are behaviour too: alerts depend on them. */
+/** Logs and metrics are behaviour: alerts depend on them. */
 class PaymentServiceTest {
   SimpleMeterRegistry registry = new SimpleMeterRegistry();
   ListAppender<ILoggingEvent> logs = new ListAppender<>();
   Logger logger =
       (Logger) LoggerFactory.getLogger(PaymentService.class);
 
-  @BeforeEach void capture() { logs.start(); logger.addAppender(logs); }
+  @BeforeEach void capture() {
+    logs.start();
+    logger.addAppender(logs);
+  }
   @AfterEach void release() { logger.detachAppender(logs); }
 
   @Test
@@ -41,8 +44,9 @@ class PaymentServiceTest {
 
     assertThat(payments.charge("ord-1", 100_000)).isTrue();
 
-    assertThat(logs.list).noneMatch(e -> e.getLevel() == Level.WARN);
-    assertThat(registry.get("payments.declined").counter().count())
-        .isZero();
+    assertThat(logs.list)
+        .noneMatch(e -> e.getLevel() == Level.WARN);
+    assertThat(registry.get("payments.declined")
+        .counter().count()).isZero();
   }
 }

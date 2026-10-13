@@ -11,8 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 /**
- * Characterization tests: they record what the code DOES today,
- * right or wrong, so a refactoring can't change it by accident.
+ * Characterization tests record what the code DOES today,
+ * right or wrong, so a refactoring can't change it unnoticed.
  */
 class InvoiceReportCharacterizationTest {
   static final Clock FIXED = Clock.fixed(
@@ -25,24 +25,27 @@ class InvoiceReportCharacterizationTest {
         new String[] {"PEN", "10", "12.50"},
         new String[] {"BAG", "1", "499.99"}));
 
-    Path approved = Path.of("src/test/resources/approved/invoice.txt");
-    if (!Files.exists(approved)) {             // first run: record it
-      Files.writeString(Path.of("target/invoice.received.txt"), actual);
-      fail("Review target/invoice.received.txt, then approve it");
+    Path approved = Path.of("src/test/resources/approved",
+                            "invoice.txt");
+    if (!Files.exists(approved)) {          // first run: record
+      Files.writeString(Path.of("target/received.txt"), actual);
+      fail("Review target/received.txt, then approve it");
     }
     assertThat(actual).isEqualTo(Files.readString(approved));
   }
 
   @ParameterizedTest(name = "{0} x {1} -> {2}")
-  @CsvSource({        // edges found by probing; values are TODAY's
+  @CsvSource({       // edges found by probing; TODAY's values
       " 9, 100.00, 900.00",     // no bulk discount below 10
       "10, 100.00, 950.00",     // 5% off from 10
       " 1, 1000.00, 1000.00",   // exactly 1000: no 50 off
       " 1, 1000.01, 950.01",    // just above: 50 off
   })
-  void totalsAsTheyAreToday(int qty, String price, String total) {
-    String out = new InvoiceReport(FIXED).render(List.<String[]>of(
-        new String[] {"X", String.valueOf(qty), price}));
+  void totalsAsTheyAreToday(int qty, String price,
+                            String total) {
+    String[] row = {"X", "" + qty, price};
+    var rows = List.<String[]>of(row);
+    String out = new InvoiceReport(FIXED).render(rows);
     assertThat(out).endsWith("TOTAL " + total + "\n");
   }
 }

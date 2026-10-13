@@ -8,16 +8,18 @@ import com.azure.storage.queue.QueueClientBuilder;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.azure.AzuriteContainer;
 
-/** Azurite: Microsoft's open-source Azure Storage emulator. */
+/** Azurite: Microsoft's open-source Storage emulator. */
 class AzureStorageIT {
-  static final AzuriteContainer AZURITE = new AzuriteContainer(
-      "mcr.microsoft.com/azure-storage/azurite:3.37.0");
+  static final AzuriteContainer AZURITE =
+      new AzuriteContainer(
+          "mcr.microsoft.com/azure-storage/azurite:3.37.0");
   static { AZURITE.start(); }
 
   @Test
   void storesAndReadsAnInvoice() {
     var blobs = new BlobServiceClientBuilder()
-        .connectionString(AZURITE.getConnectionString()).buildClient();
+        .connectionString(AZURITE.getConnectionString())
+        .buildClient();
     var invoices = blobs.createBlobContainer("invoices");
     invoices.getBlobClient("ord-1.txt")
         .upload(BinaryData.fromString("TOTAL 1768.74"));

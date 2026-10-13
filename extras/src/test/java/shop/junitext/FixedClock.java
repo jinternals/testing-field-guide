@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FixedClock {
-  String value();                      // e.g. "2026-10-13T09:00:00Z"
+  String value();             // e.g. "2026-10-13T09:00:00Z"
 }

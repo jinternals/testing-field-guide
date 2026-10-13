@@ -21,7 +21,8 @@ public class PaymentService {
   public boolean charge(String orderId, long amountPaise) {
     if (amountPaise > LIMIT_PAISE) {
       declined.increment();
-      log.warn("Payment declined for order {}: over limit", orderId);
+      log.warn("Payment declined for order {}: over limit",
+          orderId);
       return false;
     }
     log.info("Charged order {}", orderId);

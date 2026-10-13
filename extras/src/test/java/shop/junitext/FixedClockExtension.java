@@ -15,12 +15,13 @@ public class FixedClockExtension implements ParameterResolver {
   @Override
   public Object resolveParameter(ParameterContext p,
       ExtensionContext ctx) {
-    FixedClock fixed = AnnotationSupport
-        .findAnnotation(ctx.getRequiredTestMethod(), FixedClock.class)
+    FixedClock fixed = AnnotationSupport.findAnnotation(
+            ctx.getRequiredTestMethod(), FixedClock.class)
         .or(() -> AnnotationSupport.findAnnotation(
             ctx.getRequiredTestClass(), FixedClock.class))
         .orElseThrow(() -> new ParameterResolutionException(
             "Clock parameter needs @FixedClock"));
-    return Clock.fixed(Instant.parse(fixed.value()), ZoneOffset.UTC);
+    return Clock.fixed(Instant.parse(fixed.value()),
+        ZoneOffset.UTC);
   }
 }

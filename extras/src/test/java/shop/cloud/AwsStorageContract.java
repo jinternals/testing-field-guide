@@ -21,14 +21,15 @@ abstract class AwsStorageContract {
 
   S3Client s3() {
     return S3Client.builder().endpointOverride(endpoint())
-        .region(Region.US_EAST_1).credentialsProvider(TEST_KEYS)
+        .region(Region.US_EAST_1)
+        .credentialsProvider(TEST_KEYS)
         .forcePathStyle(true).build();
   }
 
   SqsClient sqs() {
     return SqsClient.builder().endpointOverride(endpoint())
-        .region(Region.US_EAST_1).credentialsProvider(TEST_KEYS)
-        .build();
+        .region(Region.US_EAST_1)
+        .credentialsProvider(TEST_KEYS).build();
   }
 
   @Test
@@ -38,8 +39,8 @@ abstract class AwsStorageContract {
       s3.putObject(b -> b.bucket("invoices").key("ord-1.txt"),
           RequestBody.fromString("TOTAL 1768.74"));
 
-      String text = s3.getObjectAsBytes(
-          b -> b.bucket("invoices").key("ord-1.txt")).asUtf8String();
+      String text = s3.getObjectAsBytes(b -> b
+          .bucket("invoices").key("ord-1.txt")).asUtf8String();
       assertThat(text).isEqualTo("TOTAL 1768.74");
     }
   }
@@ -49,7 +50,8 @@ abstract class AwsStorageContract {
     try (var sqs = sqs()) {
       String url = sqs.createQueue(b -> b.queueName("orders"))
           .queueUrl();
-      sqs.sendMessage(b -> b.queueUrl(url).messageBody("ord-1 PAID"));
+      sqs.sendMessage(b -> b.queueUrl(url)
+          .messageBody("ord-1 PAID"));
 
       var messages = sqs.receiveMessage(
           b -> b.queueUrl(url).waitTimeSeconds(5)).messages();

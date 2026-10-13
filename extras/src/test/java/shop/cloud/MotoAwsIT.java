@@ -3,7 +3,7 @@ package shop.cloud;
 import java.net.URI;
 import org.testcontainers.containers.GenericContainer;
 
-/** Moto: open-source AWS emulator (Apache-2.0), no account needed. */
+/** Moto: open-source AWS emulator (Apache-2.0); no account. */
 class MotoAwsIT extends AwsStorageContract {
   static final GenericContainer<?> MOTO =
       new GenericContainer<>("motoserver/moto:5.2.4")

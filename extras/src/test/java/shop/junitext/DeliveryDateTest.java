@@ -25,8 +25,9 @@ class DeliveryDateTest {
   }
 
   @Test
-  @FixedClock("2026-10-13T09:00:00Z")        // method wins: Tuesday
-  void tuesdayOrderArrivesThursday(Clock clock, TestInfo info) {
+  @FixedClock("2026-10-13T09:00:00Z")   // method wins: Tue
+  void tuesdayOrderArrivesThursday(Clock clock,
+      TestInfo info) {
     assertThat(deliveryDate(clock)).isEqualTo("2026-10-15");
     assertThat(info.getTags()).containsExactly("unit");
   }
