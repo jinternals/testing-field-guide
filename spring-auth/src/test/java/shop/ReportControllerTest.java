@@ -31,8 +31,8 @@ class ReportControllerTest {
 
   @Test
   void tokenWithTheScopeIs200() {
-    var scope = new SimpleGrantedAuthority("SCOPE_reports.read");
-    var token = jwt().jwt(t -> t.subject("asha")).authorities(scope);
+    var token = jwt().jwt(t -> t.subject("asha")).authorities(
+        new SimpleGrantedAuthority("SCOPE_reports.read"));
     assertThat(mvc.get().uri("/reports/daily").with(token))
         .hasStatusOk()
         .bodyJson().isLenientlyEqualTo("""

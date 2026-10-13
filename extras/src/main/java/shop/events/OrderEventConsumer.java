@@ -1,6 +1,7 @@
 package shop.events;
 
-import java.nio.charset.StandardCharsets;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,7 +39,7 @@ public class OrderEventConsumer implements AutoCloseable {
         for (var record : records) {
           received.incrementAndGet();
           var id = record.headers().lastHeader("event-id");
-          applied.add(new String(id.value(), StandardCharsets.UTF_8));
+          applied.add(new String(id.value(), UTF_8));
           // adding an id that is already there changes nothing
         }
       }
