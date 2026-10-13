@@ -12,8 +12,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 /** GreenMail: a real SMTP server inside the test JVM. */
 class OrderMailerTest {
   @RegisterExtension                  // fresh mailbox per test
-  static GreenMailExtension smtp =
-      new GreenMailExtension(ServerSetupTest.SMTP);
+  static GreenMailExtension smtp = new GreenMailExtension(
+      ServerSetupTest.SMTP.dynamicPort());   // free port: no clashes
 
   OrderMailer mailer() {
     int port = smtp.getSmtp().getPort();
