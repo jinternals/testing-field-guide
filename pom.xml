@@ -10,6 +10,7 @@
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <it.forks>2</it.forks>  <!-- mvn verify -Dit.forks=1 to compare -->
   </properties>
 
   <dependencyManagement>
@@ -96,7 +97,8 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.6.0</version>
         <configuration>
-          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
+          <argLine>@{argLine} -Xshare:off
+                   -javaagent:${org.mockito:mockito-core:jar}</argLine>
           <properties>
             <configurationParameters>
               junit.jupiter.execution.parallel.enabled = true
@@ -113,12 +115,11 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>3.6.0</version>
         <configuration>
-          <forkCount>2</forkCount>
+          <forkCount>${it.forks}</forkCount>
           <reuseForks>true</reuseForks>
-          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
-          <systemPropertyVariables>
-            <fork>${surefire.forkNumber}</fork>
-          </systemPropertyVariables>
+          <!-- -Dfork=1, 2, ...: which fork this JVM is -->
+          <argLine>@{argLine} -Xshare:off -Dfork=${surefire.forkNumber}
+                   -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
         <executions>
           <execution>
@@ -214,7 +215,7 @@
           <mainClass>shop.RedundantTests</mainClass>
           <classpathScope>test</classpathScope>
           <arguments>
-            <argument>${project.build.directory}/pit-reports/mutations.xml</argument>
+            <argument>target/pit-reports/mutations.xml</argument>
           </arguments>
         </configuration>
       </plugin>

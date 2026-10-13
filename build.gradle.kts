@@ -85,11 +85,10 @@ tasks.cpdCheck {
   reports { text.required = true }
 }
 
-val findRedundantTests = tasks.register<JavaExec>("findRedundantTests") {
+tasks.register<JavaExec>("findRedundantTests") {
   group = "verification"
   classpath = sourceSets["tools"].runtimeClasspath
   mainClass = "shop.RedundantTests"
-  args(layout.buildDirectory.file("reports/pitest/mutations.xml")
-      .get().asFile.path)
+  args("build/reports/pitest/mutations.xml")   // from the pitest task
   jvmArgs("-Dstdout.encoding=UTF-8")
 }

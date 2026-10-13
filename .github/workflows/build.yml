@@ -12,11 +12,14 @@ jobs:
       - uses: actions/setup-java@v6
         with: { distribution: temurin, java-version: '21', cache: maven }
       - run: mkdir -p logs && java -version 2>&1 | tee logs/java.txt && mvn -v | tee logs/mvn.txt && docker version --format '{{.Server.Version}}' | tee logs/docker.txt
+      - run: docker pull -q postgres:17-alpine   # so both timed runs start warm
       - name: Unit (threads) + integration (forks) + coverage
         run: mvn -B -ntp verify 2>&1 | tee logs/maven-verify.log
+      - name: Same build with one integration-test JVM, to compare
+        run: mvn -B -ntp verify -Dit.forks=1 2>&1 | tee logs/maven-verify-1fork.log
       - name: Copy-paste detection, tests included
         continue-on-error: true      # expected to find duplicates
-        run: mvn -B -ntp pmd:cpd-check 2>&1 | tee logs/maven-cpd.log
+        run: mvn -B -ntp generate-test-sources pmd:cpd-check 2>&1 | tee logs/maven-cpd.log
       - name: Mutation testing + duplicate-test finder
         run: mvn -B -ntp test-compile pitest:mutationCoverage exec:java 2>&1 | tee logs/maven-pit.log
       - name: Publish logs
@@ -37,12 +40,12 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6
       - run: mkdir -p logs
       - name: Unit (threads) + integration (forks) + coverage
-        run: ./gradlew --console=plain test integrationTest jacocoTestReport 2>&1 | tee logs/gradle-verify.log
+        run: ./gradlew --console=plain --warning-mode all test integrationTest jacocoTestReport 2>&1 | tee logs/gradle-verify.log
       - name: Copy-paste detection, tests included
         continue-on-error: true      # expected to find duplicates
-        run: ./gradlew --console=plain cpdCheck 2>&1 | tee logs/gradle-cpd.log
+        run: ./gradlew --console=plain --warning-mode all cpdCheck 2>&1 | tee logs/gradle-cpd.log
       - name: Mutation testing + duplicate-test finder
-        run: ./gradlew --console=plain pitest findRedundantTests 2>&1 | tee logs/gradle-pit.log
+        run: ./gradlew --console=plain --warning-mode all pitest findRedundantTests 2>&1 | tee logs/gradle-pit.log
       - name: Publish logs
         if: always()
         run: |
