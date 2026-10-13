@@ -22,7 +22,7 @@ class OrderRepositoryIT {
   void duplicateReferenceSlipsThroughUntilFlush() {
     repository.save(new CustomerOrder("A-1", BigDecimal.ONE));
     repository.save(new CustomerOrder("A-1", BigDecimal.TWO));
-    // no error yet: the INSERTs are still waiting in the session
+    // no error yet: both INSERTs wait in the session
 
     assertThatThrownBy(repository::flush)
         .isInstanceOf(DataIntegrityViolationException.class);
