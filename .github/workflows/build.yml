@@ -11,12 +11,19 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
         with: { distribution: temurin, java-version: '21', cache: maven }
-      - run: mkdir -p logs && java -version 2>&1 | tee logs/java.txt && mvn -v | tee logs/mvn.txt && docker version --format '{{.Server.Version}}' | tee logs/docker.txt
+      - run: mkdir -p logs && java -version 2>&1 | tee logs/java.txt && mvn -v | tee logs/mvn.txt && nproc | tee logs/nproc.txt && docker version --format '{{.Server.Version}}' | tee logs/docker.txt
       - run: docker pull -q postgres:17-alpine   # so both timed runs start warm
       - name: Unit (threads) + integration (forks) + coverage
         run: mvn -B -ntp verify 2>&1 | tee logs/maven-verify.log
-      - name: Same build with one integration-test JVM, to compare
-        run: mvn -B -ntp verify -Dit.forks=1 2>&1 | tee logs/maven-verify-1fork.log
+      - name: Time the integration tests with 1 and 2 JVMs (twice each)
+        run: |
+          TS="-Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss.SSS"
+          for f in 2 1 2 1; do
+            echo "### it.forks=$f" | tee -a logs/maven-timing.log
+            t0=$(date +%s%3N)
+            mvn -B -ntp $TS verify -Dit.forks=$f 2>&1 | grep -E "failsafe:|Tests run: [0-9]+, Fail.*$|\[fork|BUILD" | tee -a logs/maven-timing.log
+            echo "wall: $(( $(date +%s%3N) - t0 )) ms" | tee -a logs/maven-timing.log
+          done
       - name: Copy-paste detection, tests included
         continue-on-error: true      # expected to find duplicates
         run: mvn -B -ntp generate-test-sources pmd:cpd-check 2>&1 | tee logs/maven-cpd.log
