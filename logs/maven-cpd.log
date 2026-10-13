@@ -1,0 +1,39 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24074 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -----------------------------< shop:shop >------------------------------
+[INFO] Building shop 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> pmd:3.28.0:cpd-check (default-cli) > :cpd @ shop >>>
+[INFO] 
+[INFO] --- pmd:3.28.0:cpd (cpd) @ shop ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[WARNING] Unable to locate Source XRef to link to -- DISABLED
+[WARNING] Unable to locate Test Source XRef to link to -- DISABLED
+[INFO] Rendering content with org.apache.maven.skins:maven-fluido-skin:jar:2.0.0-M9 skin
+[INFO] 
+[INFO] <<< pmd:3.28.0:cpd-check (default-cli) < :cpd @ shop <<<
+[INFO] 
+[INFO] 
+[INFO] --- pmd:3.28.0:cpd-check (default-cli) @ shop ---
+[WARNING] CPD Failure: Found 2 lines of duplicated code at locations:
+[WARNING]     /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java line 33
+[WARNING]     /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java line 62
+[WARNING] CPD Failure: Found 2 lines of duplicated code at locations:
+[WARNING]     /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java line 53
+[WARNING]     /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java line 65
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.456 s
+[INFO] Finished at: 2026-10-13T15:04:54Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-pmd-plugin:3.28.0:cpd-check (default-cli) on project shop: CPD 7.17.0 has found 2 duplications. For more details see: /home/runner/work/testing-field-guide/testing-field-guide/target/cpd.xml -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

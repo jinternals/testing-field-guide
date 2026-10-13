@@ -1,0 +1,217 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24074 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -----------------------------< shop:shop >------------------------------
+[INFO] Building shop 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:properties (default) @ shop ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (unit) @ shop ---
+[INFO] argLine set to -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/testing-field-guide/testing-field-guide/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shop ---
+[INFO] skip non existing resourceDirectory /home/runner/work/testing-field-guide/testing-field-guide/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ shop ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- build-helper:3.6.2:add-test-source (add-it-sources) @ shop ---
+[INFO] Test Source directory: /home/runner/work/testing-field-guide/testing-field-guide/src/it/java added.
+[INFO] Test Source directory: /home/runner/work/testing-field-guide/testing-field-guide/src/tools added.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shop ---
+[INFO] skip non existing resourceDirectory /home/runner/work/testing-field-guide/testing-field-guide/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ shop ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- pitest:1.30.0:mutationCoverage (default-cli) @ shop ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Root dir is : /home/runner/work/testing-field-guide/testing-field-guide
+[INFO] Found plugin : Default csv report plugin
+[INFO] Found plugin : Default xml report plugin
+[INFO] Found plugin : Log progress during mutation analysis
+[INFO] Found plugin : Default html report plugin
+[INFO] Found plugin : Static initializer code detector plugin
+[INFO] Found plugin : Excluded annotations plugin
+[INFO] Found plugin : Try with resources filter
+[INFO] Found plugin : Inlined finally block filter plugin
+[INFO] Found plugin : Implicit null check filter
+[INFO] Found plugin : Method reference null check filter
+[INFO] Found plugin : For each loop filter
+[INFO] Found plugin : Enum junk filter
+[INFO] Found plugin : Record junk mutation filter
+[INFO] Found plugin : String switch filter
+[INFO] Found plugin : Assertions filter
+[INFO] Found plugin : Enum switch filter
+[INFO] Found plugin : Logging calls filter
+[INFO] Found plugin : Infinite for loop filter
+[INFO] Found plugin : Long running iterator loop filter
+[INFO] Found plugin : For loop counter filter
+[INFO] Found plugin : Kotlin junk mutations filter
+[INFO] Found plugin : Groovy junk mutations filter
+[INFO] Found plugin : Max mutations per class limit
+[INFO] Found plugin : Equals shortcut equivalent mutant filter
+[INFO] Found plugin : Trivial return vals equivalence filter
+[INFO] Found plugin : Filters mutants with line number <= 1
+[INFO] Found plugin : Division by one equivalent mutant filter
+[INFO] Found plugin : Lombok junk mutations filter
+[INFO] Found plugin : Filter mutations to defensive wrappers such as unmodifiableCollection on return or field write
+[INFO] Found plugin : Final field null assignment equivalent mutant filter
+[INFO] Found plugin : Mutant export plugin
+[INFO] Found plugin : Auto add java.awt.headless=true to keep keyboard focus on Mac OS
+[INFO] Found plugin : Auto set number of threads based on machine
+[INFO] Found plugin : Automatically add -ea to launch args to enable assertions
+[INFO] Found plugin : Default build verifier
+[INFO] Found plugin : Detect missing JUnit5 plugin
+[INFO] Found plugin : Detect missing TestNG plugin
+[INFO] Found plugin : Detect missing kotlin plugin
+[INFO] Found plugin : Detect missing spring plugin
+[INFO] Found plugin : Default coverage exporter
+[INFO] Found plugin : Basic test statistics
+[INFO] Found shared classpath plugin : Default mutation engine
+[INFO] Found shared classpath plugin : JUnit 5 test framework support
+[INFO] Found shared classpath plugin : JUnit plugin
+[INFO] Found shared classpath plugin : Support for mocking frameworks using javassist
+[INFO] Found shared classpath plugin : Disable JaCoCo
+[INFO] Found shared classpath plugin : Normalise record attributes
+[INFO] Found shared classpath plugin : Reset environment for javassist
+[INFO] Available mutators : EXPERIMENTAL_ARGUMENT_PROPAGATION,FALSE_RETURNS,TRUE_RETURNS,CONDITIONALS_BOUNDARY,CONSTRUCTOR_CALLS,EMPTY_RETURNS,INCREMENTS,INLINE_CONSTS,INVERT_NEGS,MATH,NEGATE_CONDITIONALS,NON_VOID_METHOD_CALLS,NULL_RETURNS,PRIMITIVE_RETURNS,REMOVE_CONDITIONALS_EQUAL_IF,REMOVE_CONDITIONALS_EQUAL_ELSE,REMOVE_CONDITIONALS_ORDER_IF,REMOVE_CONDITIONALS_ORDER_ELSE,VOID_METHOD_CALLS,EXPERIMENTAL_BIG_DECIMAL,EXPERIMENTAL_BIG_INTEGER,EXPERIMENTAL_MEMBER_VARIABLE,EXPERIMENTAL_NAKED_RECEIVER,REMOVE_INCREMENTS,EXPERIMENTAL_SWITCH
+[INFO] Adding org.pitest:pitest-junit5-plugin to SUT classpath
+[INFO] Adding org.pitest:pitest to SUT classpath
+[INFO] Auto adding org.junit.platform:junit-platform-launcher:jar:6.1.3 < central (https://repo.maven.apache.org/maven2, default, releases) to classpath.
+[INFO] Mutating from /home/runner/work/testing-field-guide/testing-field-guide/target/classes
+[INFO] Replacing properties in argLine -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/testing-field-guide/testing-field-guide/target/jacoco.exec @{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off
+3:05:04 PM PIT >> INFO : Verbose logging is disabled. If you encounter a problem, please enable it before reporting an issue.
+3:05:04 PM PIT >> INFO : Created 8 mutation test units in pre scan
+3:05:05 PM PIT >> INFO : Sending 12 test classes to minion
+3:05:05 PM PIT >> INFO : Sent tests to minion
+/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|3:05:08 PM PIT >> INFO : Calculated coverage in 4 seconds.
+3:05:08 PM PIT >> INFO : 0 tests took longer than 2000 ms
+3:05:08 PM PIT >> INFO : Slowest test ([engine:junit-jupiter]/[class:shop.MockitoFeaturesTest]/[method:finalClassesCanBeMockedByDefault()]) took 593 ms
+3:05:08 PM PIT >> INFO : Largest test ([engine:junit-jupiter]/[class:shop.OrderServiceBddTest]/[method:bigOrderGetsTenPercentOff()]) covered 118 blocks
+3:05:08 PM PIT >> INFO : Created 7 mutation test units
+3:05:14 PM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+3:05:20 PM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+3:05:27 PM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+3:05:32 PM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+/-\|/-\3:05:55 PM PIT >> INFO : Completed in 51 seconds
+================================================================================
+- Mutators
+================================================================================
+> org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator
+>> Generated 4 Killed 4 (100%)
+> KILLED 4 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator
+>> Generated 5 Killed 5 (100%)
+> KILLED 5 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator
+>> Generated 10 Killed 10 (100%)
+> KILLED 6 SURVIVED 0 TIMED_OUT 4 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.returns.NullReturnValsMutator
+>> Generated 7 Killed 7 (100%)
+> KILLED 7 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.MathMutator
+>> Generated 1 Killed 1 (100%)
+> KILLED 1 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.returns.EmptyObjectReturnValsMutator
+>> Generated 3 Killed 3 (100%)
+> KILLED 3 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator
+>> Generated 10 Killed 10 (100%)
+> KILLED 10 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+================================================================================
+- Timings
+================================================================================
+> pre-scan for mutations : < 1 second
+> scan classpath : < 1 second
+> coverage and dependency analysis : 4 seconds
+> build mutation tests : < 1 second
+> run mutation analysis : 46 seconds
+--------------------------------------------------------------------------------
+> Total  : 51 seconds
+--------------------------------------------------------------------------------
+> 0 tests took longer than 2000 ms
+> Slowest test ([engine:junit-jupiter]/[class:shop.MockitoFeaturesTest]/[method:finalClassesCanBeMockedByDefault()]) took 593 ms
+> Largest test ([engine:junit-jupiter]/[class:shop.OrderServiceBddTest]/[method:bigOrderGetsTenPercentOff()]) covered 118 blocks
+================================================================================
+- Statistics
+================================================================================
+>> Line Coverage (for mutated classes only): 76/77 (99%)
+>> 12 tests examined
+>> Generated 40 mutations Killed 40 (100%)
+>> Mutations with no coverage 0. Test strength 100%
+>> Ran 317 tests (7.93 tests per mutation)
+Enhanced functionality available at https://www.arcmutate.com/
+[INFO] 
+[INFO] --- exec:3.6.4:java (default-cli) @ shop ---
+39 tests kill at least one mutant
+
+Same mutants killed as another test (candidates for merging):
+  DiscountPolicyTest.percentForSubtotal#4  ≡  DiscountPolicyTest.percentForSubtotal#5   (6 mutants)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#2  ≡  ItemTest.ValidQuantity.totalIsPriceTimesQty#3   (5 mutants)
+  PasswordPolicyTest.passwordWithoutDigitIsReported  ≡  PasswordPolicyTest.passwordWithoutUpperCaseIsReported   (5 mutants)
+  OrderApiTest.pathTricksAreJustNotFound  ≡  OrderApiTest.unknownOrderReturns404   (4 mutants)
+  ItemTest.InvalidQuantity.rejected#1  ≡  ItemTest.InvalidQuantity.rejected#2  ≡  ItemTest.InvalidQuantity.rejected#3  ≡  OrderApiTest   (2 mutants)
+  MockitoFeaturesTest.consecutiveAnswersForRetries  ≡  MockitoFeaturesTest.finalClassesCanBeMockedByDefault  ≡  MoneyTest.rejectsNegativeAmounts   (1 mutants)
+
+Strict subset of another test (adds no extra mutant kills):
+  OrderServiceTest.chargesBeforeSaving (10) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  OrderServiceTest.declinedPaymentSavesNothingAndSendsNoEmail (9) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  TestDoublesTest.spyLetsUsCheckBehaviour (9) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#1 (6) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#4 (6) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#5 (6) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#1 (6) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  DiscountPolicyTest.percentForSubtotal#2 (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#6 (5) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#2 (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#3 (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MoneyTest.addsAndMultiplies (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#7 (4) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  MoneyTest.percentOffRoundsHalfUp (4) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  OrderApiTest.pathTricksAreJustNotFound (4) ⊂ OrderApiTest.existingOrderReturns200WithJson (6)
+  OrderApiTest.unknownOrderReturns404 (4) ⊂ OrderApiTest.existingOrderReturns200WithJson (6)
+  PasswordPolicyTest.shortPasswordIsReported (4) ⊂ PasswordPolicyTest.passwordWithoutDigitIsReported (5)
+  PasswordPolicyTest.strongPasswordHasNoProblems (3) ⊂ PasswordPolicyTest.passwordWithoutDigitIsReported (5)
+  TestDoublesTest.dummyIsNeverTouchedWhenValidationFails (3) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  TrickyThingsTest.concurrentSavesAreAllKept (3) ⊂ TestDoublesTest.stubAndFakeLetUsCheckState (11)
+  ItemTest.InvalidQuantity.rejected#1 (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.InvalidQuantity.rejected#2 (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.InvalidQuantity.rejected#3 (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  OrderApiTest (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  TrickyThingsTest.slowCodeFailsFastInsteadOfHangingTheBuild (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MockitoFeaturesTest.consecutiveAnswersForRetries (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MockitoFeaturesTest.finalClassesCanBeMockedByDefault (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MoneyTest.rejectsNegativeAmounts (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  OrderServiceTest.emptyOrderIsRejectedEarly (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  59.283 s
+[INFO] Finished at: 2026-10-13T15:05:56Z
+[INFO] ------------------------------------------------------------------------

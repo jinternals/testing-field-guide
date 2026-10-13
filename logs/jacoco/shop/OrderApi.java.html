@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderApi.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">shop</a> &gt; <span class="el_source">OrderApi.java</span></div><h1>OrderApi.java</h1><pre class="source lang-java linenums">package shop;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpServer;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+
+/** A tiny JSON API on the JDK's built-in HTTP server: GET /orders/{id}. */
+public class OrderApi {
+  private final OrderRepository repository;
+  private HttpServer server;
+
+<span class="fc" id="L14">  public OrderApi(OrderRepository repository) { this.repository = repository; }</span>
+
+  public int start() throws IOException {
+    // port 0 = let the OS pick any free port
+<span class="fc" id="L18">    server = HttpServer.create(new InetSocketAddress(&quot;127.0.0.1&quot;, 0), 0);</span>
+<span class="fc" id="L19">    server.createContext(&quot;/orders/&quot;, this::handle);</span>
+<span class="fc" id="L20">    server.start();</span>
+<span class="fc" id="L21">    return server.getAddress().getPort();</span>
+  }
+
+<span class="fc" id="L24">  public void stop() { server.stop(0); }</span>
+
+  private void handle(HttpExchange ex) throws IOException {
+<span class="fc bfc" id="L27" title="All 2 branches covered.">    if (!ex.getRequestMethod().equals(&quot;GET&quot;)) {</span>
+<span class="fc" id="L28">      ex.getResponseHeaders().set(&quot;Allow&quot;, &quot;GET&quot;);</span>
+<span class="fc" id="L29">      send(ex, 405, &quot;{\&quot;error\&quot;:\&quot;method not allowed\&quot;}&quot;);</span>
+<span class="fc" id="L30">      return;</span>
+    }
+<span class="fc" id="L32">    String id = ex.getRequestURI().getPath().substring(&quot;/orders/&quot;.length());</span>
+<span class="fc" id="L33">    var order = repository.findById(id);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">    if (order.isEmpty()) {</span>
+<span class="fc" id="L35">      send(ex, 404, &quot;{\&quot;error\&quot;:\&quot;order not found\&quot;}&quot;);</span>
+<span class="fc" id="L36">      return;</span>
+    }
+<span class="fc" id="L38">    Order o = order.get();</span>
+<span class="fc" id="L39">    send(ex, 200, &quot;{\&quot;id\&quot;:\&quot;%s\&quot;,\&quot;total\&quot;:\&quot;%s\&quot;,\&quot;items\&quot;:%d}&quot;</span>
+<span class="fc" id="L40">        .formatted(o.id(), o.total().amount(), o.items().size()));</span>
+<span class="fc" id="L41">  }</span>
+
+  private static void send(HttpExchange ex, int status, String json) throws IOException {
+<span class="fc" id="L44">    byte[] body = json.getBytes(StandardCharsets.UTF_8);</span>
+<span class="fc" id="L45">    ex.getResponseHeaders().set(&quot;Content-Type&quot;, &quot;application/json&quot;);</span>
+<span class="fc" id="L46">    ex.sendResponseHeaders(status, body.length);</span>
+<span class="fc" id="L47">    try (var out = ex.getResponseBody()) { out.write(body); }</span>
+<span class="fc" id="L48">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
