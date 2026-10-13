@@ -78,9 +78,9 @@ TYPES = [("Load", "Expected peak traffic, held steady", "Does it meet the latenc
 types = "".join(f'<tr><td class="nm">{a}</td><td>{b}</td><td>{c}</td></tr>' for a, b, c in TYPES)
 
 PT = [("Gatling", "Java, Kotlin or Scala DSL; load tests as code; HTML reports", "3.16"),
-      ("Apache JMeter", "GUI to build test plans, CLI to run them; many protocols", "5.6.3"),
+      ("Apache JMeter", "GUI to build test plans, CLI to run them; many protocols", V("ApacheJMeter_core")),
       ("Grafana k6", "Tests in JavaScript; single binary; good CI fit", "2.3"),
-      ("JMH", "Microbenchmarks for one method; handles JIT warm-up and dead-code elimination", "1.37")]
+      ("JMH", "Microbenchmarks for one method; handles JIT warm-up and dead-code elimination", V("jmh-core"))]
 pt = "".join(f'<tr><td class="nm">{a}</td><td>{b}</td><td class="hn">{c}</td></tr>' for a, b, c in PT)
 
 runs = capture("load-output.txt").strip().split("\n\n")

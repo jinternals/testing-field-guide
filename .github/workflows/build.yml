@@ -1,7 +1,7 @@
 name: build
 on: [push, workflow_dispatch]
 permissions:
-  contents: write              # only to publish the logs branch
+  contents: write              # only to publish the logs branches and the PDF on main
 
 jobs:
   maven:
@@ -29,11 +29,17 @@ jobs:
         run: mvn -B -ntp generate-test-sources pmd:cpd-check 2>&1 | tee logs/maven-cpd.log
       - name: Mutation testing + duplicate-test finder
         run: mvn -B -ntp test-compile pitest:mutationCoverage exec:java 2>&1 | tee logs/maven-pit.log
-      - name: Publish logs
+      - name: Collect reports
         if: always()
         run: |
           cp -r target/site/jacoco logs/jacoco 2>/dev/null || true
           cp target/pit-reports/mutations.xml logs/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v7      # this run's logs, for the guide job
+        if: always()
+        with: { name: logs-maven, path: logs }
+      - name: Publish logs to the ci-logs-maven branch
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-maven && git rm -rqf --cached . && git add -f logs && git commit -qm "Maven logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-maven
 
@@ -64,8 +70,11 @@ jobs:
             echo "### gradle clean test $c" | tee -a logs/gradle-cache.log
             ./gradlew --console=plain $c clean test 2>&1 | grep -E "Task :(compileJava|compileTestJava|test)|BUILD|actionable" | tee -a logs/gradle-cache.log
           done
-      - name: Publish logs
+      - uses: actions/upload-artifact@v7      # this run's logs, for the guide job
         if: always()
+        with: { name: logs-gradle, path: logs }
+      - name: Publish logs to the ci-logs-gradle branch
+        if: always() && github.ref == 'refs/heads/main'
         run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-gradle && git rm -rqf --cached . && git add -f logs && git commit -qm "Gradle logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-gradle
@@ -83,8 +92,11 @@ jobs:
       - name: Library versions managed by Spring Boot
         if: always()
         run: mvn -B -ntp -q dependency:list -DoutputFile=logs/spring-deps.txt -DincludeScope=test
-      - name: Publish logs
+      - uses: actions/upload-artifact@v7      # this run's logs, for the guide job
         if: always()
+        with: { name: logs-spring, path: spring/logs }
+      - name: Publish logs to the ci-logs-spring branch
+        if: always() && github.ref == 'refs/heads/main'
         run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-spring && git rm -rqf --cached .. && git add -f logs && git commit -qm "Spring logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-spring
@@ -114,12 +126,18 @@ jobs:
         if: always()
         working-directory: spring-auth
         run: mvn -B -ntp verify 2>&1 | tee ../logs/auth-verify.log
-      - name: Publish logs
+      - name: Collect reports
         if: always()
         run: |
-          git config user.name ci; git config user.email ci@users.noreply.github.com
           cp extras/target/*.png extras/target/pacts/*.json logs/ 2>/dev/null || true
           ls -la extras/target/*-trace.zip > logs/traces.txt 2>/dev/null || true
+      - uses: actions/upload-artifact@v7      # this run's logs, for the guide job
+        if: always()
+        with: { name: logs-extras, path: logs }
+      - name: Publish logs to the ci-logs-extras branch
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-extras && git rm -rqf --cached . && git add -f logs && git commit -qm "Extras logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-extras
 
   shard:
@@ -145,8 +163,11 @@ jobs:
           n = sum(int(ET.parse(f).getroot().get("tests")) for f in glob.glob("build/test-results/test/*.xml"))
           print(f"tests run in this shard: {n}")
           PY
-      - name: Publish logs
+      - uses: actions/upload-artifact@v7      # this run's logs, for the guide job
         if: always()
+        with: { name: "logs-shard-${{ matrix.shard }}", path: logs }
+      - name: Publish logs to the ci-logs-shard-N branch
+        if: always() && github.ref == 'refs/heads/main'
         run: |
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-shard-${{ matrix.shard }} && git rm -rqf --cached . && git add -f logs && git commit -qm "Shard logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-shard-${{ matrix.shard }}
@@ -167,20 +188,28 @@ jobs:
           .venv/bin/pip install -q playwright==1.56.0 pypdf pillow
           .venv/bin/python -m playwright install --with-deps chromium
           cd guide && npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v8
+        with: { pattern: logs-*, path: ci-artifacts }
       - name: Workspace - code, scripts, CI logs from this run
-        run: bash guide/assemble.sh
+        run: bash guide/assemble.sh ci-artifacts
+      - name: The tools the guide recommends resolve at the stated versions
+        run: |
+          mvn -B -ntp -q -f guide/catalogue/pom.xml dependency:resolve dependency:resolve-plugins
+          ./gradlew --console=plain -p guide/catalogue help
       - name: Re-run every hand-run example
         working-directory: guide/java
-        run: bash regenerate.sh
+        run: mkdir -p ../../guide-logs && bash regenerate.sh 2>&1 | tee ../../guide-logs/regenerate.log
       - name: Build the PDF and check it
         working-directory: guide
         run: |
-          python shots.py
-          python build.py
-          python render.py            # fails on any layout overflow
-          python contrast.py          # fails on any WCAG AA contrast problem
-          python claims.py            # fails if an output no longer says what the text says
-          python pdfcheck.py          # tagged, language set, fonts embedded
+          { python shots.py
+            python build.py
+            python render.py            # fails on any layout overflow
+            python contrast.py          # fails on any WCAG AA contrast problem
+            python claims.py            # fails if an output no longer says what the text says
+            python pdfcheck.py          # tagged, language set, fonts embedded
+            python check_versions.py    # every version in the text is the one the builds use
+          } 2>&1 | tee ../guide-logs/guide-build.log
       - uses: actions/upload-artifact@v7
         with: { name: Testing-Field-Guide, path: guide/Testing-Field-Guide.pdf }
       - name: Publish to docs/
@@ -191,3 +220,9 @@ jobs:
           git add docs/Testing-Field-Guide.pdf
           git commit -qm "Rebuild the guide PDF from run ${GITHUB_RUN_NUMBER} [skip ci]"
           git pull -q --rebase origin main && git push -q origin HEAD:main
+      - name: Publish the guide log to the ci-logs-guide branch    # last: it leaves main
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p guide-logs && cp guide/java/*-output*.txt guide/java/*.csv guide-logs/ 2>/dev/null || true
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git checkout -q --orphan ci-logs-guide && git rm -rqf --cached . && git add -f guide-logs && git commit -qm "Guide logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-guide

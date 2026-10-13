@@ -248,3 +248,39 @@ def fail_block(method, path="failing-output.txt"):
 
 
 N_TESTS = int(re.search(r"(\d+) tests successful", capture("suite-output.txt")).group(1))
+
+
+# ---- versions, read from the build files (so the text can't drift from what the builds use) ----
+def _build_versions():
+    repo = ROOT.parent
+    skip = {"java", "node_modules", "target", "build", ".git", ".venv"}
+    found = {}
+    def add(key, v):
+        found.setdefault(key, set()).add(v)
+    for p in repo.rglob("pom.xml"):
+        if skip & set(p.relative_to(repo).parts):
+            continue
+        t = p.read_text()
+        props = dict(re.findall(r"<([\w.-]+)>([^<${}]+)</\1>", (re.search(r"<properties>(.*?)</properties>", t, re.S) or [None, ""])[1]))
+        for a, v in re.findall(r"<artifactId>([\w.-]+)</artifactId>\s*<version>([^<]+)</version>", t):
+            add(a, re.sub(r"\$\{([\w.-]+)\}", lambda m: props.get(m.group(1), m.group(0)), v))
+    for p in repo.rglob("build.gradle.kts"):
+        if skip & set(p.relative_to(repo).parts):
+            continue
+        t = p.read_text()
+        for i, v in re.findall(r'id\("([\w.-]+)"\) version "([^"]+)"', t):
+            add(i, v)
+        for a, v in re.findall(r'"[\w.-]+:([\w.-]+):(\d[^"]*)"', t):
+            add(a, v)
+    return found
+
+
+_VERSIONS = _build_versions()
+
+
+def V(key):
+    """The one version the builds use for an artifactId or Gradle plugin id."""
+    vs = _VERSIONS.get(key)
+    if not vs or len(vs) != 1:
+        raise SystemExit(f"version of {key}: {sorted(vs) if vs else 'not in any build file'}")
+    return next(iter(vs))

@@ -1,0 +1,20 @@
+# Weekly dependency PRs. Each PR runs the full build, and the guide job re-renders the PDF;
+# guide/check_versions.py fails the PR if a version stated in the guide text no longer matches.
+version: 2
+updates:
+  - package-ecosystem: maven
+    directories: ["/", "/spring", "/spring-auth", "/extras", "/guide/runs/lib", "/guide/catalogue"]
+    schedule: { interval: weekly, day: monday }
+    groups:
+      test-stack: { patterns: ["*"], update-types: [minor, patch] }
+  - package-ecosystem: gradle
+    directories: ["/", "/guide/catalogue"]
+    schedule: { interval: weekly, day: monday }
+    groups:
+      gradle: { patterns: ["*"], update-types: [minor, patch] }
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule: { interval: weekly, day: monday }
+  - package-ecosystem: npm
+    directory: "/guide"
+    schedule: { interval: monthly }

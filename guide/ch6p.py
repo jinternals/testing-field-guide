@@ -92,18 +92,18 @@ first = "\n".join(l.rstrip() for l in first.split("\n") if l.strip())
 asserts = capture("pmd-asserts-output.txt")
 
 PLUG = [
-    ("Unit tests", "maven-surefire-plugin <b>3.6.0</b>", "built-in <code>test</code> task", "<code>Test*</code>, <code>*Test</code>, <code>*Tests</code>, <code>*TestCase</code>"),
-    ("Integration tests", "maven-failsafe-plugin <b>3.6.0</b>", "a second <code>Test</code> task", "<code>IT*</code>, <code>*IT</code>, <code>*ITCase</code>; fails in <code>verify</code>"),
-    ("Extra test source dirs", "build-helper-maven-plugin <b>3.6.2</b>", "<code>sourceSets</code> (built-in)", "e.g. <code>src/it/java</code>"),
-    ("Coverage", "jacoco-maven-plugin <b>0.8.15</b>", "<code>jacoco</code> (built-in)", "gate: <code>check</code> / <code>jacocoTestCoverageVerification</code>"),
-    ("Mutation testing", "pitest-maven <b>1.30.0</b>", "<code>info.solidsoft.pitest</code> <b>1.19.0</b>", "gate: <code>mutationThreshold</code>"),
-    ("Copy-paste in tests", "maven-pmd-plugin <b>3.28.0</b> · <code>cpd-check</code>", "<code>de.aaschmid.cpd</code> <b>3.5</b> · <code>cpdCheck</code>", "both use PMD’s CPD engine"),
+    ("Unit tests", f"maven-surefire-plugin <b>{V('maven-surefire-plugin')}</b>", "built-in <code>test</code> task", "<code>Test*</code>, <code>*Test</code>, <code>*Tests</code>, <code>*TestCase</code>"),
+    ("Integration tests", f"maven-failsafe-plugin <b>{V('maven-failsafe-plugin')}</b>", "a second <code>Test</code> task", "<code>IT*</code>, <code>*IT</code>, <code>*ITCase</code>; fails in <code>verify</code>"),
+    ("Extra test source dirs", f"build-helper-maven-plugin <b>{V('build-helper-maven-plugin')}</b>", "<code>sourceSets</code> (built-in)", "e.g. <code>src/it/java</code>"),
+    ("Coverage", f"jacoco-maven-plugin <b>{V('jacoco-maven-plugin')}</b>", "<code>jacoco</code> (built-in)", "gate: <code>check</code> / <code>jacocoTestCoverageVerification</code>"),
+    ("Mutation testing", f"pitest-maven <b>{V('pitest-maven')}</b>", f"<code>info.solidsoft.pitest</code> <b>{V('info.solidsoft.pitest')}</b>", "gate: <code>mutationThreshold</code>"),
+    ("Copy-paste in tests", f"maven-pmd-plugin <b>{V('maven-pmd-plugin')}</b> · <code>cpd-check</code>", f"<code>de.aaschmid.cpd</code> <b>{V('de.aaschmid.cpd')}</b> · <code>cpdCheck</code>", "both use PMD’s CPD engine"),
     ("Tests that assert nothing", "maven-pmd-plugin · <code>check</code>", "<code>pmd</code> (built-in)", "rule <code>UnitTestShouldIncludeAssert</code>"),
-    ("Bug patterns", "spotbugs-maven-plugin <b>4.10.5.0</b>", "<code>com.github.spotbugs</code> <b>6.5.13</b>", "null dereferences, bad <code>equals</code>, races"),
-    ("Code style", "maven-checkstyle-plugin <b>3.6.0</b>", "<code>checkstyle</code> (built-in)", "keeps test code readable too"),
-    ("Vulnerable dependencies", "dependency-check-maven <b>13.0.0</b>", "<code>org.owasp.dependencycheck</code> <b>13.0.0</b>", "OWASP Dependency-Check (SCA)"),
-    ("Flaky-test retries", "Surefire <code>rerunFailingTestsCount</code>", "<code>org.gradle.test-retry</code> <b>1.6.6</b>", "reports a pass-on-retry as flaky"),
-    ("Quality gate &amp; history", "sonar-maven-plugin <b>5.8.0.7211</b>", "<code>org.sonarqube</code> <b>7.5.0.8588</b>", "coverage and duplication on new code"),
+    ("Bug patterns", f"spotbugs-maven-plugin <b>{V('spotbugs-maven-plugin')}</b>", f"<code>com.github.spotbugs</code> <b>{V('com.github.spotbugs')}</b>", "null dereferences, bad <code>equals</code>, races"),
+    ("Code style", f"maven-checkstyle-plugin <b>{V('maven-checkstyle-plugin')}</b>", "<code>checkstyle</code> (built-in)", "keeps test code readable too"),
+    ("Vulnerable dependencies", f"dependency-check-maven <b>{V('dependency-check-maven')}</b>", f"<code>org.owasp.dependencycheck</code> <b>{V('org.owasp.dependencycheck')}</b>", "OWASP Dependency-Check (SCA)"),
+    ("Flaky-test retries", "Surefire <code>rerunFailingTestsCount</code>", f"<code>org.gradle.test-retry</code> <b>{V('org.gradle.test-retry')}</b>", "reports a pass-on-retry as flaky"),
+    ("Quality gate &amp; history", f"sonar-maven-plugin <b>{V('sonar-maven-plugin')}</b>", f"<code>org.sonarqube</code> <b>{V('org.sonarqube')}</b>", "coverage and duplication on new code"),
 ]
 CPDPOM = undent(cut(POM, "      <plugin>\n        <groupId>org.apache.maven.plugins</groupId>\n        <artifactId>maven-pmd-plugin", "      </plugin>"), 6)
 CPDG = cut(GRADLE, "cpd {", "tasks.cpdCheck {\n  reports { text.required = true }\n}")
