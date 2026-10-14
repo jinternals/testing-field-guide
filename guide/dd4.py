@@ -48,7 +48,7 @@ page("jit", f'''
   {code(dsrc("jit/WarmUp.java", "    for (int batch = 1", "\n    }"), "WarmUp.java — 30 batches of 100 calls", cls="xs")}
   <div>
     {code("\n".join(COMP), "-XX:+PrintCompilation · real output (ms · id · % OSR · level)", kind="plain", cls="xs out wrap")}
-    <p class="small" style="margin-top:1mm">Read top to bottom: level 3 code with on-stack replacement (<code>%</code> at bytecode 11, the loop), level 3, then level 4 OSR; the level 3 versions are <b>made not entrant</b> once the level 4 code replaces them.</p>
+
   </div>
 </div>
 <h2>Reading a PrintCompilation line</h2>
@@ -101,7 +101,7 @@ const_folded = "constant" in JMH and JMH["constant"][0] - base <= 0.25 * (JMH["r
 findings = [f"<b>The empty baseline costs {base:.2f} ns</b>: the harness itself. Anything at that level did no work.",
             f"<b>Math.log, result unused</b>: {JMH['discarded'][0]:.2f} ns; returned {JMH['returned'][0]:.2f} ns; into a Blackhole {JMH['blackhole'][0]:.2f} ns — "
             + say(log_v, "the unused call") + ("" if log_v == "removed" else " JMH’s classic dead-code sample (JMHSample_08, also <code>Math.log</code>) does not reproduce here."),
-            f"<b>Math.log of a static final constant</b>: {JMH['constant'][0]:.2f} ns — " + ("folded at compile time." if const_folded else "<b>not</b> folded: HotSpot does not evaluate this intrinsic ahead of time.")]
+            f"<b>Math.log of a static final constant</b>: {JMH['constant'][0]:.2f} ns — " + ("folded at compile time." if const_folded else "<b>not</b> folded here: it cost the same as the call on a field.")]
 if "sumDiscarded" in JMH:
     findings.append(f"<b>A pure loop summing 1,000 ints</b>: {JMH['sumDiscarded'][0]:.2f} ns unused, {JMH['sumReturned'][0]:.2f} ns returned — " + say(verdict("sumDiscarded", "sumReturned"), "the whole loop"))
 if "mulDiscarded" in JMH:
@@ -110,7 +110,7 @@ BENCH = dsrc("jit/DeadCodeBench.java", "@State")
 cut = BENCH.index("  @Benchmark\n  public void sumDiscarded")
 page("jit2", f'''
 {sub(K6, "Measured with JMH: when does the JIT throw your work away?", CJ)}
-<p class="lede-s">The JIT may remove code whose result is never used (dead-code elimination) and compute expressions on constants ahead of time (constant folding). A hand-written timing loop cannot tell whether that happened. JMH makes it visible: compare against an empty baseline, and hand results back (return them, or <code>Blackhole.consume</code>).</p>
+<p class="lede-s">The JIT may remove code whose result is never used (dead-code elimination) and compute expressions on constants ahead of time (constant folding). A hand-written timing loop cannot tell; JMH can — compare with an empty baseline and hand results back.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   {code(BENCH[:cut], "DeadCodeBench.java (1/2)", cls="xs")}
   {code(BENCH[cut:], "DeadCodeBench.java (2/2)", cls="xs")}
@@ -123,10 +123,8 @@ page("jit2", f'''
   {ticks(findings, CJ)}
 </div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
-  {ticks(["<b>Never trust a benchmark you have not seen fail.</b> Add a baseline and a variant that should be eliminated; if they differ in the wrong direction, the measurement is broken.",
-          "<b>What happens is JDK- and CPU-specific.</b> These numbers are from one JDK on one machine; rerun them where you deploy."], CJ)}
-  {ticks(["<b>Return results or use a Blackhole</b>; read inputs from <code>@State</code> fields, not constants.",
-          "<b>Let JMH fork</b> (<code>-f</code>): a fresh JVM per run avoids profiles left over from other benchmarks."], CJ)}
+  {ticks(["<b>Never trust a benchmark you have not seen fail:</b> add a baseline and a variant that should be eliminated."], CJ)}
+  {ticks(["<b>Return results or use a Blackhole</b>, read inputs from <code>@State</code> fields, and let JMH fork a fresh JVM (<code>-f</code>)."], CJ)}
 </div>
 {src("JMH 1.37 (org.openjdk.jmh): Blackhole, @State, -f/-wi/-i options; JMHSample_08_DeadCode", "results: deepdive/logs/jmh.txt, jmh-full.txt")}
 ''', chapter=K6, color=CJ)

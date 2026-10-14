@@ -86,11 +86,11 @@ if has("throttle.txt"):
         THR.append(dict(opts=opts or "no limit", burners=int(bn), p50=float(p50), p99=float(p99), max=float(mx), periods=int(per), thr=int(thr), tms=int(tms)))
 if THR:
     THR_ROWS = [(f"<code>{t['opts']}</code>", str(t["burners"]), f"{t['p50']:.1f}", f"{t['p99']:.1f}", f"<b>{t['max']:.1f}</b>",
-                 str(t["periods"]) if t["periods"] else "–", str(t["thr"]) if t["periods"] else "–", f"{t['tms']:,}" if t["periods"] else "–") for t in THR]
+                 str(t["periods"]) if t["periods"] else "–", str(t["thr"]) if t["periods"] else "–") for t in THR]
     hot = max(THR, key=lambda t: t["max"])
     calm = next((t for t in THR if t["opts"] == "no limit" and t["burners"] == hot["burners"]), None)
     THR_HTML = f'''<h2>Measured: throttling</h2>
-{table(["docker run …", "busy threads", "late p50 ms", "late p99 ms", "late max ms", "periods", "throttled", "throttled ms"], THR_ROWS, "xs")}
+{table(["docker run …", "busy threads", "late p50 ms", "late p99 ms", "late max ms", "periods", "throttled periods"], THR_ROWS, "xs")}
 <div class="two top" style="grid-template-columns:1fr 1.3fr;gap:3mm;margin-top:1mm">
   <p class="small muted">Throttle.java: busy threads use the quota while a timer thread sleeps 5 ms, 600 times, and records how late it wakes; periods and throttling from the container’s <code>cpu.stat</code> · {RUNNER}</p>
   {ticks([f"<b>{hot['opts']} with {hot['burners']} busy threads:</b> {hot['thr']} of {hot['periods']} periods throttled, and a 5 ms sleep woke up to <b>{hot['max']:.0f} ms</b> late"
