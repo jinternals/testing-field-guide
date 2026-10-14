@@ -16,8 +16,9 @@ import jdk.net.ExtendedSocketOptions;
 public final class Nagle {
   static final int ROUNDS = 200;
 
-  record Setup(String name, int clientWrites, boolean clientNoDelay,
-      int serverWrites, boolean serverNoDelay, int quickAck) {
+  record Setup(String name, int clientWrites,
+      boolean clientNoDelay, int serverWrites,
+      boolean serverNoDelay, int quickAck) {
     Setup(String name, int clientWrites, boolean clientNoDelay,
         int serverWrites, boolean serverNoDelay) {
       this(name, clientWrites, clientNoDelay, serverWrites,
@@ -31,15 +32,20 @@ public final class Nagle {
       return;
     }
     Setup[] setups = {
-        new Setup("client 2 writes, Nagle on", 2, false, 1, false),
-        new Setup("client 2 writes, TCP_NODELAY", 2, true, 1, false),
-        new Setup("client 1 write,  Nagle on", 1, false, 1, false),
-        new Setup("server 2 writes, Nagle on", 1, false, 2, false),
-        new Setup("server 2 writes, TCP_NODELAY", 1, false, 2, true),
-        new Setup("client 2 writes, QUICKACK once", 2, false, 1,
-            false, 1),
-        new Setup("client 2 writes, QUICKACK per read", 2, false, 1,
-            false, 2)};
+        new Setup("client 2 writes, Nagle on",
+            2, false, 1, false),
+        new Setup("client 2 writes, TCP_NODELAY",
+            2, true, 1, false),
+        new Setup("client 1 write,  Nagle on",
+            1, false, 1, false),
+        new Setup("server 2 writes, Nagle on",
+            1, false, 2, false),
+        new Setup("server 2 writes, TCP_NODELAY",
+            1, false, 2, true),
+        new Setup("client 2 writes, QUICKACK once",
+            2, false, 1, false, 1),
+        new Setup("client 2 writes, QUICKACK per read",
+            2, false, 1, false, 2)};
     for (Setup s : setups) {
       long[] rtt = run(s, 0, ROUNDS);
       Stats st = new Stats(rtt);
@@ -48,10 +54,12 @@ public final class Nagle {
     }
   }
 
-  static long[] run(Setup s, int port, int rounds) throws Exception {
+  static long[] run(Setup s, int port, int rounds)
+      throws Exception {
     var lo = InetAddress.getLoopbackAddress();
     try (var server = new ServerSocket(port, 50, lo)) {
-      Thread.ofPlatform().daemon().start(() -> serve(server, s));
+      Thread.ofPlatform().daemon()
+          .start(() -> serve(server, s));
       try (var socket = new Socket(lo, server.getLocalPort())) {
         socket.setTcpNoDelay(s.clientNoDelay());
         return exchange(socket, s.clientWrites(), rounds);
@@ -82,7 +90,7 @@ public final class Nagle {
         c.setOption(ExtendedSocketOptions.TCP_QUICKACK, true);
       }
       while (true) {
-        if (s.quickAck() == 2) {    // not sticky: before every read
+        if (s.quickAck() == 2) {  // not sticky: every read
           c.setOption(ExtendedSocketOptions.TCP_QUICKACK, true);
         }
         if (in.readNBytes(100).length < 100) {
@@ -96,7 +104,8 @@ public final class Nagle {
   }
 
   /** 100 bytes in one write, or 50 + 50 like headers + body. */
-  static void write(OutputStream out, int writes) throws Exception {
+  static void write(OutputStream out, int writes)
+      throws Exception {
     if (writes == 1) {
       out.write(new byte[100]);
     } else {

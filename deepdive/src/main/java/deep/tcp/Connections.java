@@ -15,7 +15,8 @@ import java.nio.file.Path;
  */
 public final class Connections {
   static final int N = 2_000;
-  static final InetAddress LO = InetAddress.getLoopbackAddress();
+  static final InetAddress LO =
+      InetAddress.getLoopbackAddress();
 
   public static void main(String[] args) throws Exception {
     System.out.println("ip_local_port_range: "
@@ -56,7 +57,7 @@ public final class Connections {
           InputStream in = s.getInputStream();
           in.readNBytes(100);
           if (!clientClosesFirst) {
-            in.read();                  // wait for the server's FIN
+            in.read();          // wait for the server's FIN
           }
         }
       }
@@ -72,7 +73,8 @@ public final class Connections {
     String tw = port < 0 ? "" : String.format(
         "   TIME_WAIT: client side %d, server side %d",
         timeWait(port, false), timeWait(port, true));
-    System.out.printf("%-31s %7.1f µs per request%s%n", name, us, tw);
+    System.out.printf("%-31s %7.1f µs per request%s%n",
+        name, us, tw);
   }
 
   /**
@@ -80,7 +82,8 @@ public final class Connections {
    * A dual-stack JVM's sockets are listed in tcp6, as
    * ::ffff:127.0.0.1, so read both tables.
    */
-  static long timeWait(int port, boolean local) throws Exception {
+  static long timeWait(int port, boolean local)
+      throws Exception {
     String hex = String.format(":%04X", port);
     long n = 0;
     for (String table : new String[] {"tcp", "tcp6"}) {
@@ -107,7 +110,8 @@ public final class Connections {
     try (Socket c = server.accept()) {
       c.setTcpNoDelay(true);
       byte[] b;
-      while ((b = c.getInputStream().readNBytes(100)).length == 100) {
+      var in = c.getInputStream();
+      while ((b = in.readNBytes(100)).length == 100) {
         c.getOutputStream().write(b);
       }
     } catch (Exception e) {
@@ -115,13 +119,15 @@ public final class Connections {
     }
   }
 
-  static void oneEach(ServerSocket server, boolean serverCloses) {
+  static void oneEach(ServerSocket server,
+      boolean serverCloses) {
     while (!server.isClosed()) {
       try (Socket c = server.accept()) {
         c.setTcpNoDelay(true);
-        c.getOutputStream().write(c.getInputStream().readNBytes(100));
+        var in = c.getInputStream();
+        c.getOutputStream().write(in.readNBytes(100));
         if (!serverCloses) {
-          c.getInputStream().read();    // wait for the client's FIN
+          in.read();            // wait for the client's FIN
         }
       } catch (Exception e) {
         // server closed

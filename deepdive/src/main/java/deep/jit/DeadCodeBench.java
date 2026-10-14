@@ -36,7 +36,7 @@ public class DeadCodeBench {
 
   @Benchmark
   public double returned() {
-    return Math.log(x);              // JMH consumes return values
+    return Math.log(x);           // JMH consumes the result
   }
 
   @Benchmark
@@ -46,7 +46,7 @@ public class DeadCodeBench {
 
   @Benchmark
   public double constant() {
-    return Math.log(CONSTANT);       // may be folded at compile time
+    return Math.log(CONSTANT);    // foldable at compile time?
   }
 
   @Benchmark

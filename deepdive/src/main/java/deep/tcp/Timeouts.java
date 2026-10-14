@@ -23,7 +23,8 @@ import java.util.concurrent.TimeoutException;
  * TCP handshake never completes.
  */
 public final class Timeouts {
-  static final InetAddress LO = InetAddress.getLoopbackAddress();
+  static final InetAddress LO =
+      InetAddress.getLoopbackAddress();
   static final long GIVE_UP_S = 5;
 
   public static void main(String[] args) throws Exception {
@@ -49,8 +50,8 @@ public final class Timeouts {
     call(name, "127.0.0.1:" + port, connect, request);
   }
 
-  static void call(String name, String hostPort, Duration connect,
-      Duration request) throws Exception {
+  static void call(String name, String hostPort,
+      Duration connect, Duration request) throws Exception {
     var client = HttpClient.newBuilder();
     if (connect != null) {
       client.connectTimeout(connect);
@@ -64,7 +65,8 @@ public final class Timeouts {
     String result;
     try {
       var r = client.build().sendAsync(req.build(),
-          BodyHandlers.ofString()).get(GIVE_UP_S, TimeUnit.SECONDS);
+          BodyHandlers.ofString())
+          .get(GIVE_UP_S, TimeUnit.SECONDS);
       result = "returned " + r.statusCode() + ", body "
           + r.body().length() + " bytes";
     } catch (TimeoutException e) {
@@ -80,9 +82,11 @@ public final class Timeouts {
     long t0 = System.nanoTime();
     try (var s = new Socket(LO, port)) {
       s.setSoTimeout(1000);
-      s.getOutputStream().write("GET / HTTP/1.1\r\n\r\n".getBytes());
+      s.getOutputStream()
+          .write("GET / HTTP/1.1\r\n\r\n".getBytes());
       byte[] all = s.getInputStream().readAllBytes();
-      print(name, t0, "returned " + all.length + " bytes, no error");
+      print(name, t0,
+          "returned " + all.length + " bytes, no error");
     }
   }
 

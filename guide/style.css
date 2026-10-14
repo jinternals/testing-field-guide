@@ -277,3 +277,10 @@ p + p{margin-top:1.4mm}
 .idx{line-height:1.27;font-size:7.1pt}
 .idx .L{margin:1.1mm 0 .2mm;font-size:10pt}
 .toc-item{line-height:1.3}
+/* deep-dive book */
+.srcs{font-size:6.6pt;line-height:1.45;color:var(--ink2);margin-top:2.2mm;border-top:1px solid var(--line);padding-top:1.3mm}
+.srcs b{font-size:6pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:1.2mm}
+.mech{background:#fff;border:1px solid var(--line);border-top:2.5px solid var(--accent);border-radius:5px;padding:2.4mm 3mm}
+.mech h3{font-family:var(--serif);font-size:10.5pt;font-weight:600;margin-bottom:1mm}
+.mech .rfc{font-size:7.6pt;color:var(--ink2);border-left:2px solid var(--line2);padding-left:2mm;margin:1.2mm 0}
+.mech p{font-size:8pt;line-height:1.45}

@@ -13,7 +13,8 @@ public final class Stats {
 
   /** Nearest-rank percentile, in milliseconds. */
   public double ms(double percentile) {
-    int rank = (int) Math.ceil(percentile / 100 * values.length);
+    int rank =
+        (int) Math.ceil(percentile / 100 * values.length);
     return values[Math.max(rank, 1) - 1] / 1e6;
   }
 
@@ -26,7 +27,8 @@ public final class Stats {
   }
 
   public long countAbove(double ms) {
-    return Arrays.stream(values).filter(v -> v > ms * 1e6).count();
+    return Arrays.stream(values).filter(v -> v > ms * 1e6)
+        .count();
   }
 
   public String line() {

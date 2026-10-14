@@ -39,7 +39,8 @@ public final class GcLatency {
       latency[i] = System.nanoTime() - due;
     }
     Stats st = new Stats(latency);
-    System.out.printf("%d operations  p50 %.3f  p99 %.3f  p99.9 %.3f"
+    System.out.printf(
+        "%d operations  p50 %.3f  p99 %.3f  p99.9 %.3f"
         + "  max %.3f ms%n", total, st.ms(50), st.ms(99),
         st.ms(99.9), st.maxMs());
   }

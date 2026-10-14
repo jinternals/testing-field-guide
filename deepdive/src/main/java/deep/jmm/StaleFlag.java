@@ -1,9 +1,9 @@
 package deep.jmm;
 
 /**
- * A thread spins until another thread sets a flag. With a plain
- * field the JIT may read it once and loop forever; with volatile
- * every read must see the latest write.
+ * A thread spins until another thread sets a flag. With a
+ * plain field the JIT may read it once and loop forever; with
+ * volatile every read must see the latest write.
  */
 public final class StaleFlag {
   static boolean plain;
@@ -12,7 +12,7 @@ public final class StaleFlag {
   public static void main(String[] args) throws Exception {
     System.out.println("plain field:    " + stops(false));
     System.out.println("volatile field: " + stops(true));
-    System.exit(0);                 // the stuck spinner never ends
+    System.exit(0);           // the stuck spinner never ends
   }
 
   static String stops(boolean useVolatile) throws Exception {
@@ -29,7 +29,7 @@ public final class StaleFlag {
     });
     spinner.setDaemon(true);
     spinner.start();
-    Thread.sleep(1_000);            // let the JIT compile the loop
+    Thread.sleep(1_000);      // let the JIT compile the loop
     if (useVolatile) {
       marked = true;
     } else {

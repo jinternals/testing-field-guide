@@ -4,18 +4,19 @@ import deep.Stats;
 import java.util.Arrays;
 
 /**
- * A service that answers in 1 ms, except that it stalls for 1 s
- * once (from second 2 to second 3 of a 10 s run). Measured three
- * ways: a closed loop (send the next request when the last one
- * returns); the same data with HdrHistogram's correction; and an
- * open loop that keeps a schedule of one request every 2 ms and
- * measures from the time each request was due.
+ * A service that answers in 1 ms, except that it stalls for
+ * 1 s once (from second 2 to second 3 of a 10 s run). Measured
+ * three ways: a closed loop (send the next request when the
+ * last one returns); the same data with HdrHistogram's
+ * correction; and an open loop that keeps a schedule of one
+ * request every 2 ms and measures from the time each request
+ * was due.
  */
 public final class CoordinatedOmission {
   static final long RUN_NS = 10_000_000_000L;
   static final long STALL_FROM = 2_000_000_000L;
   static final long STALL_TO = 3_000_000_000L;
-  static final long INTERVAL = 2_000_000L;         // 500 per second
+  static final long INTERVAL = 2_000_000L;   // 500 per second
   static long start;
 
   public static void main(String[] args) throws Exception {
@@ -28,7 +29,7 @@ public final class CoordinatedOmission {
   static void serve() throws InterruptedException {
     long now = System.nanoTime() - start;
     if (now >= STALL_FROM && now < STALL_TO) {
-      Thread.sleep((STALL_TO - now) / 1_000_000 + 1);   // the stall
+      Thread.sleep((STALL_TO - now) / 1_000_000 + 1);  // stall
     } else {
       Thread.sleep(1);
     }
@@ -53,7 +54,7 @@ public final class CoordinatedOmission {
     return Arrays.copyOf(out, n);
   }
 
-  /** Requests are due every 2 ms; latency counts from due time. */
+  /** Requests are due every 2 ms; latency from due time. */
   static long[] openLoop() throws Exception {
     int total = (int) (RUN_NS / INTERVAL);
     long[] out = new long[total];
@@ -80,7 +81,8 @@ public final class CoordinatedOmission {
     for (long v : values) {
       out = grow(out, n);
       out[n++] = v;
-      for (long m = v - INTERVAL; m >= INTERVAL; m -= INTERVAL) {
+      for (long m = v - INTERVAL; m >= INTERVAL;
+          m -= INTERVAL) {
         out = grow(out, n);
         out[n++] = m;
       }

@@ -16,7 +16,8 @@ public final class VirtualThreads {
         + ", carrier threads (availableProcessors): "
         + Runtime.getRuntime().availableProcessors());
     time("10,000 tasks, 200 platform threads", 10_000,
-        Executors.newFixedThreadPool(200), VirtualThreads::block);
+        Executors.newFixedThreadPool(200),
+        VirtualThreads::block);
     time("10,000 tasks, virtual thread each", 10_000,
         Executors.newVirtualThreadPerTaskExecutor(),
         VirtualThreads::block);
@@ -35,7 +36,7 @@ public final class VirtualThreads {
       for (int i = 0; i < tasks; i++) {
         ex.submit(task);
       }
-    }                                       // close() waits for all
+    }                               // close() waits for all
     System.out.printf("%-36s %6.2f s%n", name,
         (System.nanoTime() - t0) / 1e9);
   }

@@ -24,7 +24,8 @@ public final class CpuPool {
     }
   }
 
-  static void run(int threads, long iterations) throws Exception {
+  static void run(int threads, long iterations)
+      throws Exception {
     long t0 = System.nanoTime();
     long[] done = new long[TASKS];
     try (var pool = Executors.newFixedThreadPool(threads)) {
@@ -34,7 +35,7 @@ public final class CpuPool {
         fs.add(pool.submit(() -> {
           long start = System.nanoTime();
           work(iterations);
-          done[n] = System.nanoTime() - start;  // start → done
+          done[n] = System.nanoTime() - start;
         }));
       }
       for (Future<?> f : fs) {
@@ -43,8 +44,9 @@ public final class CpuPool {
     }
     double totalMs = (System.nanoTime() - t0) / 1e6;
     Stats st = new Stats(done);
-    System.out.printf("%8d %10.0f %10.0f %16.1f %16.1f%n", threads,
-        totalMs, TASKS / (totalMs / 1e3), st.ms(50), st.ms(99));
+    System.out.printf("%8d %10.0f %10.0f %16.1f %16.1f%n",
+        threads, totalMs, TASKS / (totalMs / 1e3),
+        st.ms(50), st.ms(99));
   }
 
   static volatile long sink;
