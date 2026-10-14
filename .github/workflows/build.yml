@@ -213,8 +213,27 @@ jobs:
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout --orphan ci-logs-ops && git rm -rqf --cached . && git add -f logs && git commit -qm "Ops logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-ops
 
+  deepdive:                           # the experiments behind the deep-dive book
+    runs-on: ubuntu-latest
+    defaults: { run: { shell: 'bash -eo pipefail {0}' } }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with: { distribution: temurin, java-version: '21', cache: maven }
+      - run: command -v tcpdump || (sudo apt-get update -q && sudo apt-get install -yq tcpdump)
+      - name: Run every experiment
+        run: bash deepdive/run.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with: { name: logs-deepdive, path: logs }
+      - name: Publish logs to the ci-logs-deepdive branch
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git checkout --orphan ci-logs-deepdive && git rm -rqf --cached . && git add -f logs && git commit -qm "Deep-dive logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-deepdive
+
   guide:                              # rebuilds the PDF from this run's outputs
-    needs: [maven, gradle, spring, extras, shard, ops]
+    needs: [maven, gradle, spring, extras, shard, ops, deepdive]
     runs-on: ubuntu-latest
     concurrency: { group: guide, cancel-in-progress: false }
     defaults: { run: { shell: 'bash -eo pipefail {0}' } }
