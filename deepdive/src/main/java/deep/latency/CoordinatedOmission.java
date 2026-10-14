@@ -96,8 +96,10 @@ public final class CoordinatedOmission {
 
   static void report(String name, long[] v) {
     Stats st = new Stats(v);
-    System.out.printf("%-26s %6d samples  p50 %7.2f  p99 %7.2f"
-        + "  p99.9 %7.2f  max %7.2f ms%n", name, v.length,
-        st.ms(50), st.ms(99), st.ms(99.9), st.maxMs());
+    System.out.printf("%-26s %6d samples  p50 %7.2f"
+        + "  p90 %7.2f  p99 %7.2f  p99.9 %7.2f  p99.99 %7.2f"
+        + "  max %7.2f ms%n",
+        name, v.length, st.ms(50), st.ms(90), st.ms(99),
+        st.ms(99.9), st.ms(99.99), st.maxMs());
   }
 }

@@ -185,9 +185,15 @@ for b in re.finditer(r"\[OK\] shop\.RacyCounterTest\n(?:(?!\[OK\]).)*?Compilatio
     cfg.append((b.group(1), b.group(2), "stress" if "Stress" in b.group(3) else "–", float(b.group(4))))
 cfg = sorted(set(cfg), key=lambda r: r[3])
 lo, hi = cfg[0], cfg[-1]
-jc_secs = re.search(r"Total time:\s+([\d.]+) s", JC).group(1)
+_tt = re.search(r"Total time:\s+(?:(\d+):(\d+) min|([\d.]+) s)", JC)
+jc_secs = f"{int(_tt.group(1)) * 60 + int(_tt.group(2))}" if _tt.group(1) else _tt.group(3)
 nproc = olog("jcstress-nproc.txt").strip()
-CFG_ROWS = [(a, b, s, f"{p:.2f}%") for a, b, s, p in cfg]
+_by = {}
+for a, b, _s, p in cfg:                       # one row per pair of compilers; forks and stress modes as a range
+    _by.setdefault((a, b), []).append(p)
+_ord = {"Interpreter": 0, "C1": 1, "C2": 2}
+CFG_ROWS = [(a, b, str(len(v)), f"{min(v):.2f}%" if len(v) == 1 else f"{min(v):.2f}–{max(v):.2f}%")
+            for (a, b), v in sorted(_by.items(), key=lambda kv: (_ord.get(kv[0][0], 9), _ord.get(kv[0][1], 9)))]
 atomic_out = ATOMIC_ALL if ATOMIC_ALL else "(not in this log)"
 page("jcstress", f'''
 {sub(K4, "Concurrency bugs: jcstress", C4)}
@@ -197,12 +203,12 @@ page("jcstress", f'''
   {code(jfile("concurrency/src/main/java/shop/AtomicCounterTest.java", "/** The fix"), "AtomicCounterTest.java", cls="xs")}
 </div>
 <div style="margin-top:2mm">
-  {code("RacyCounterTest — results across all configurations\n  RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION\n" + RACY_ALL + "\n\nAtomicCounterTest — results across all configurations\n  RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION\n" + atomic_out, f"real output · jcstress 0.16 · mvn compile exec:exec (-m quick) · GitHub Actions, {nproc} CPUs · {jc_secs} s", kind="plain", cls="xs out")}
+  {code("RacyCounterTest — results across all configurations\n  RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION\n" + RACY_ALL + "\n\nAtomicCounterTest — results across all configurations\n  RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION\n" + atomic_out, f"real output · jcstress 0.16 · mvn compile exec:exec (-m quick) · GitHub Actions, {nproc} CPUs · whole run {jc_secs} s", kind="plain", cls="xs out")}
 </div>
 <div class="two top" style="grid-template-columns:1fr 1.1fr;gap:3mm;margin-top:2mm">
   <div>
     <h2 style="margin-top:0">Lost updates, by JIT mode</h2>
-    {table(["Actor 1", "Actor 2", "Stress", "Lost"], CFG_ROWS, "xs")}
+    {table(["Actor 1", "Actor 2", "Forks", "Lost"], CFG_ROWS, "xs")}
   </div>
   {ticks([f"<b>{lost.group(1)} lost updates</b> in {total_racy:,} runs ({lost.group(2)}%). The rate depended on how each actor was compiled: from {lo[3]:.2f}% to {hi[3]:.2f}%.",
           "<code>ACCEPTABLE_INTERESTING</code> reports an outcome but passes; <code>FORBIDDEN</code> fails the run — so the atomic version guards the fix.",

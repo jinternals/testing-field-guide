@@ -40,8 +40,8 @@ async def main():
             return out; }""")
         print("auto-fitted:", fitted)
         for r in await pg.evaluate(CHECK):
-            hard = r["id"] != "p-cover" and (r["spare_mm"] < 0 or r["right_over_mm"] > 0.5 or r["clipped_pre"] or r["overflow"])
-            flag = hard or (r["id"] != "p-cover" and r["spare_mm"] > 25)
+            hard = r["id"] not in ("p-cover", "p-dcover") and (r["spare_mm"] < 0 or r["right_over_mm"] > 0.5 or r["clipped_pre"] or r["overflow"])
+            flag = hard or (r["id"] not in ("p-cover", "p-dcover") and r["spare_mm"] > 25)
             if hard:
                 PROBLEMS.append(r["id"])
             print(("!! " if flag else "   ") + str(r))

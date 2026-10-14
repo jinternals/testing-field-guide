@@ -1,22 +1,28 @@
 package deep.tcp;
 
-import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 2,000 request/response exchanges over one kept-alive
- * connection, then over a new connection each, closed first by
- * the client and then by the server. Counts TIME_WAIT sockets
- * in the kernel's own table, /proc/net/tcp (state 06).
+ * Request/response over one kept-alive connection, then over a
+ * new connection each time, closed four ways. Afterwards it
+ * counts sockets by state in the kernel's own tables,
+ * /proc/net/tcp and tcp6: 05 = FIN_WAIT2, 06 = TIME_WAIT,
+ * 08 = CLOSE_WAIT.
  */
 public final class Connections {
   static final int N = 2_000;
   static final InetAddress LO =
       InetAddress.getLoopbackAddress();
+
+  enum Close {
+    CLIENT_FIRST, SERVER_FIRST, CLIENT_RESET, SERVER_NEVER
+  }
 
   public static void main(String[] args) throws Exception {
     System.out.println("ip_local_port_range: "
@@ -24,8 +30,9 @@ public final class Connections {
     System.out.println("tcp_tw_reuse:        "
         + sysctl("net/ipv4/tcp_tw_reuse"));
     keepAlive();
-    perRequest(true);
-    perRequest(false);
+    for (Close c : Close.values()) {
+      perRequest(c);
+    }
   }
 
   static void keepAlive() throws Exception {
@@ -39,50 +46,55 @@ public final class Connections {
           s.getInputStream().readNBytes(100);
         }
       }
-      report("one kept-alive connection", t0, server, -1);
+      report("one kept-alive connection", t0, -1);
     }
   }
 
-  static void perRequest(boolean clientClosesFirst)
-      throws Exception {
+  static void perRequest(Close how) throws Exception {
     try (var server = new ServerSocket(0, 512, LO)) {
       int port = server.getLocalPort();
-      Thread.ofPlatform().daemon().start(
-          () -> oneEach(server, !clientClosesFirst));
+      Thread.ofPlatform().daemon()
+          .start(() -> oneEach(server, how));
       long t0 = System.nanoTime();
       for (int i = 0; i < N; i++) {
         try (var s = new Socket(LO, port)) {
           s.setTcpNoDelay(true);
+          if (how == Close.CLIENT_RESET) {
+            s.setSoLinger(true, 0);       // close() sends RST
+          }
           s.getOutputStream().write(new byte[100]);
-          InputStream in = s.getInputStream();
+          var in = s.getInputStream();
           in.readNBytes(100);
-          if (!clientClosesFirst) {
+          if (how == Close.SERVER_FIRST) {
             in.read();          // wait for the server's FIN
           }
         }
       }
       Thread.sleep(200);
-      report(clientClosesFirst ? "new connection, client closes"
-          : "new connection, server closes", t0, server, port);
+      report("new connection, " + how.name().toLowerCase()
+          .replace('_', ' '), t0, port);
     }
   }
 
-  static void report(String name, long t0, ServerSocket server,
-      int port) throws Exception {
+  static void report(String name, long t0, int port)
+      throws Exception {
     double us = (System.nanoTime() - t0) / 1e3 / N;
-    String tw = port < 0 ? "" : String.format(
-        "   TIME_WAIT: client side %d, server side %d",
-        timeWait(port, false), timeWait(port, true));
+    String states = port < 0 ? "" : String.format(
+        "   TIME_WAIT %d/%d  CLOSE_WAIT %d/%d  FIN_WAIT2 %d/%d"
+            + " (client/server)",
+        count("06", port, false), count("06", port, true),
+        count("08", port, false), count("08", port, true),
+        count("05", port, false), count("05", port, true));
     System.out.printf("%-31s %7.1f µs per request%s%n",
-        name, us, tw);
+        name, us, states);
   }
 
   /**
-   * TIME_WAIT entries whose local (or remote) port is port.
+   * Sockets in a state whose local (or remote) port is port.
    * A dual-stack JVM's sockets are listed in tcp6, as
    * ::ffff:127.0.0.1, so read both tables.
    */
-  static long timeWait(int port, boolean local)
+  static long count(String state, int port, boolean local)
       throws Exception {
     String hex = String.format(":%04X", port);
     long n = 0;
@@ -93,7 +105,7 @@ public final class Connections {
       }
       n += Files.readAllLines(p).stream()
           .skip(1).map(l -> l.trim().split("\\s+"))
-          .filter(f -> f[3].equals("06"))
+          .filter(f -> f[3].equals(state))
           .filter(f -> (local ? f[1] : f[2]).endsWith(hex))
           .count();
     }
@@ -119,18 +131,24 @@ public final class Connections {
     }
   }
 
-  static void oneEach(ServerSocket server,
-      boolean serverCloses) {
+  static void oneEach(ServerSocket server, Close how) {
+    List<Socket> neverClosed = new ArrayList<>();
     while (!server.isClosed()) {
-      try (Socket c = server.accept()) {
+      try {
+        Socket c = server.accept();
         c.setTcpNoDelay(true);
         var in = c.getInputStream();
         c.getOutputStream().write(in.readNBytes(100));
-        if (!serverCloses) {
+        if (how == Close.SERVER_NEVER) {
+          neverClosed.add(c);           // a leak: never closed
+          continue;
+        }
+        if (how != Close.SERVER_FIRST) {
           in.read();            // wait for the client's FIN
         }
+        c.close();
       } catch (Exception e) {
-        // server closed
+        // server closed, or the client reset
       }
     }
   }

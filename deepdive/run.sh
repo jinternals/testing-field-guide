@@ -43,6 +43,7 @@ $J deep.latency.CoordinatedOmission | tee $L/co.txt
 
 echo "== 6 JIT"
 $J deep.jit.WarmUp | tee $L/warmup.txt
+java -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E " (Tier3InvocationThreshold|Tier4InvocationThreshold|Tier3BackEdgeThreshold|Tier4BackEdgeThreshold|TieredStopAtLevel|CICompilerCount|ReservedCodeCacheSize) " | tee $L/jit-flags.txt
 java -Xint -Dstdout.encoding=UTF-8 -cp $CP deep.jit.WarmUp | tee $L/warmup-xint.txt
 java -XX:+PrintCompilation -cp $CP deep.jit.WarmUp | grep "sumOfSquares" | tee $L/warmup-compilation.txt
 $J org.openjdk.jmh.Main DeadCodeBench -f 1 -wi 3 -w 1 -i 5 -r 1 2>&1 | tee $L/jmh-full.txt | tail -12
@@ -70,6 +71,13 @@ for flags in "-XX:ActiveProcessorCount=4" "-XX:MaxRAMPercentage=75"; do
   printf "%-48s " "docker run --cpus=1 --memory=1g … java $flags" | tee -a $L/containers.txt
   docker run --rm --cpus=1 --memory=1g -v "$PWD/src/main/java/deep/box:/p:ro" $img \
     java $flags /p/Resources.java 2>/dev/null | tee -a $L/containers.txt
+done
+
+: > $L/throttle.txt
+for run in ":0" "--cpus=0.5:0" ":3" "--cpus=2:3" "--cpus=0.5:3"; do
+  opts=${run%%:*}; burners=${run##*:}
+  printf "%-22s " "docker run $opts" | tee -a $L/throttle.txt
+  docker run --rm $opts -v "$PWD/src/main/java/deep/box:/p:ro" $img java /p/Throttle.java $burners 2>/dev/null | tee -a $L/throttle.txt
 done
 
 echo "== 10 memory model"

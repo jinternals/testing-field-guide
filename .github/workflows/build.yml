@@ -271,21 +271,34 @@ jobs:
             python check_versions.py    # every version in the text is the one the builds use
             python standalone.py        # one-file HTML: fonts and images inlined
           } 2>&1 | tee ../guide-logs/guide-build.log
+      - name: Build the deep-dive book and check it
+        working-directory: guide
+        run: |
+          { python builddeep.py
+            python render.py deep
+            python contrast.py deep
+            python claims_deep.py       # fails if a measured conclusion no longer holds
+            python pdfcheck.py deep
+            python standalone.py deep
+          } 2>&1 | tee ../guide-logs/deep-build.log
       - uses: actions/upload-artifact@v7
         with: { name: Testing-Field-Guide, path: "guide/Testing-Field-Guide.*" }
+      - uses: actions/upload-artifact@v7
+        with: { name: Java-Performance-Deep-Dives, path: "guide/Java-Performance-Deep-Dives.*" }
       - name: Publish to docs/
         if: github.ref == 'refs/heads/main'
         run: |
           cp guide/Testing-Field-Guide.pdf guide/Testing-Field-Guide.html docs/
+          cp guide/Java-Performance-Deep-Dives.pdf guide/Java-Performance-Deep-Dives.html docs/
           git config user.name ci; git config user.email ci@users.noreply.github.com
-          git add docs/Testing-Field-Guide.pdf docs/Testing-Field-Guide.html guide/img   # screenshots are regenerated too
+          git add docs/Testing-Field-Guide.pdf docs/Testing-Field-Guide.html docs/Java-Performance-Deep-Dives.pdf docs/Java-Performance-Deep-Dives.html guide/img   # screenshots are regenerated too
           git diff --cached --quiet && { echo "nothing changed"; exit 0; }
-          git commit -qm "Rebuild the guide (PDF and HTML) from run ${GITHUB_RUN_NUMBER} [skip ci]"
+          git commit -qm "Rebuild the guide and the deep dives (PDF and HTML) from run ${GITHUB_RUN_NUMBER} [skip ci]"
           git pull -q --rebase --autostash origin main && git push -q origin HEAD:main
       - name: Publish the guide log to the ci-logs-guide branch    # last: it leaves main
         if: always() && github.ref == 'refs/heads/main'
         run: |
           mkdir -p guide-logs && cp guide/java/*-output*.txt guide/java/*.csv guide-logs/ 2>/dev/null || true
-          cp guide/Testing-Field-Guide.pdf guide-logs/ 2>/dev/null || true     # also when a check failed
+          cp guide/Testing-Field-Guide.pdf guide/Java-Performance-Deep-Dives.pdf guide-logs/ 2>/dev/null || true     # also when a check failed
           git config user.name ci; git config user.email ci@users.noreply.github.com
           git checkout -q --orphan ci-logs-guide && git rm -rqf --cached . && git add -f guide-logs && git commit -qm "Guide logs ${GITHUB_SHA::7}" && git push -fq origin ci-logs-guide

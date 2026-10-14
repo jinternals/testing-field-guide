@@ -4,7 +4,7 @@ import importlib, sys
 import lib
 lib.FOOT_LINKS = [("toc", "↑ Contents"), ("method", "How it was measured"), ("dindex", "Index")]
 lib.META_DESC = "Java performance deep dives: TCP, timeouts, pools, latency, JIT, GC, virtual threads, containers, memory model"
-MODULES = ["dd_front", "dd1", "dd2", "dd3", "dd4", "dd5", "dd_back"]
+MODULES = ["dd1", "dd2", "dd3", "dd4", "dd5", "dd_front", "dd_back"]
 for m in MODULES:
     try:
         importlib.import_module(m)
