@@ -26,6 +26,12 @@ $J deep.tcp.Connections | tee $L/connections.txt
 
 echo "== 3 timeouts"
 sudo iptables -A OUTPUT -d 192.0.2.1 -j DROP           # packets to it vanish: no reply, no refusal
+# in the background: connect() with no timeout, and the kernel's SYN retransmission count each second
+$J deep.tcp.SynRetries > $L/syn.txt &
+SYN=$!
+( start=$(date +%s); while kill -0 $SYN 2>/dev/null; do
+    echo "$(( $(date +%s) - start )) s  $(ss -tno state syn-sent 'dst 192.0.2.1' | tail -n +2 | grep -o 'timer:([^)]*)')"
+    sleep 1; done ) > $L/syn-ss.txt &
 $J deep.tcp.Timeouts | tee $L/timeouts.txt
 
 echo "== 4 pools"
@@ -69,4 +75,7 @@ done
 echo "== 10 memory model"
 : > $L/staleflag.txt
 for i in 1 2 3 4 5; do $J deep.jmm.StaleFlag | tee -a $L/staleflag.txt; done
+echo "== 3 (cont.) the background connect without a timeout"
+wait $SYN || true; sleep 1
+cat $L/syn.txt; awk '{print $3}' $L/syn-ss.txt | uniq -c | head -20
 echo "done"

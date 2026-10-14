@@ -68,11 +68,11 @@ HZ = MACHINE["hz"]
 SC = MACHINE["sysctl"]
 
 LINUX = [
-    ("<code>TCP_DELACK_MIN</code>", "HZ/25 jiffies = <b>40 ms</b>", "shortest delayed-ACK timer", "include/net/tcp.h"),
-    ("<code>TCP_DELACK_MAX</code>", "HZ/5 jiffies = <b>200 ms</b>", "longest delayed-ACK timer", "include/net/tcp.h"),
-    ("<code>TCP_MAX_QUICKACKS</code>", "<b>16</b>", "ACKs sent at once in quick-ACK mode", "include/net/tcp.h"),
-    ("<code>tcp_pingpong_thresh</code>", f"<b>{SC.get('tcp_pingpong_thresh', '?')}</b> on the runner", "replies before a connection counts as request/response", "ip-sysctl.rst"),
-    ("<code>CONFIG_HZ</code>", f"<b>{HZ}</b> on the runner", f"timer tick: {1000 / HZ:g} ms", "/boot/config"),
+    ('<code style="white-space:nowrap">TCP_DELACK_MIN</code>', "HZ/25 jiffies = <b>40 ms</b>", "shortest delayed-ACK timer", "include/net/tcp.h"),
+    ('<code style="white-space:nowrap">TCP_DELACK_MAX</code>', "HZ/5 jiffies = <b>200 ms</b>", "longest delayed-ACK timer", "include/net/tcp.h"),
+    ('<code style="white-space:nowrap">TCP_MAX_QUICKACKS</code>', "<b>16</b>", "ACKs sent at once in quick-ACK mode", "include/net/tcp.h"),
+    ('<code style="white-space:nowrap">tcp_pingpong_thresh</code>', f"<b>{SC.get('tcp_pingpong_thresh', '?')}</b> on the runner", "replies before a connection counts as request/response", "ip-sysctl.rst"),
+    ('<code style="white-space:nowrap">CONFIG_HZ</code>', f"<b>{HZ}</b> on the runner", f"timer tick: {1000 / HZ:g} ms", "/boot/config"),
 ]
 
 page("nagle", f'''
@@ -91,11 +91,12 @@ page("nagle", f'''
   </div>
 </div>
 <h2>The stall, captured</h2>
-<div class="two top" style="grid-template-columns:1.45fr 1fr;gap:3mm">
-  {seq_diagram()}
+{seq_diagram()}
+<div class="two top" style="grid-template-columns:1.25fr 1fr;gap:3mm;margin-top:1.5mm">
+  {table(["Linux", "Value", "Meaning", "Where"], LINUX, "xs")}
   <div>
-    {table(["Linux", "Value", "Meaning", "Where"], LINUX, "xs")}
-    <p class="small" style="margin-top:1.2mm">{WAIT_MS:.1f} ms = the 40 ms minimum plus timer granularity ({1000 / HZ:g} ms ticks here). The <b>first</b> request on the connection did not wait: its ACK came back in {FIRST_ACK_MS:.3f} ms, while the connection was still in quick-ACK mode.</p>
+    <p class="small">The capture shows the second request on the connection. <b>{WAIT_MS:.1f} ms</b> = the 40 ms minimum delayed-ACK timer plus timer granularity ({1000 / HZ:g} ms ticks on this kernel).</p>
+    <p class="small" style="margin-top:1.2mm">The <b>first</b> request did not wait: its ACK came back in {FIRST_ACK_MS:.3f} ms, while the new connection was still in quick-ACK mode. After one request and its reply, Linux treats the connection as ping-pong and starts delaying ACKs.</p>
   </div>
 </div>
 {src("RFC 9293 (2022) §3.7.4, §3.8.6.3", "RFC 896 (Nagle, 1984)", "Linux include/net/tcp.h, net/ipv4/tcp_input.c, tcp_output.c (tcp_event_data_sent: pingpong)", "Documentation/networking/ip-sysctl.rst", "OpenJDK 21 StandardSocketOptions.TCP_NODELAY", f"capture: tcpdump on loopback, {RUNNER}")}
@@ -108,13 +109,16 @@ WHO = [
     ("Tomcat", "on", "<code>SocketProperties.tcpNoDelay = TRUE</code>"),
     ("Jetty 12", "on", "<code>ServerConnector._acceptedTcpNoDelay = true</code>"),
     ("Netty 4.1", "on", "<code>DefaultSocketChannelConfig</code>: on unless Android"),
+    ("PostgreSQL JDBC", "on", "<code>PGProperty.TCP_NO_DELAY</code>: default <code>\"true\"</code>"),
+    ("Lettuce (Redis)", "on", "<code>SocketOptions.DEFAULT_SO_NO_DELAY = true</code>"),
+    ("Kafka client", "on", "<code>Selector</code>: <code>socket.setTcpNoDelay(true)</code>"),
 ]
 res_rows = [(f"{r[0].strip()}", f"{float(r[1]):.2f}", f"{float(r[3]):.2f}", f"{float(r[4]):.2f}", f"{r[5]} of {r[6]}") for r in ROWS]
 
 page("nagle2", f'''
 {sub(K, f"Measured: 200 requests, {len(ROWS)} ways to send them", CN)}
 <p class="lede-s">One connection on loopback, 200 request/response round trips of 100 bytes each way. The only differences: whether a message is written in one <code>write()</code> or two (like headers, then body), on which side, and which socket option is set.</p>
-<div class="two top" style="grid-template-columns:1fr 1.15fr;gap:3mm">
+<div class="two top" style="grid-template-columns:1.12fr 1fr;gap:3mm">
   {code(dsrc("tcp/Nagle.java", "  static long[] exchange", "\n  }") + "\n\n" + dsrc("tcp/Nagle.java", "  /** 100 bytes in one write", "\n  }"), "Nagle.java — the client side", cls="xs")}
   <div>
     {table(["Setup", "p50 ms", "p99 ms", "max ms", "over 30 ms"], res_rows, "xs")}
@@ -132,5 +136,5 @@ page("nagle2", f'''
           "<b>The receiver can help:</b> <code>jdk.net.ExtendedSocketOptions.TCP_QUICKACK</code> (Linux, JDK 10+) asks for an immediate ACK — but it is not sticky. Set once, nothing changed; set before every read, the stall was gone.",
           "<b>Test for it:</b> a latency test on loopback shows it at once — on Linux, a p50 just over 40 ms with idle CPUs. The main guide’s load test found exactly this in the JDK <code>HttpServer</code>."], CN)}
 </div>
-{src("OpenJDK 21: jdk/internal/net/http/PlainHttpConnection.java, sun/net/httpserver/ServerConfig.java, ServerImpl.java, java/net/StandardSocketOptions.java, jdk/net/ExtendedSocketOptions.java (TCP_QUICKACK, since 10)", "Tomcat main: SocketProperties.java", "Jetty 12.0: ServerConnector.java", "Netty 4.1: DefaultSocketChannelConfig.java", "results: deepdive/logs/nagle.txt")}
+{src("OpenJDK 21: jdk/internal/net/http/PlainHttpConnection.java, sun/net/httpserver/ServerConfig.java, ServerImpl.java, java/net/StandardSocketOptions.java, jdk/net/ExtendedSocketOptions.java (TCP_QUICKACK, since 10)", "Tomcat main: SocketProperties.java", "Jetty 12.0: ServerConnector.java", "Netty 4.1: DefaultSocketChannelConfig.java", "pgjdbc: PGProperty.java", "Lettuce: SocketOptions.java", "Kafka: clients/…/network/Selector.java", "results: deepdive/logs/nagle.txt")}
 ''', chapter=K, color=CN)
