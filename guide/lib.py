@@ -202,6 +202,10 @@ FONTS = "\n".join([
     ff("Fraunces", f"{FS}/fraunces/files/fraunces-latin-400-italic.woff2", 400, "italic"),
 ])
 
+FOOT_LINKS = [("toc", "↑ Contents"), ("cheat", "Cheat sheet"), ("index", "Index")]
+META_DESC = "Testing Java applications: a field guide"
+
+
 def render(title, running):
     nums = {k: i for i, (k, *_) in enumerate(PAGES, 1)}
     body, n = [], len(PAGES)
@@ -209,12 +213,12 @@ def render(title, running):
         chrome = ""
         if i > 1:
             chrome = f'''<div class="run-head" aria-hidden="true"><span class="rh-l" style="--accent:{color}">{chapter}</span><span class="rh-r">{running}</span></div>
-            <div class="run-foot-l"><a href="#p-toc">↑ Contents</a> · <a href="#p-cheat">Cheat sheet</a> · <a href="#p-index">Index</a></div>
+            <div class="run-foot-l">{" · ".join(f'<a href="#p-{k}">{t}</a>' for k, t in FOOT_LINKS)}</div>
             <div class="run-foot" aria-hidden="true"><span class="pn" style="--accent:{color}">{i:02d}</span><span class="pt">/ {n:02d}</span></div>'''
         body.append(f'<section class="page {cls}" id="p-{key}">{chrome}<div class="inner" style="--accent:{color}">{content}</div></section>')
     css = (ROOT / "style.css").read_text()
     doc = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{title}</title>
-<meta name="author" content="Field Guide series"><meta name="description" content="Testing Java applications: a field guide">
+<meta name="author" content="Field Guide series"><meta name="description" content="{META_DESC}">
 <style>{FONTS}\n{css}</style></head><body>{"".join(body)}</body></html>'''
     doc = re.sub(r"@@(\w+)@@", lambda m: f"{nums[m.group(1)]:02d}" if m.group(1) in nums else (STRICT and (_ for _ in ()).throw(KeyError(m.group(1))) or "??"), doc)
     return doc, nums, [(nums[k], bm) for k, *_rest, bm in PAGES if bm]

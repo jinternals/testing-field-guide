@@ -4,7 +4,9 @@ from pypdf import PdfReader, PdfWriter
 from pypdf.generic import NameObject, BooleanObject, DictionaryObject
 
 ROOT = pathlib.Path(__file__).parent
-RAW, OUT = ROOT / "raw.pdf", ROOT / "Testing-Field-Guide.pdf"
+from books import book
+B = book()
+RAW, OUT = ROOT / B["raw"], ROOT / B["pdf"]
 
 CHECK = """() => {
   const out=[];
@@ -27,7 +29,7 @@ async def main():
         # measured 500.0 px there and 482.8 px with this build, so code blocks no longer fit.
         b = await p.chromium.launch(channel="chromium")
         pg = await b.new_page()
-        await pg.goto((ROOT / "guide.html").as_uri())
+        await pg.goto((ROOT / B["html"]).as_uri())
         await pg.evaluate("document.fonts.ready")
         await pg.wait_for_timeout(300)
         fitted = await pg.evaluate("""() => { const out=[]; document.querySelectorAll('.code pre').forEach(p=>{
@@ -51,16 +53,14 @@ asyncio.run(main())
 
 w = PdfWriter(clone_from=PdfReader(RAW))
 parent = None
-for line in (ROOT / "outline.txt").read_text().splitlines():
+for line in (ROOT / B["outline"]).read_text().splitlines():
     pnum, title = line.split("\t", 1)
     if title.startswith("  "):
         w.add_outline_item(title.strip(), int(pnum) - 1, parent=parent)
     else:
         parent = w.add_outline_item(title.replace("&amp;", "&"), int(pnum) - 1)
 w.page_mode = "/UseOutlines"
-w.add_metadata({"/Title": "Testing Java Applications — Field Guide",
-                "/Subject": "Unit, integration, API, end-to-end, performance and security testing in Java with JUnit 6, Mockito and AssertJ",
-                "/Keywords": "Java, testing, JUnit 6, Mockito, AssertJ, TDD, mutation testing, Testcontainers"})
+w.add_metadata({"/Title": B["title"], "/Subject": B["subject"], "/Keywords": B["keywords"]})
 root = w._root_object
 root[NameObject("/Lang")] = __import__("pypdf").generic.TextStringObject("en")
 vp = DictionaryObject(); vp[NameObject("/DisplayDocTitle")] = BooleanObject(True)

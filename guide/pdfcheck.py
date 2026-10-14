@@ -1,8 +1,9 @@
 """PDF checks: every font embedded, tagged, document language set."""
 import sys
+from books import book
 from pypdf import PdfReader
 
-r = PdfReader("Testing-Field-Guide.pdf")
+r = PdfReader(book()["pdf"])
 root = r.trailer["/Root"]
 problems = []
 if root.get("/Lang") != "en":

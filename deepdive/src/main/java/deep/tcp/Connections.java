@@ -75,14 +75,26 @@ public final class Connections {
     System.out.printf("%-31s %7.1f µs per request%s%n", name, us, tw);
   }
 
-  /** TIME_WAIT entries whose local (or remote) port is port. */
+  /**
+   * TIME_WAIT entries whose local (or remote) port is port.
+   * A dual-stack JVM's sockets are listed in tcp6, as
+   * ::ffff:127.0.0.1, so read both tables.
+   */
   static long timeWait(int port, boolean local) throws Exception {
     String hex = String.format(":%04X", port);
-    return Files.readAllLines(Path.of("/proc/net/tcp")).stream()
-        .skip(1).map(l -> l.trim().split("\\s+"))
-        .filter(f -> f[3].equals("06"))
-        .filter(f -> (local ? f[1] : f[2]).endsWith(hex))
-        .count();
+    long n = 0;
+    for (String table : new String[] {"tcp", "tcp6"}) {
+      Path p = Path.of("/proc/net/" + table);
+      if (!Files.exists(p)) {
+        continue;                   // no IPv6 on this machine
+      }
+      n += Files.readAllLines(p).stream()
+          .skip(1).map(l -> l.trim().split("\\s+"))
+          .filter(f -> f[3].equals("06"))
+          .filter(f -> (local ? f[1] : f[2]).endsWith(hex))
+          .count();
+    }
+    return n;
   }
 
   static String sysctl(String key) throws Exception {

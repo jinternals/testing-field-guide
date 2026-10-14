@@ -1,4 +1,5 @@
 """WCAG 2.1 AA contrast audit of every text element in guide.html (HTML text and SVG text)."""
+from books import book
 import asyncio, json, pathlib
 from playwright.async_api import async_playwright
 JS = r"""() => {
@@ -65,7 +66,7 @@ JS = r"""() => {
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch(channel="chromium"); pg = await b.new_page()
-        await pg.goto((pathlib.Path("guide.html").resolve()).as_uri()); await pg.evaluate("document.fonts.ready")
+        await pg.goto((pathlib.Path(book()["html"]).resolve()).as_uri()); await pg.evaluate("document.fonts.ready")
         res = await pg.evaluate(JS); await b.close()
     print(len(res), "failing text elements")
     from collections import Counter

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import jdk.net.ExtendedSocketOptions;
 
 /**
  * One request/response on one connection, 200 times. A request
@@ -16,7 +17,13 @@ public final class Nagle {
   static final int ROUNDS = 200;
 
   record Setup(String name, int clientWrites, boolean clientNoDelay,
-      int serverWrites, boolean serverNoDelay) {}
+      int serverWrites, boolean serverNoDelay, int quickAck) {
+    Setup(String name, int clientWrites, boolean clientNoDelay,
+        int serverWrites, boolean serverNoDelay) {
+      this(name, clientWrites, clientNoDelay, serverWrites,
+          serverNoDelay, 0);
+    }
+  }
 
   public static void main(String[] args) throws Exception {
     if (args.length > 0 && args[0].equals("trace")) {
@@ -28,11 +35,15 @@ public final class Nagle {
         new Setup("client 2 writes, TCP_NODELAY", 2, true, 1, false),
         new Setup("client 1 write,  Nagle on", 1, false, 1, false),
         new Setup("server 2 writes, Nagle on", 1, false, 2, false),
-        new Setup("server 2 writes, TCP_NODELAY", 1, false, 2, true)};
+        new Setup("server 2 writes, TCP_NODELAY", 1, false, 2, true),
+        new Setup("client 2 writes, QUICKACK once", 2, false, 1,
+            false, 1),
+        new Setup("client 2 writes, QUICKACK per read", 2, false, 1,
+            false, 2)};
     for (Setup s : setups) {
       long[] rtt = run(s, 0, ROUNDS);
       Stats st = new Stats(rtt);
-      System.out.printf("%-30s %s  over 30 ms: %d of %d%n",
+      System.out.printf("%-35s %s  over 30 ms: %d of %d%n",
           s.name(), st.line(), st.countAbove(30), ROUNDS);
     }
   }
@@ -67,7 +78,16 @@ public final class Nagle {
       c.setTcpNoDelay(s.serverNoDelay());
       InputStream in = c.getInputStream();
       OutputStream out = c.getOutputStream();
-      while (in.readNBytes(100).length == 100) {
+      if (s.quickAck() == 1) {      // once, right after accept
+        c.setOption(ExtendedSocketOptions.TCP_QUICKACK, true);
+      }
+      while (true) {
+        if (s.quickAck() == 2) {    // not sticky: before every read
+          c.setOption(ExtendedSocketOptions.TCP_QUICKACK, true);
+        }
+        if (in.readNBytes(100).length < 100) {
+          break;
+        }
         write(out, s.serverWrites());
       }
     } catch (Exception e) {

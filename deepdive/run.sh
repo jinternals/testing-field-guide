@@ -9,7 +9,8 @@ CP=target/classes:$(cat cp.txt)
 J="java -Dstdout.encoding=UTF-8 -cp $CP"
 
 echo "== the machine"
-{ echo "kernel $(uname -r)"; echo "cpus $(nproc)"; java -version 2>&1 | head -1
+{ echo "kernel $(uname -r)"; echo "cpus $(nproc)"; lscpu | grep -m1 "Model name" | sed 's/  */ /g'
+  java -version 2>&1 | head -1
   for k in ip_local_port_range tcp_tw_reuse tcp_syn_retries tcp_pingpong_thresh tcp_fin_timeout; do
     printf "%-22s %s\n" "$k" "$(tr '\t' ' ' < /proc/sys/net/ipv4/$k)"; done
   grep -E "^CONFIG_HZ=" /boot/config-$(uname -r) || true; } | tee $L/machine.txt
@@ -56,11 +57,11 @@ echo "== 9 containers"
 img=eclipse-temurin:21-jdk; docker pull -q $img > /dev/null
 : > $L/containers.txt
 for opts in "" "--cpus=2 --memory=2g" "--cpus=1 --memory=1g" "--cpus=0.5 --memory=512m"; do
-  printf "docker run %-28s " "$opts" | tee -a $L/containers.txt
+  printf "%-48s " "docker run $opts" | tee -a $L/containers.txt
   docker run --rm $opts -v "$PWD/src/main/java/deep/box:/p:ro" $img java /p/Resources.java 2>/dev/null | tee -a $L/containers.txt
 done
 for flags in "-XX:ActiveProcessorCount=4" "-XX:MaxRAMPercentage=75"; do
-  printf "%-39s " "--cpus=1 --memory=1g $flags" | tee -a $L/containers.txt
+  printf "%-48s " "docker run --cpus=1 --memory=1g … java $flags" | tee -a $L/containers.txt
   docker run --rm --cpus=1 --memory=1g -v "$PWD/src/main/java/deep/box:/p:ro" $img \
     java $flags /p/Resources.java 2>/dev/null | tee -a $L/containers.txt
 done

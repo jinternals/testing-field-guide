@@ -2,6 +2,7 @@
 Collects x.y.z versions from the guide's text (outside code listings, which are cut from the real
 files anyway) and fails if one does not appear in a build file, the wrapper, the workflow, or a
 dependency list the CI builds printed. After a Dependabot bump, this points at the stale sentence."""
+from books import book
 import html, pathlib, re, sys
 
 G = pathlib.Path(__file__).parent
@@ -15,7 +16,7 @@ known = set()
 for p in sources:
     known |= set(VER.findall(p.read_text(errors="replace")))
 
-page = (G / "guide.html").read_text()
+page = (G / book()["html"]).read_text()
 text = re.sub(r"<pre.*?</pre>|<style.*?</style>|<script.*?</script>", " ", page, flags=re.S)
 text = html.unescape(re.sub(r"<[^>]+>", " ", text))
 stated = {}
