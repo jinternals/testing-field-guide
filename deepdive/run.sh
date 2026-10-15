@@ -80,6 +80,15 @@ for run in ":0" "--cpus=0.5:0" ":3" "--cpus=2:3" "--cpus=0.5:3"; do
   docker run --rm $opts -v "$PWD/src/main/java/deep/box:/p:ro" $img java /p/Throttle.java $burners 2>/dev/null | tee -a $L/throttle.txt
 done
 
+echo "== 11 Kafka"
+docker run -d --rm --name kafka -p 9092:9092 apache/kafka:4.3.1 > /dev/null    # one broker, KRaft, image defaults
+for i in $(seq 1 60); do docker logs kafka 2>&1 | grep -q "Kafka Server started" && break; sleep 1; done
+for mode in producer fetch partitions pollinterval; do
+  $J deep.kafka.KafkaLatency $mode 2> $L/kafka-$mode.err | tee $L/kafka-$mode.txt
+done
+docker logs kafka 2>&1 | grep -E "Kafka version|Kafka Server started" | head -3 > $L/kafka-broker.txt
+docker stop kafka > /dev/null
+
 echo "== 10 memory model"
 : > $L/staleflag.txt
 for i in 1 2 3 4 5; do $J deep.jmm.StaleFlag | tee -a $L/staleflag.txt; done
