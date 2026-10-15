@@ -26,7 +26,7 @@ OUT = [
 ]
 
 page("txtrap", f'''
-{sub(CHAP, "The <code>@Transactional</code> test trap", C)}
+{sub(CHAP, "<code>@Transactional</code> in tests: what the rollback hides", C)}
 <p class="lede-s"><code>@DataJpaTest</code> — and any test class annotated <code>@Transactional</code> — runs each test inside a transaction that is <b>rolled back</b>. That keeps the database clean, but nothing is ever committed, so two kinds of production bug can’t happen in the test. The same code, run both ways against real PostgreSQL:</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   {code(RB, "rolled back · OrderRepositoryIT", cls="xs", right=f"{runs.get('OrderRepositoryIT', '?')} ✔")}

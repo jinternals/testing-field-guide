@@ -45,7 +45,7 @@ page("whattotest", f'''
 <p class="lede-s">Testing everything equally is the most expensive way to get mediocre safety. Spend tests where a bug would hurt most, write each one so it is worth keeping, and pick the cheapest kind of test that can catch the bug you are worried about.</p>
 <h2>Four properties of a valuable test</h2>
 <div class="four">{"".join(f'<div class="card"><b class="h">{a}</b>{b}</div>' for a, b in PILLARS)}</div>
-<p class="small muted" style="margin-top:1.2mm">From Vladimir Khorikov, <i>Unit Testing: Principles, Practices, and Patterns</i> (2020). You can’t max all four: end-to-end tests catch much but are slow; tests of a tiny function are fast but catch little. <b>Survives refactoring</b> is the one never to trade away — so <b>assert on outcomes</b> (return values, saved state, messages sent), not on which private steps produced them.</p>
+<p class="small muted" style="margin-top:1.2mm">From Vladimir Khorikov, <i>Unit Testing: Principles, Practices, and Patterns</i> (2020). Khorikov’s names: protection against regressions, resistance to refactoring, fast feedback, maintainability; he argues the first three can’t all be maximised at once. To keep a test resistant to refactoring, <b>assert on outcomes</b> (return values, saved state, messages sent), not on which private steps produced them.</p>
 <div class="two top" style="grid-template-columns:1.25fr 1fr;gap:3mm;margin-top:2mm">
   <div>
     <h2 style="margin-top:0">Test by risk</h2>

@@ -107,7 +107,7 @@ STEPS = [("1 · Find the change point", "Where must the new behaviour go?"),
          ("5 · Change and refactor", "Now change the code; the tests tell you what else moved.")]
 page("legacy", f'''
 {sub("03 · Test doubles &amp; Mockito", "Testing legacy code: characterization tests &amp; seams", C3)}
-<p class="lede-s">Legacy code is code without tests (Michael Feathers, <i>Working Effectively with Legacy Code</i>, 2004). You can’t refactor it safely, and you can’t test it without refactoring. The way out: make the <b>smallest</b> safe change that lets a test in, record what the code does, then improve it.</p>
+<p class="lede-s">Code without tests is hard to change safely, and often hard to test without changing it first. Michael Feathers’ <i>Working Effectively with Legacy Code</i> (2004) is a book about that problem; its chapters include “The Seam Model” and “Dependency-Breaking Techniques”. The way out: make the <b>smallest</b> safe change that lets a test in, record what the code does, then improve it.</p>
 <div class="five-steps" style="display:grid;grid-template-columns:repeat(5,1fr);gap:2mm">{"".join(f'<div class="card"><b class="h">{a}</b>{b}</div>' for a, b in STEPS)}</div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2.4mm">
   {code(jx("extras/src/main/java/shop/legacy/InvoiceReport.java", "/**", "\n}"), "InvoiceReport.java — the only change: a Clock seam", cls="xs")}

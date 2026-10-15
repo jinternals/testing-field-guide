@@ -16,7 +16,7 @@
  ],
  [
   "Layout",
-  "Automated scan of every page on each build: no clipped code, no overflowing boxes, no large empty areas — the build fails otherwise. Pages also reviewed visually.",
+  "Automated scan of every page on each build: clipped code or an overflowing box fails the build; large empty areas are reported. Pages also reviewed visually.",
   "<span class='yes'>Pass</span>"
  ],
  [

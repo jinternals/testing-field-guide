@@ -76,7 +76,7 @@ LATE = [
     ("<code>evictingMakesTheNextCallFetchAgain</code>", "after <code>priceChanged()</code> the next call still got the cached value: <code>Wanted 2 times … But was 1 time</code>", "the <code>DEL</code> was still on its way"),
 ]
 page("cacheasync", f'''
-{sub(K4, "The flaky cache test that was right", C4)}
+{sub(K4, "A flaky cache test: Redis writes are asynchronous", C4)}
 <p class="lede-s">Our first <code>PriceCacheIT</code> failed now and then. Repeated in CI it failed <b>6 times in 30 runs</b>: sometimes the value was not in Redis right after <code>price()</code> returned; sometimes the call after <code>@CacheEvict</code> still got the old value. It was not a test bug. Since Spring Data Redis 4.0, with Lettuce, <code>put</code>, <code>evict</code> and <code>clear</code> are <b>asynchronous</b>: they “may complete after the calling method returns”.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   {code(sx("cache/AsyncCacheWritesIT.java", "/** The library"), "AsyncCacheWritesIT — the default, measured", cls="xs", right=ran("AsyncCacheWritesIT"))}

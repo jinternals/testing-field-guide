@@ -50,11 +50,11 @@ TOC = [
     ("03", "Test doubles &amp; Mockito", "Replacing collaborators — and when not to", CH["3"],
         [("The five test doubles", "doubles"), ("Mockito in practice", "mockito"), ("Failure paths, call order &amp; the API", "mockito2"), ("Spies, statics, errors &amp; pitfalls", "mockpit"), ("Legacy code: characterization tests &amp; seams", "legacy")]),
     ("04", "Integration &amp; API testing", "Real HTTP, Spring Boot slices, containers and flaky tests", CH["4"],
-        [("Testing a real HTTP API", "integ"), ("Spring Boot, Testcontainers &amp; contracts", "spring"), ("The @Transactional test trap", "txtrap"), ("Database migrations on real data", "migrations"), ("Messaging &amp; async with Kafka", "messaging"), ("E-mail with GreenMail", "email"), ("AWS and Azure emulators", "cloud"), ("Secured APIs: mock auth server", "authmock"), ("Other services: WireMock &amp; retries", "wiremock"), ("Contract testing with Pact", "contract"), ("Time, randomness, threads &amp; flaky tests", "tricky")]),
+        [("Testing a real HTTP API", "integ"), ("Spring Boot, Testcontainers &amp; contracts", "spring"), ("@Transactional in tests: what rollback hides", "txtrap"), ("Database migrations on real data", "migrations"), ("Messaging &amp; async with Kafka", "messaging"), ("E-mail with GreenMail", "email"), ("AWS and Azure emulators", "cloud"), ("Secured APIs: mock auth server", "authmock"), ("Other services: WireMock &amp; retries", "wiremock"), ("Contract testing with Pact", "contract"), ("Time, randomness, threads &amp; flaky tests", "tricky")]),
     ("05", "Beyond correctness", "End-to-end, performance and security testing", CH["5"],
         [("End-to-end &amp; UI testing", "e2e"), ("Performance testing", "perf"), ("Security &amp; resilience testing", "sec")]),
     ("06", "Quality &amp; process", "TDD, measuring test quality, CI and a self-check", CH["6"],
-        [("Test-driven development", "tdd"), ("Coverage &amp; mutation testing", "cov"), ("Mutation testing with PIT — for real", "pit"), ("PIT in your build and CI", "pitci"), ("Coverage for unit and integration tests", "itcov"), ("Finding duplicate &amp; redundant tests", "dupes"), ("Build plugins for test quality", "plugins"), ("Architecture tests with ArchUnit", "archunit"), ("Parallel tests: threads vs JVMs", "parallel"), ("Singleton containers per JVM", "singleton"), ("Faster builds: cache &amp; shards", "speed"), ("Build tools &amp; CI pipelines", "ci"), ("Team testing conventions", "conventions"), ("Check your understanding", "interview")]),
+        [("Test-driven development", "tdd"), ("Coverage &amp; mutation testing", "cov"), ("Mutation testing with PIT: a worked run", "pit"), ("PIT in your build and CI", "pitci"), ("Coverage for unit and integration tests", "itcov"), ("Finding duplicate &amp; redundant tests", "dupes"), ("Build plugins for test quality", "plugins"), ("Architecture tests with ArchUnit", "archunit"), ("Parallel tests: threads vs JVMs", "parallel"), ("Singleton containers per JVM", "singleton"), ("Faster builds: cache &amp; shards", "speed"), ("Build tools &amp; CI pipelines", "ci"), ("Team testing conventions", "conventions"), ("Check your understanding", "interview")]),
 ]
 toc_html = ""
 for num, title, subt, col, items in TOC:
@@ -126,11 +126,11 @@ page("why", f'''
   <div class="concept-card" style="--accent:{CH['1']}"><div class="cc-h">Fast feedback</div><p>Find a mistake seconds after you make it, not weeks later in production.</p></div>
   <div class="concept-card" style="--accent:{CH['1']}"><div class="cc-h">Safe change</div><p>Refactor or upgrade a library and know at once whether behaviour changed.</p></div>
   <div class="concept-card" style="--accent:{CH['1']}"><div class="cc-h">Living docs</div><p>A test named <code>declinedPaymentSavesNothing</code> states a rule that can’t go out of date.</p></div>
-  <div class="concept-card" style="--accent:{CH['1']}"><div class="cc-h">Better design</div><p>Code that is hard to test is usually too coupled. Tests push you to inject dependencies.</p></div>
+  <div class="concept-card" style="--accent:{CH['1']}"><div class="cc-h">Better design</div><p>Testing a class in isolation needs its dependencies passed in, which keeps coupling visible.</p></div>
 </div>
 <h2>The kinds of tests</h2>
 <table class="tbl sm"><thead><tr><th>Kind</th><th>What it checks</th><th>Scope</th><th>Speed</th><th>Java tools</th></tr></thead><tbody>{kinds}</tbody></table>
-{note("Google’s <em>Software Engineering at Google</em> sorts tests by <b>size</b> instead of name: <b>small</b> tests run in one process, <b>medium</b> tests on one machine (they may call localhost), <b>large</b> tests anywhere. Size predicts speed and flakiness better than labels like “integration”, which teams define differently.", "info")}
+{note("Google’s <em>Software Engineering at Google</em> sorts tests by <b>size</b> instead of name: <b>small</b> tests run in one process, <b>medium</b> tests on one machine (they may call localhost), <b>large</b> tests anywhere. The book’s reason: “the most important qualities we want from our test suite are speed and determinism”, and “small tests, regardless of the scope, are almost always faster and more deterministic”.", "info")}
 <h2>Vocabulary</h2>
 <div class="gloss">{gl}</div>
 ''', chapter="01 · Foundations", color=CH["1"], bm="01 · Foundations")
@@ -175,12 +175,12 @@ page("pyramid", f'''
 {sub("01 · Foundations", "Pyramid, trophy &amp; what makes a good test", CH["1"])}
 {pyramid()}
 <div class="two" style="margin-top:1.5mm">
-  <p class="small"><b>The pyramid</b> says: write many fast unit tests, fewer integration tests and only a handful of end-to-end tests, because cost and flakiness grow as you go up. It came from Mike Cohn’s <em>Succeeding with Agile</em> (2009).</p>
-  <p class="small"><b>The trophy</b> moves the weight to integration tests, arguing they give the most confidence per test, with static analysis as the base. Both agree on the real rule: <b>push each check down to the cheapest level that can catch the bug.</b></p>
+  <p class="small"><b>The pyramid</b> says: write many fast unit tests, fewer integration tests and only a handful of end-to-end tests, because cost and flakiness grow as you go up. Mike Cohn described it in <em>Succeeding with Agile</em> (2009).</p>
+  <p class="small"><b>The trophy</b> (Kent C. Dodds, first drawn in a 2018 tweet) puts the most weight on integration tests, with static analysis as the base. Its premise: “The more your tests resemble the way your software is used, the more confidence they can give you.”</p>
 </div>
 <h2>FIRST: five properties of a good unit test</h2>
 <div class="five" style="display:grid;grid-template-columns:repeat(5,1fr);gap:2.4mm">{first}</div>
-<p class="small muted" style="margin-top:1mm">Acronym by Tim Ottinger and Brett Schuchert, popularised in Robert C. Martin’s <em>Clean Code</em>.</p>
+<p class="small muted" style="margin-top:1mm">Mnemonic devised by Brett Schuchert and Tim Ottinger; listed in chapter 9 of Robert C. Martin’s <em>Clean Code</em>.</p>
 <div class="two top">
   <div>
     <h2>Arrange · Act · Assert</h2>

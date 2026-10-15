@@ -62,8 +62,8 @@ checks = [("Unit tests", ["Business rules tested at every boundary", "Each test 
           ("Beyond", ["A few end-to-end journeys + prod smoke", "Load test with percentile targets", "SAST, SCA, DAST and access-control tests"])]
 ck = "".join(f'<div class="ck"><div class="ck-h">{t}</div>' + "".join(f'<div class="ck-i"><span class="box" aria-hidden="true"></span>{i}</div>' for i in items) + '</div>' for t, items in checks)
 refs = [("Beck 2002", "Test-Driven Development: By Example"), ("Meszaros 2007", "xUnit Test Patterns — the test double names"),
-        ("Fowler 2007", "Mocks Aren’t Stubs — martinfowler.com"), ("Cohn 2009", "Succeeding with Agile — the test pyramid"),
-        ("Dodds 2018", "The Testing Trophy — kentcdodds.com"), ("Robinson 2006", "Consumer-Driven Contracts — martinfowler.com"),
+        ("Fowler 2004/2007", "Mocks Aren’t Stubs — martinfowler.com"), ("Cohn 2009", "Succeeding with Agile — the test pyramid"),
+        ("Dodds 2018/2021", "The Testing Trophy (tweet 2018, article 2021) — kentcdodds.com"), ("Robinson 2006", "Consumer-Driven Contracts — martinfowler.com"),
         ("DeMillo et al. 1978", "Hints on Test Data Selection — mutation testing"), ("Winters et al. 2020", "Software Engineering at Google, ch. 11–14"),
         ("docs.junit.org", "JUnit 6 user guide &amp; release notes"), ("site.mockito.org", "Mockito javadoc (incl. agent setup)"),
         ("assertj.github.io", "AssertJ core documentation"), ("docs.spring.io", "Spring Boot 4 testing reference"),

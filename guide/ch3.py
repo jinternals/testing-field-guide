@@ -70,8 +70,8 @@ page("mockito", f'''
   <div class="vs"><div class="vs-pair">
       <div class="vs-side"><b>Classicist</b><p>Use real objects where possible, doubles only for awkward ones (network, time, mail).</p></div>
       <div class="vs-mid">vs</div>
-      <div class="vs-side"><b>Mockist</b><p>Replace every collaborator with a mock and verify the conversation between objects.</p></div>
-    </div><div class="vs-rule">From Fowler’s <em>Mocks Aren’t Stubs</em> (2007). Most teams lean classicist.</div></div>
+      <div class="vs-side"><b>Mockist</b><p>Use a mock for any collaborator with interesting behaviour, and verify the calls made to it.</p></div>
+    </div><div class="vs-rule">From Martin Fowler’s <em>Mocks Aren’t Stubs</em> (2004, revised 2007).</div></div>
   <div>{note("Mockito’s <code>mock()</code> can be a stub, spy or mock depending on use — the library blurs Meszaros’s names. The five kinds still help you decide what to check.", "info")}</div>
 </div>
 ''', chapter="03 · Test doubles &amp; Mockito", color=C)
@@ -81,7 +81,7 @@ RULES = [("Don’t mock what you don’t own", "Wrap a third-party client (Strip
          ("Matchers: all or nothing", "If one argument uses a matcher, every argument must: <code>eq(\"a\"), any()</code>, not <code>\"a\", any()</code> — Mockito throws <code>InvalidUseOfMatchersException</code>."),
          ("A mock returning a mock is a smell", "<code>when(a.getB().getC())</code> means the code reaches through objects. Pass what it needs directly."),
          ("Verify outcomes, not every call", "<code>verifyNoMoreInteractions</code> on every test makes harmless refactors fail. Verify the calls that matter."),
-         ("Too many mocks", "Five or more mocks in one test usually means the class does too much. Split it, or test a bigger unit with fakes.")]
+         ("Too many mocks", "Five or more mocks in one test means the class has many collaborators. Split it, or test a bigger unit with fakes.")]
 rules = "".join(f'<div class="card"><b class="h">{a}</b>{b}</div>' for a, b in RULES)
 
 page("mockito2", f'''
@@ -138,7 +138,7 @@ page("mockpit", f'''
 
 <div class="two top" style="margin-top:2.6mm;grid-template-columns:1fr 1.45fr">
   <div>
-    {note("Mockito 5’s default <b>inline mock maker</b> (final classes, <code>mockStatic</code>) attaches a Java agent at run time. JDK 21+ warns about that (JEP 451) and a future JDK may refuse it — load Mockito as an agent in the build instead. <code>@{argLine}</code> must already be defined (JaCoCo’s <code>prepare-agent</code> sets it; otherwise declare an empty <code>argLine</code> property).", "warn", "JDK 21+ warning")}
+    {note("Mockito 5’s default <b>inline mock maker</b> (final classes, <code>mockStatic</code>) attaches a Java agent at run time. JDK 21 warns about that; JEP 451 aims to disallow dynamic agent loading by default in a later release. Load Mockito as an agent in the build instead. <code>@{argLine}</code> must already be defined (JaCoCo’s <code>prepare-agent</code> sets it; otherwise declare an empty <code>argLine</code> property).", "warn", "JDK 21+ warning")}
   </div>
   {code(AGENT, "pom.xml — Mockito as a -javaagent (from Mockito’s docs)", kind="xml", cls="xs")}
 </div>

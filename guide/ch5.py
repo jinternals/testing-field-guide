@@ -111,7 +111,7 @@ page("perf", f'''
   <div>
     <h2 style="margin-top:0">Tools</h2>
     <table class="tbl xs"><tbody>{pt}</tbody></table>
-    {note("Report <b>percentiles</b>, not averages. p99 = 99% of requests were at least this fast; the slowest 1% is what your busiest users feel on every page that makes many calls.", "rule")}
+    {note("Report <b>percentiles</b>, not averages. p99 = 99% of requests were at least this fast. A page that makes 100 calls has a 1 − 0.99<sup>100</sup> ≈ 63% chance that at least one of them is slower than p99.", "rule")}
   </div>
 </div>
 <h2>A real load test — and what it found</h2>
@@ -121,7 +121,7 @@ page("perf", f'''
 </div>
 <table class="tbl xs" style="margin-top:2.4mm"><thead><tr><th>Run (10 s measured, after 3 s warm-up)</th><th class="c">req/s</th><th class="c">p50 ms</th><th class="c">p95 ms</th><th class="c">p99 ms</th><th class="c">max ms</th><th class="c">mean ms</th></tr></thead><tbody>{lt}</tbody></table>
 <div class="two top" style="margin-top:2mm">
-  <p class="small"><b>The finding.</b> Every request took about {P50_SLOW:.0f} ms — even with a single user, so it wasn’t load. Our handler sends the headers and the body as two separate small writes; with Nagle’s algorithm on, the second waits for the client’s delayed ACK — the classic Nagle/delayed-ACK stall. Starting the JVM with <code>-Dsun.net.httpserver.nodelay=true</code> (sets <code>TCP_NODELAY</code>) cut the single-user p50 from {P50_SLOW:.0f} ms to {P50_FAST:.2f} ms. No unit test could have found this. The companion book, <i>Java Performance Deep Dives</i>, takes this stall apart packet by packet.</p>
+  <p class="small"><b>The finding.</b> Every request took about {P50_SLOW:.0f} ms — even with a single user, so it wasn’t load. Our handler sends the headers and the body as two separate small writes; with Nagle’s algorithm on, the second waits for the client’s delayed ACK — the Nagle/delayed-ACK stall (the companion book’s chapter 1 measures it packet by packet). Starting the JVM with <code>-Dsun.net.httpserver.nodelay=true</code> (sets <code>TCP_NODELAY</code>) cut the single-user p50 from {P50_SLOW:.0f} ms to {P50_FAST:.2f} ms. No unit test could have found this. The companion book, <i>Java Performance Deep Dives</i>, takes this stall apart packet by packet.</p>
   <p class="small"><b>Little’s Law checks your numbers:</b> users in flight = throughput × time in system. 50 users ÷ {T50:,.0f} req/s = {50/T50*1000:.1f} ms (measured mean {M50:.1f} ms), and 50 ÷ {T50N:,.0f} = {50/T50N*1000:.1f} ms (measured {M50N:.1f} ms). If your tool’s numbers don’t satisfy it, the load generator itself is the bottleneck. These figures come from this guide’s 2-CPU sandbox: compare runs, not absolute numbers.</p>
 </div>
 {note("<b>Coordinated omission:</b> a closed-loop tool like this one stops sending while the server stalls, so slow periods produce fewer samples and percentiles look better than reality. Open-model tools (Gatling’s <code>constantUsersPerSec</code>, k6 arrival-rate executors) keep sending at a fixed rate.", "warn")}
@@ -163,8 +163,8 @@ page("sec", f'''
 </div>
 <div class="three">{ideas}</div>
 <div class="two top" style="margin-top:2.4mm">
-  {note("OWASP ranks <b>broken access control</b> as the top web application risk — for example one user reading another’s data by changing an ID. Scanners rarely find it, because they don’t know who should see what. Write explicit tests for it on every endpoint that takes an ID.", "warn")}
-  {note("Fail the build on <b>new</b> high-severity findings, not on the backlog — otherwise the first scan blocks everything and people switch it off.", "rule")}
+  {note("<b>Broken access control</b> is A01, the first entry, in the OWASP Top 10:2025 (and was in 2021) — for example one user reading another’s data by changing an ID. A scanner does not know which user may see which record; write explicit tests for it on every endpoint that takes an ID.", "warn")}
+  {note("Fail the build on <b>new</b> high-severity findings, and track the existing backlog separately, so that the first scan of an old code base does not block every build.", "rule")}
 </div>
 <h2>Resilience: test the failure, not just the success</h2>
 <div class="four">{chaos}</div>

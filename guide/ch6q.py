@@ -83,7 +83,7 @@ STATUS = [("KILLED", "a test failed — the bug was caught", "yes"), ("TIMED_OUT
 st = "".join(f'<tr><td class="hn">{a}</td><td>{b}</td><td class="c {"yes" if c == "yes" else ("no" if c == "no" else "")}">{c}</td></tr>' for a, b, c in STATUS)
 
 page("pit", f'''
-{sub("06 · Quality &amp; process", "Mutation testing with PIT — for real", C)}
+{sub("06 · Quality &amp; process", "Mutation testing with PIT: a worked run", C)}
 <p class="lede-s">We ran <b>PIT 1.30.0</b> with <b>pitest-junit5-plugin 1.2.3</b> on the shop example: every production class mutated with the DEFAULTS group, every unit and integration test run against each mutant. Below is what it found and how we fixed it.</p>
 <div class="two top" style="grid-template-columns:1fr 1.1fr;gap:3.5mm">
   <div>
