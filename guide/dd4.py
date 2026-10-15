@@ -32,11 +32,11 @@ thr = ""
 if FLAGS:
     thr = (f'<p class="small" style="margin-top:1mm">On the runner’s JVM: <code>Tier3InvocationThreshold</code> = {FLAGS.get("Tier3InvocationThreshold")}, '
            f'<code>Tier4InvocationThreshold</code> = {FLAGS.get("Tier4InvocationThreshold")}, <code>Tier4BackEdgeThreshold</code> = {FLAGS.get("Tier4BackEdgeThreshold")}, '
-           f'<code>CICompilerCount</code> = {FLAGS.get("CICompilerCount")} — from <code>-XX:+PrintFlagsFinal</code>. They are thresholds for counters scaled by the policy, not exact call counts.</p>')
+           f'<code>CICompilerCount</code> = {FLAGS.get("CICompilerCount")} — from <code>-XX:+PrintFlagsFinal</code>. They are not exact call counts: <code>compilationPolicy.hpp</code> compares the counters with each threshold multiplied by a scale factor that depends on the compile queues.</p>')
 
 page("jit", f'''
-{sub(K6, f"Warm-up: the same method, {interp / steady:.0f}× faster later", CJ)}
-<p class="lede-s">HotSpot starts every method in the interpreter, counts calls and loop iterations, and compiles the hot ones — first quickly with C1, collecting a profile, then again with C2 using that profile. Until then the code runs slower, sometimes much slower. A test or benchmark that measures the first calls measures the interpreter.</p>
+{sub(K6, "Tiered compilation and warm-up", CJ)}
+<p class="lede-s">HotSpot starts every method in the interpreter, counts calls and loop iterations, and compiles the hot ones — first quickly with C1, collecting a profile, then again with C2 using that profile. Measurements taken before the final version is installed include slower code: in the run below, the first two batches.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div>
     {table(["Level", "Code", "Used for"], TIERS, "xs")}
@@ -58,15 +58,15 @@ page("jit", f'''
     ("3", "flags: <code>%</code> on-stack replacement · <code>s</code> synchronized · <code>!</code> has exception handlers · <code>b</code> blocking compile · <code>n</code> native wrapper"),
     ("4", "tier, 0–4 (table above)"),
     ("5", "the method; <code>@ 11</code> after an OSR compile is the bytecode index of the loop it enters at; then the bytecode size"),
-    ("…", "<code>made not entrant</code>: new calls no longer use this code — a better tier replaced it, or an assumption it made was broken (deoptimisation)"),
+    ("…", "<code>made not entrant</code>: the method’s entry is patched so new calls no longer enter this code (<code>nmethod::make_not_entrant</code>). In the output above it follows the level 4 versions."),
 ], "xs")}
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   {ticks([f"<b>Interpreter only:</b> about {interp:.0f} µs per call. <b>Compiled:</b> about {steady:.1f} µs — {interp / steady:.0f}× faster, the same code.",
           f"<b>The first batches</b> ran at {WU[0][1]:.0f}–{max(v for _, v in WU[:3]):.0f} µs while compilation was under way."], CJ)}
-  {ticks(["<b>Warm up before you measure</b>, and keep measuring until the numbers are flat; or use JMH, which does both and forks a fresh JVM.",
-          "<b>Load tests:</b> discard the first minutes, or plot latency over time — a cold service after a deploy is slower, and that is worth knowing too."], CJ)}
+  {ticks(["<b>Exclude the warm-up from a measurement</b>, or report it separately: keep measuring until the values stop changing. JMH runs warm-up iterations (<code>-wi</code>) before measured ones and forks a fresh JVM (<code>-f</code>).",
+          "<b>In a load test, plot latency over time</b> rather than one percentile for the whole run, so the warm-up is visible."], CJ)}
 </div>
-{src("OpenJDK 21 hotspot/share/compiler/compilationPolicy.hpp (the five levels), compileTask.cpp (the print format)", "-XX:+PrintCompilation, -XX:+PrintFlagsFinal on the runner", "results: deepdive/logs/warmup*.txt, jit-flags.txt")}
+{src("OpenJDK 21 hotspot/share/compiler/compilationPolicy.hpp (the five levels), compileTask.cpp (the print format), code/nmethod.cpp (make_not_entrant)", "-XX:+PrintCompilation, -XX:+PrintFlagsFinal on the runner", "results: deepdive/logs/warmup*.txt, jit-flags.txt")}
 ''', chapter=K6, color=CJ, bm="06 · JIT and benchmarks")
 
 JMH = {}
@@ -100,7 +100,7 @@ log_v = verdict("discarded", "returned")
 const_folded = "constant" in JMH and JMH["constant"][0] - base <= 0.25 * (JMH["returned"][0] - base)
 findings = [f"<b>The empty baseline costs {base:.2f} ns</b>: the harness itself. Anything at that level did no work.",
             f"<b>Math.log, result unused</b>: {JMH['discarded'][0]:.2f} ns; returned {JMH['returned'][0]:.2f} ns; into a Blackhole {JMH['blackhole'][0]:.2f} ns — "
-            + say(log_v, "the unused call") + ("" if log_v == "removed" else " JMH’s classic dead-code sample (JMHSample_08, also <code>Math.log</code>) does not reproduce here."),
+            + say(log_v, "the unused call"),
             f"<b>Math.log of a static final constant</b>: {JMH['constant'][0]:.2f} ns — " + ("folded at compile time." if const_folded else "<b>not</b> folded here: it cost the same as the call on a field.")]
 if "sumDiscarded" in JMH:
     findings.append(f"<b>A pure loop summing 1,000 ints</b>: {JMH['sumDiscarded'][0]:.2f} ns unused, {JMH['sumReturned'][0]:.2f} ns returned — " + say(verdict("sumDiscarded", "sumReturned"), "the whole loop"))
@@ -109,7 +109,7 @@ if "mulDiscarded" in JMH:
 BENCH = dsrc("jit/DeadCodeBench.java", "@State")
 cut = BENCH.index("  @Benchmark\n  public void sumDiscarded")
 page("jit2", f'''
-{sub(K6, "Measured with JMH: when does the JIT throw your work away?", CJ)}
+{sub(K6, "Dead-code elimination and constant folding, measured with JMH", CJ)}
 <p class="lede-s">The JIT may remove code whose result is never used (dead-code elimination) and compute expressions on constants ahead of time (constant folding). A hand-written timing loop cannot tell; JMH can — compare with an empty baseline and hand results back.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   {code(BENCH[:cut], "DeadCodeBench.java (1/2)", cls="xs")}
@@ -126,7 +126,7 @@ page("jit2", f'''
   {ticks(["<b>Never trust a benchmark you have not seen fail:</b> add a baseline and a variant that should be eliminated."], CJ)}
   {ticks(["<b>Return results or use a Blackhole</b>, read inputs from <code>@State</code> fields, and let JMH fork a fresh JVM (<code>-f</code>)."], CJ)}
 </div>
-{src("JMH 1.37 (org.openjdk.jmh): Blackhole, @State, -f/-wi/-i options; JMHSample_08_DeadCode", "results: deepdive/logs/jmh.txt, jmh-full.txt")}
+{src("JMH 1.37 (org.openjdk.jmh): Blackhole, @State, -f/-wi/-i options", "results: deepdive/logs/jmh.txt, jmh-full.txt")}
 ''', chapter=K6, color=CJ)
 
 # ============================================================================
@@ -186,7 +186,7 @@ G1_WHAT = {
 ZGC_WHAT = {"Mark Start": "starts concurrent marking", "Mark End": "ends marking", "Relocate Start": "starts concurrent relocation"}
 g1k, zk = kinds(GC["G1"]), kinds(GC["ZGC"])
 G1_KIND_ROWS = [(k, str(c), f"{mx:.3f}", (f"{f}" if f else "–"), G1_WHAT.get(k, "")) for k, (c, mx, f) in g1k.items()]
-Z_KIND_ROWS = [(k, str(c), f"{mx:.3f}", ZGC_WHAT.get(k.split(" · ")[0], "")) for k, (c, mx, f) in zk.items()]
+Z_KIND_ROWS = [(k, str(c), f"{mx:.3f}", ) for k, (c, mx, f) in zk.items()]
 evac_failed = sum(f for _, _, f in g1k.values())
 full = [e for e in GC["G1"]["events"] if e[1] == "Full"]
 FULL_PHASES = []
@@ -203,13 +203,13 @@ evac_note = (f'<p class="small" style="margin-top:1mm"><b>Evacuation failure</b>
              'The tuning guide: G1 then hopes marking and mixed collections catch up; “if this assumption doesn’t hold, then G1 will eventually schedule a Full GC”'
              + (f' — which is what happened here: one full, in-place compaction of the heap ({FULL_HEAP}).' if full else '.') + '</p>') if evac_failed else ""
 page("gc", f'''
-{sub(K7, "Stop-the-world, or almost never", CJ)}
-<p class="lede-s">A garbage collector has to find live objects and make room. Some of that work needs every application thread stopped — a <b>pause</b>. G1, the default on a server-class machine, collects in regions and aims for short pauses, but copies live objects while the application waits. ZGC does that work concurrently, while the application runs, and stops it only briefly.</p>
+{sub(K7, "GC pauses: G1 and generational ZGC", CJ)}
+<p class="lede-s">A garbage collector has to find live objects and make room. Some of that work needs every application thread stopped — a <b>pause</b>. G1, the default on a server-class machine, copies live objects during its young and mixed pauses. ZGC copies them concurrently; Oracle’s JDK 21 GC tuning guide states “max pause times under a millisecond … Pause times are independent of heap size”.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:{CJ}">
     <h3>The collectors, as of JDK 21–24</h3>
     <p><b>G1</b>: default when the JVM sees at least 2 CPUs and about 1792 MB (chapter 9). Young and mixed collections copy live objects during pauses; marking of the old generation runs concurrently.</p>
-    <p style="margin-top:1mm"><b>Generational ZGC</b>: JEP 439, JDK 21, enabled with <code>-XX:+UseZGC -XX:+ZGenerational</code>; the default ZGC mode from JDK 23 (JEP 474); the only mode from JDK 24 (JEP 490). Marking and relocation run concurrently; the remaining pauses do not grow with the heap.</p>
+    <p style="margin-top:1mm"><b>Generational ZGC</b>: JEP 439, JDK 21, enabled with <code>-XX:+UseZGC -XX:+ZGenerational</code>; the default ZGC mode from JDK 23 (JEP 474); the only mode from JDK 24 (JEP 490). The tuning guide: “at the cost of some throughput”.</p>
   </div>
   {GC_CHART}
 </div>
@@ -221,7 +221,7 @@ page("gc", f'''
   {code(dsrc("gc/GcLatency.java", "    for (int i = 0; i < total; i++) {", "\n    }", dedent=4), "GcLatency.java — one operation due every 50 µs", cls="xs")}
   <p class="small">A live set of 400,000 × 1 KB arrays (≈ 400 MB in a 1 GB heap) that keeps changing — every operation replaces one, so old objects keep dying — plus 8 KB of garbage per operation. One operation is due every 50 µs for 15 s; latency counts from the due time, the open-loop measurement from chapter 5. Pauses come from each JVM’s own log (<code>-Xlog:gc,gc+phases</code>), from the moment measuring started.</p>
 </div>
-{src("JEP 439 (JDK 21), JEP 474 (JDK 23), JEP 490 (JDK 24)", "Java SE 21 HotSpot GC Tuning Guide, “Garbage-First (G1) Garbage Collector”", "OpenJDK 21 gcConfig.cpp, os.cpp (default selection)", f"run: {RUNNER}, -Xms1g -Xmx1g")}
+{src("JEP 439 (JDK 21), JEP 474 (JDK 23), JEP 490 (JDK 24)", "Java SE 21 HotSpot GC Tuning Guide: “Garbage-First (G1) Garbage Collector”, “Available Collectors”", "OpenJDK 21 gcConfig.cpp, os.cpp (default selection)", f"run: {RUNNER}, -Xms1g -Xmx1g")}
 ''', chapter=K7, color=CJ, bm="07 · GC pauses")
 
 g1, z = GC["G1"], GC["ZGC"]
@@ -238,18 +238,18 @@ if FULL_PHASES:
     <p class="small" style="margin-top:1mm">The full collection marked and compacted the whole heap while every application thread waited. Without it, G1’s longest pause was {max(no_full):.1f} ms.</p>
   </div>'''
 else:
-    anat = table(["ZGC pause", "Count", "Longest ms", "What it does"], Z_KIND_ROWS, "xs")
+    anat = table(["ZGC pause", "Count", "Longest ms"], Z_KIND_ROWS, "xs")
 page("gc2", f'''
-{sub(K7, "Measured: G1 and generational ZGC, same workload", CJ)}
+{sub(K7, "Measured: latency and pauses under one workload", CJ)}
 {table(["Collector", "Operations", "p50 ms", "p99 ms", "p99.9 ms", "max ms", "pauses", "longest pause ms", "pause total ms"], GC_ROWS, "xs")}
 <p class="small muted" style="margin-top:1mm">Real output and GC logs · {RUNNER}</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   {ticks([f"<b>The median was the same</b> ({g1['p50']:.3f} ms against {z['p50']:.3f} ms): most operations never meet a pause.",
           f"<b>The tail was not:</b> G1’s p99.9 was {g1['p999']:.1f} ms and its worst operation waited {g1['max']:.1f} ms; with ZGC p99.9 was {z['p999']:.3f} ms and the worst {z['max']:.1f} ms.",
           f"<b>The GC logs agree:</b> G1’s longest pause was {max(g1['pauses']):.1f} ms; ZGC paused {len(z['pauses'])} times, the longest {max(z['pauses']):.3f} ms."
-          + (f" ZGC’s worst operation ({z['max']:.1f} ms) was therefore <b>not</b> a GC pause: something else — the OS scheduler, the collector’s own threads on {MACHINE['cpus']} CPUs — delayed it." if z["max"] > 10 * max(z["pauses"]) else "")], CJ)}
-  {ticks(["<b>Concurrent is not free:</b> ZGC uses CPU while the application runs. On a machine with few cores, measure throughput too, not only latency.",
-          "<b>Log GC in every load test</b> (<code>-Xlog:gc*</code>) and line the pauses up with the slow requests — a slow p99.9 with long pauses at the same moments is GC.",
+          + (f" ZGC’s worst operation ({z['max']:.1f} ms) was therefore not caused by a GC pause; the GC log does not show what delayed it." if z["max"] > 10 * max(z["pauses"]) else "")], CJ)}
+  {ticks(["<b>Measure throughput as well as latency:</b> the tuning guide describes ZGC’s low pauses as coming “at the cost of some throughput”.",
+          "<b>Log GC during load tests</b> (<code>-Xlog:gc</code>, as here) and compare pause times with the slow requests’ times.",
           "<b>Size the heap on purpose</b> (<code>-Xmx</code> or <code>MaxRAMPercentage</code>): the default is 25% of the memory the JVM sees, which in a container is the container’s limit."], CJ)}
 </div>
 <div class="two top" style="grid-template-columns:1.2fr 1fr;gap:3mm;margin-top:2mm">
@@ -259,10 +259,10 @@ page("gc2", f'''
 <h2>Every pause in the measured window</h2>
 <div class="two top" style="grid-template-columns:1fr 1.2fr;gap:3mm">
   {code(chr(10).join(f"{ms:8.3f} ms  {k}" for _, k, ms, _ in g1["events"][:26]), f"G1: {len(g1['pauses'])} pauses", kind="plain", cls="xs out")}
-  <div>{table(["ZGC: " + str(len(z["pauses"])) + " pauses", "Count", "Longest ms", "What it does"], Z_KIND_ROWS, "xs")}
-  <p class="small" style="margin-top:1mm">The log tags each ZGC pause <code>y:</code> (a minor cycle: young generation only), or <code>Y:</code> / <code>O:</code> (the young and old generations of a major cycle, which it marks <code>(Major)</code>).</p></div>
+  <div>{table(["ZGC: " + str(len(z["pauses"])) + " pauses", "Count", "Longest ms"], Z_KIND_ROWS, "xs")}
+  <p class="small" style="margin-top:1mm">In this log, cycles tagged <code>y:</code> have only young-generation pauses; cycles tagged <code>Y:</code> also have <code>O:</code> (old) pauses and start with <code>Mark Start (Major)</code>. ZGC’s driver runs minor collections of the young generation and major collections of both (JDK 21 <code>zDriver.cpp</code>).</p></div>
 </div>
-{src("Java SE 21 HotSpot GC Tuning Guide (G1 cycle, evacuation failure)", "results: deepdive/logs/gc-G1.txt, gc-G1.log, gc-ZGC.txt, gc-ZGC.log")}
+{src("Java SE 21 HotSpot GC Tuning Guide (G1 cycle, evacuation failure)", "OpenJDK 21 gc/z/zDriver.cpp (minor and major collections)", "results: deepdive/logs/gc-G1.txt, gc-G1.log, gc-ZGC.txt, gc-ZGC.log")}
 ''', chapter=K7, color=CJ)
 
 # ============================================================================
@@ -278,8 +278,8 @@ pinned, unpinned = vt["100 tasks, synchronized + sleep"], vt["100 tasks, Reentra
 VT_ROWS = [(k, f"{v:.2f} s") for k, v in vt.items()]
 
 page("vt", f'''
-{sub(K8, "Cheap threads, and the one thing that pins them", CJ)}
-<p class="lede-s">A virtual thread (JEP 444, final in JDK 21) is a Java thread that is not tied to an OS thread. It runs <i>mounted</i> on a carrier — a platform thread of a small pool — and when it blocks on I/O, a sleep or a lock, it <i>unmounts</i> and the carrier runs another one. Blocking becomes cheap; you can have a thread per task again.</p>
+{sub(K8, "Virtual threads, carriers and pinning", CJ)}
+<p class="lede-s">A virtual thread (JEP 444, final in JDK 21) is a Java thread that is not tied to an OS thread. It runs <i>mounted</i> on a carrier — a platform thread of a small pool — and when it blocks on a socket, a sleep or a <code>java.util.concurrent</code> lock, it <i>unmounts</i> and the carrier runs another one.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:{CJ}">
     <h3>Carriers</h3>
@@ -302,18 +302,18 @@ page("vt", f'''
   {ticks([f"<b>10,000 blocking tasks:</b> {plat:.2f} s on 200 platform threads (10,000 / 200 × 0.1 s = 5 s), {virt:.2f} s with a virtual thread each.",
           f"<b>Pinned:</b> 100 tasks holding a monitor while sleeping took {pinned:.2f} s = 100 / {carriers} carriers × 0.1 s. With <code>ReentrantLock</code>: {unpinned:.2f} s."], CJ)}
   {ticks(["<b>On JDK 21–23, replace <code>synchronized</code> around blocking calls</b> with <code>java.util.concurrent</code> locks, or upgrade: JDK 24 removes this kind of pinning.",
-          "<b>Virtual threads do not make CPU work faster</b> — chapter 4’s CPU pool applies unchanged. They make waiting cheap."], CJ)}
+          f"<b>CPU-bound work is still limited by the cores:</b> the carriers number <code>availableProcessors()</code> ({carriers} here), as in chapter 4’s CPU pool."], CJ)}
 </div>
 <h2>What a blocking call does to the carrier, JDK 21</h2>
 {table(["The virtual thread blocks in…", "Carrier", "Evidence"], [
-    ("<code>Thread.sleep</code>, <code>LockSupport.park</code>, <code>java.util.concurrent</code> locks and queues, socket I/O", "<b>released</b> — the virtual thread unmounts", f"measured above: ReentrantLock + sleep, {unpinned:.2f} s"),
+    ("<code>Thread.sleep</code>, <code>LockSupport.park</code>, <code>java.util.concurrent</code> locks and queues, socket I/O", "<b>released</b> — the virtual thread unmounts", f"measured: {unpinned:.2f} s above; sockets: <code>NioSocketImpl.park</code> → <code>Poller.poll</code>"),
     ("<code>Object.wait()</code>, file I/O such as <code>FileInputStream.read</code>", "held, but <b>compensated</b>: the pool adds a carrier for the duration", "JDK 21 <code>Object.wait</code> and <code>FileInputStream.read</code> call <code>Blocker.begin()</code> → <code>ForkJoinPool</code> compensated block"),
     ("any of the above inside <code>synchronized</code>", "<b>pinned</b>, not compensated: the carrier waits too", f"measured above: {pinned:.2f} s = 100 / {carriers} × 0.1 s; <code>VirtualThread.parkOnCarrierThread</code>"),
-    ("a native method or foreign function on the stack", "<b>pinned</b>", "JEP 444, “Pinning”"),
+    ("a native method or foreign function on the stack", "<b>pinned</b>", "<code>Continuation.Pinned.NATIVE</code>"),
 ], "xs")}
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
-  <p class="small"><b>Compensation has a ceiling:</b> <code>jdk.virtualThreadScheduler.maxPoolSize</code>, by default the larger of the parallelism and 256 (JDK 21 <code>VirtualThread.createDefaultScheduler</code>). Thousands of virtual threads in file I/O at once still queue.</p>
-  <p class="small"><b>Finding pins in production:</b> the JFR event <code>jdk.VirtualThreadPinned</code> is on in the default JFR settings, with a 20 ms threshold and a stack trace (JDK 21 <code>default.jfc</code>). Do not pool virtual threads — JEP 444: they are cheap enough to create one per task.</p>
+  <p class="small"><b>Compensation has a ceiling:</b> <code>jdk.virtualThreadScheduler.maxPoolSize</code>, by default the larger of the parallelism and 256 (JDK 21 <code>VirtualThread.createDefaultScheduler</code>).</p>
+  <p class="small"><b>Finding pins in production:</b> the JFR event <code>jdk.VirtualThreadPinned</code> is on in the default JFR settings, with a 20 ms threshold and a stack trace (JDK 21 <code>default.jfc</code>).</p>
 </div>
-{src("JEP 444 (JDK 21), JEP 491 (JDK 24)", "OpenJDK 21 java/lang/VirtualThread.java, Object.java, io/FileInputStream.java, jdk/internal/misc/Blocker.java", "jdk.jfr default.jfc", "results: deepdive/logs/vt.txt")}
+{src("JEP 444 (JDK 21), JEP 491 (JDK 24)", "OpenJDK 21 java/lang/VirtualThread.java, Object.java, io/FileInputStream.java, jdk/internal/misc/Blocker.java, jdk/internal/vm/Continuation.java, sun/nio/ch/NioSocketImpl.java", "jdk.jfr default.jfc", "results: deepdive/logs/vt.txt")}
 ''', chapter=K8, color=CJ, bm="08 · Virtual threads")

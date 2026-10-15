@@ -21,7 +21,7 @@ SOURCES = [
     ]),
     ("Linux 6.17 source and documentation", [
         a(LNX + "include/net/tcp.h", "include/net/tcp.h") + " — TCP_DELACK_MIN/MAX, TCP_MAX_QUICKACKS, TCP_TIMEWAIT_LEN",
-        a(LNX + "net/ipv4/tcp_input.c", "net/ipv4/tcp_input.c") + " (quick ACKs, pingpong mode) · " + a(LNX + "net/ipv4/tcp_output.c", "net/ipv4/tcp_output.c") + " (tcp_event_data_sent)",
+        a(LNX + "net/ipv4/tcp_input.c", "net/ipv4/tcp_input.c") + " (quick ACKs, pingpong mode) · " + a(LNX + "net/ipv4/tcp_output.c", "net/ipv4/tcp_output.c") + " (tcp_event_data_sent) · " + a(LNX + "net/ipv4/tcp.c", "net/ipv4/tcp.c") + " (zero-linger close)",
         a("https://docs.kernel.org/networking/ip-sysctl.html", "Documentation/networking/ip-sysctl.rst") + " — tcp_pingpong_thresh, tcp_tw_reuse, tcp_fin_timeout, tcp_syn_retries, ip_local_port_range",
         a("https://docs.kernel.org/admin-guide/cgroup-v2.html", "Documentation/admin-guide/cgroup-v2.rst") + " — cpu.max, cpu.stat, memory.max",
     ]),
@@ -32,7 +32,7 @@ SOURCES = [
         "java.base: " + ", ".join(a(J21 + "java.base/share/classes/" + p, n) for p, n in [
             ("java/net/StandardSocketOptions.java", "StandardSocketOptions"), ("java/net/Socket.java", "Socket"), ("java/net/URLConnection.java", "URLConnection"),
             ("java/lang/VirtualThread.java", "VirtualThread"), ("java/lang/Object.java", "Object"), ("java/io/FileInputStream.java", "FileInputStream"),
-            ("jdk/internal/misc/Blocker.java", "Blocker"), ("java/util/concurrent/ForkJoinPool.java", "ForkJoinPool")]),
+            ("jdk/internal/misc/Blocker.java", "Blocker"), ("java/util/concurrent/ForkJoinPool.java", "ForkJoinPool"), ("java/util/concurrent/package-info.java", "java.util.concurrent package-info"), ("jdk/internal/vm/Continuation.java", "Continuation"), ("sun/nio/ch/NioSocketImpl.java", "NioSocketImpl")]),
         "jdk.httpserver " + a(J21 + "jdk.httpserver/share/classes/sun/net/httpserver/ServerConfig.java", "ServerConfig") + " · jdk.net "
         + a(J21 + "jdk.net/share/classes/jdk/net/ExtendedSocketOptions.java", "ExtendedSocketOptions") + " · jdk.jfr "
         + a(J21 + "jdk.jfr/share/conf/jfr/default.jfc", "default.jfc"),
@@ -40,13 +40,12 @@ SOURCES = [
             ("share/compiler/compilationPolicy.hpp", "compilationPolicy.hpp"), ("share/compiler/compileTask.cpp", "compileTask.cpp"),
             ("share/runtime/os.cpp", "os.cpp"), ("share/gc/shared/gcConfig.cpp", "gcConfig.cpp"), ("share/gc/shared/gc_globals.hpp", "gc_globals.hpp"),
             ("share/runtime/arguments.cpp", "arguments.cpp"), ("share/gc/shared/workerPolicy.cpp", "workerPolicy.cpp"),
-            ("os/linux/cgroupUtil_linux.cpp", "cgroupUtil_linux.cpp")]),
+            ("os/linux/cgroupUtil_linux.cpp", "cgroupUtil_linux.cpp"), ("os/linux/globals_linux.hpp", "globals_linux.hpp"), ("share/code/nmethod.cpp", "nmethod.cpp"), ("share/gc/z/zDriver.cpp", "zDriver.cpp"), ("share/memory/allocation.hpp", "allocation.hpp"), ("share/services/nmtDCmd.hpp", "nmtDCmd.hpp")]),
     ]),
     ("Documentation", [
-        a("https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector1.html", "Java SE 21 HotSpot GC Tuning Guide") + " — the G1 cycle, evacuation failure, full GC",
+        a("https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector1.html", "Java SE 21 HotSpot GC Tuning Guide") + " — the G1 cycle, evacuation failure, full GC; “Available Collectors”",
         a("https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpClient.Builder.html", "HttpClient.Builder") + " and "
         + a("https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpRequest.Builder.html", "HttpRequest.Builder") + " Javadoc — connect and request timeouts",
-        a("https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html", "Intel 64 and IA-32 Architectures SDM") + ", Vol. 3A — memory ordering",
         a("https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing", "HikariCP wiki, “About Pool Sizing”") + " · J. D. C. Little, “A Proof for the Queuing Formula: L = λW”, Operations Research 9(3), 1961",
     ]),
     ("Libraries (source, default branch or named version)", [

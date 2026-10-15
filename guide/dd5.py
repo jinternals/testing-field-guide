@@ -36,8 +36,8 @@ apc = find("--cpus=1 --memory=1g", "-XX:ActiveProcessorCount=4")
 mrp = find("--cpus=1 --memory=1g", "-XX:MaxRAMPercentage=75")
 
 page("box", f'''
-{sub(K9, "What the JVM sees inside a container", CP)}
-<p class="lede-s">A container limit is not a smaller machine. It is a cgroup setting: a CPU <b>quota</b> per period, and a memory ceiling. The JVM reads both at start-up (container support has been on by default since JDK 10) and sizes itself from them — the number of CPUs it reports, the heap, the garbage collector, and every thread pool sized from <code>availableProcessors()</code>.</p>
+{sub(K9, "How the JVM reads cgroup limits", CP)}
+<p class="lede-s">A container’s limits are cgroup settings: a CPU <b>quota</b> per period (<code>cpu.max</code>) and a memory limit (<code>memory.max</code>). With <code>UseContainerSupport</code>, true by default in JDK 21 (<code>globals_linux.hpp</code>), the JVM reads both at start-up and sizes itself from them — the number of CPUs it reports, the heap, the garbage collector, and every thread pool sized from <code>availableProcessors()</code>.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:{CP}">
     <h3>CPUs from the quota</h3>
@@ -68,7 +68,7 @@ page("box", f'''
     <p><code>--cpus=0.5</code> lets the container run for half of each scheduling period, then stops it until the next one. The JVM still reports {half['cpus']} CPU and runs one GC thread. A multi-threaded burst can use the whole quota early in the period and then wait — throttling, visible in <code>cpu.stat</code> as <code>nr_throttled</code> and <code>throttled_usec</code>.</p>
   </div>
 </div>
-{src("OpenJDK 21: os/linux/cgroupUtil_linux.cpp, runtime/os.cpp, gc/shared/gcConfig.cpp, gc/shared/gc_globals.hpp, runtime/arguments.cpp", "results: deepdive/logs/containers.txt")}
+{src("OpenJDK 21: os/linux/cgroupUtil_linux.cpp, os/linux/globals_linux.hpp, runtime/os.cpp, gc/shared/gcConfig.cpp, gc/shared/gc_globals.hpp, runtime/arguments.cpp", "results: deepdive/logs/containers.txt")}
 ''', chapter=K9, color=CP, bm="09 · Containers and CPUs")
 
 SIZED = [
@@ -95,29 +95,29 @@ if THR:
   <p class="small muted">Throttle.java: busy threads use the quota while a timer thread sleeps 5 ms, 600 times, and records how late it wakes; periods and throttling from the container’s <code>cpu.stat</code> · {RUNNER}</p>
   {ticks([f"<b>{hot['opts']} with {hot['burners']} busy threads:</b> {hot['thr']} of {hot['periods']} periods throttled, and a 5 ms sleep woke up to <b>{hot['max']:.0f} ms</b> late"
           + (f" — against {calm['max']:.1f} ms with no limit." if calm else "."),
-          "<b>The timer thread did nothing wrong:</b> it needed microseconds of CPU, but once the container’s quota was spent no thread in it could run until the next period. In a service, that is a request stalled for the rest of the period."], CP)}
+          "<b>Why the timer thread was late:</b> the busy threads used the period’s quota, and <code>cpu.max</code> allows the cgroup “up to $MAX in each $PERIOD” (cgroup-v2.rst), so the timer thread could not run until the next period began."], CP)}
 </div>'''
 else:
     THR_HTML = PENDING
 
 page("box2", f'''
-{sub(K9, "Everything sized from availableProcessors()", CP)}
-<p class="lede-s">The CPU count the JVM reports is read once and used everywhere. A pod limited to one CPU gets one-thread defaults across the JDK and its libraries; a limit of 0.5 looks exactly like a limit of 1, but runs half the time.</p>
+{sub(K9, "Defaults sized from the CPU count; CPU throttling", CP)}
+<p class="lede-s">These defaults are computed from <code>availableProcessors()</code>, which reported {one['cpus']} for both <code>--cpus=1</code> and <code>--cpus=0.5</code> in the runs on the previous page.</p>
 {table(["Sized from the CPU count", "Default", "Source", "Measured (host / 2 / 1 CPU)"], SIZED, "xs")}
 <div style="margin-top:3mm">
   <div class="mech" style="--accent:{CP}">
     <h3>The heap is not the whole process</h3>
-    <p>The memory limit applies to everything the process uses: the heap, plus metaspace, the code cache, thread stacks, direct buffers and the collector’s own structures. Raising <code>MaxRAMPercentage</code> to 75 (measured above: {mrp['heap']} MB of {mrp['mem']:,} MB) leaves the rest for all of that; go higher only after measuring native memory with <code>-XX:NativeMemoryTracking=summary</code> and <code>jcmd &lt;pid&gt; VM.native_memory</code>.</p>
+    <p><code>memory.max</code> is a “memory usage hard limit” for the whole cgroup; if usage reaches it and cannot be reduced, “the OOM killer is invoked” (cgroup-v2.rst). The JVM uses memory outside the heap too: Native Memory Tracking reports it under Class, Thread Stack, Code, GC, Compiler, Internal, Other and more (JDK 21 <code>allocation.hpp</code>). Raising <code>MaxRAMPercentage</code> to 75 (measured above: {mrp['heap']} MB of {mrp['mem']:,} MB) leaves the rest for that memory; measure it with <code>-XX:NativeMemoryTracking=summary</code> and <code>jcmd &lt;pid&gt; VM.native_memory</code>.</p>
   </div>
 </div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   {ticks(["<b>Run performance tests with the production limits</b> — the same <code>--cpus</code> and <code>--memory</code>. A laptop or an unlimited runner chooses a different collector, a different heap and different pool sizes.",
-          "<b>Print what the JVM decided</b> at start-up: <code>-Xlog:gc*</code> names the collector and heap; <code>java -XX:+PrintFlagsFinal -version</code> inside the container shows every ergonomic choice."], CP)}
+          "<b>Print what the JVM decided:</b> <code>-Xlog:gc</code> prints the collector at start-up (“Using G1” in chapter 7’s log); <code>-XX:+PrintFlagsFinal</code> marks values the JVM chose itself <code>{ergonomic}</code>."], CP)}
   {ticks(["<b>Give a JVM service at least 2 CPUs and 2 GB</b>, or choose the collector yourself (<code>-XX:+UseG1GC</code>) — otherwise a small pod gets Serial.",
           "<b>Set the heap on purpose</b> — <code>-Xmx</code>, or <code>MaxRAMPercentage</code> for a heap that follows the limit."], CP)}
 </div>
 {THR_HTML}
-{src("OpenJDK 21: java/util/concurrent/ForkJoinPool.java, java/lang/VirtualThread.java, gc/shared/workerPolicy.cpp", "Netty 4.1 MultithreadEventLoopGroup.java", "Linux cgroup v2 documentation (cpu.max, cpu.stat)", "results: deepdive/logs/containers.txt, throttle.txt")}
+{src("OpenJDK 21: java/util/concurrent/ForkJoinPool.java, java/lang/VirtualThread.java, gc/shared/workerPolicy.cpp, memory/allocation.hpp and services/nmtDCmd.hpp (Native Memory Tracking)", "Netty 4.1 MultithreadEventLoopGroup.java", "Linux 6.17 Documentation/admin-guide/cgroup-v2.rst (cpu.max, cpu.stat, memory.max)", "results: deepdive/logs/containers.txt, throttle.txt")}
 ''', chapter=K9, color=CP)
 
 # ============================================================================
@@ -154,7 +154,7 @@ HB = ["An unlock on a monitor <i>happens-before</i> every subsequent lock on tha
       "All actions in a thread <i>happen-before</i> any other thread successfully returns from a <code>join()</code> on that thread."]
 
 page("jmm", f'''
-{sub(K10, "What another thread is allowed to see", CJ)}
+{sub(K10, "Data races, happens-before and store buffering", CJ)}
 <p class="lede-s">Without synchronisation, Java promises much less than the source code suggests. The compiler and the CPU may reorder and cache memory accesses as long as a single thread cannot tell. The Java Memory Model (JLS chapter 17) says exactly when another thread is guaranteed to see a write — and that guarantee is the <i>happens-before</i> order.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:{CJ}">
@@ -165,7 +165,7 @@ page("jmm", f'''
   <div class="mech" style="--accent:{CJ}">
     <h3>Happens-before, JLS §17.4.5 (quoted)</h3>
     {ticks(HB, CJ)}
-    <p style="margin-top:1mm">Plus program order within a thread, and transitivity. <code>java.util.concurrent</code> documents the same edges for its locks, queues, atomics and futures.</p>
+    <p style="margin-top:1mm">Plus program order within a thread, and transitivity. The <code>java.util.concurrent</code> package documentation (“Memory Consistency Properties”) extends them to concurrent collections, executors, futures, locks and synchronizers.</p>
   </div>
 </div>
 <h2>Measured with jcstress: store buffering</h2>
@@ -181,10 +181,10 @@ page("jmm", f'''
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   {ticks([f"<b>{sb[1]} of {sb_total:,} plain runs ({sb[2]}) ended 0, 0</b>: both threads read before either write was visible. No interleaving of the source allows that; the JMM does, because the program has a data race.",
           f"<b>With volatile: {sbv[1]} of {sbv_total:,}</b>. Volatile reads and writes are synchronisation actions, totally ordered (§17.4.4), so one write must come first and the other thread’s read must see it."], CJ)}
-  {ticks(["<b>Where the reordering comes from:</b> a store can wait in the CPU’s store buffer while a later load goes ahead (x86 allows this one reordering, Intel SDM Vol. 3A, “Loads May Be Reordered with Earlier Stores to Different Locations”), and the JIT may reorder too — jcstress runs each test interpreted, with C1 and with C2, and with C2’s code-motion randomisers.",
+  {ticks(["<b>The result does not say whether the compiler or the CPU reordered the accesses.</b> The log shows jcstress ran the actors interpreted, with C1 and with C2, and with C2’s stress options (<code>-XX:+StressLCM</code>, <code>-XX:+StressGCM</code> …); the JMM allows 0, 0 for this racy program in every case.",
           f"<b>The machine:</b> {MACHINE['cpus']} CPUs" + (f" ({MACHINE['cpu']})" if MACHINE["cpu"] != "not recorded" else "") + "; jcstress pins each actor thread to its own CPU."], CJ)}
 </div>
-{src("JLS SE 21 §17.4.2–17.4.5", "jcstress 0.16 (org.openjdk.jcstress)", "Intel 64 and IA-32 Architectures SDM, Vol. 3A, memory ordering", "results: ci-logs-ops logs/jcstress.log")}
+{src("JLS SE 21 §17.4.2–17.4.5", "jcstress 0.16 (org.openjdk.jcstress)", "OpenJDK 21 java/util/concurrent/package-info.java", "results: ci-logs-ops logs/jcstress.log")}
 ''', chapter=K10, color=CJ, bm="10 · Java Memory Model")
 
 SF = dlog("staleflag.txt")
@@ -195,14 +195,14 @@ sf_vstop = sum(s == "stopped" for s in sf_vol)
 stale, term = jrow("SpinTest", "STALE"), jrow("SpinTest", "TERMINATED")
 racy, atomic = jrow("RacyCounterTest", "1"), jrow("AtomicCounterTest", "1")
 page("jmm2", f'''
-{sub(K10, "Visibility: a loop that never sees the flag", CJ)}
-<p class="lede-s">Happens-before is also about <i>whether</i> a write is seen at all. A thread spinning on a plain field has no happens-before edge with the thread that sets it, so the JIT may read the field once and keep the value. JLS §17.3 says so in nearly these words: “The compiler is free to read the field <code>this.done</code> just once, and reuse the cached value in each execution of the loop.”</p>
+{sub(K10, "Visibility and lost updates", CJ)}
+<p class="lede-s">Happens-before is also about <i>whether</i> a write is seen at all. A thread spinning on a plain field has no happens-before edge with the thread that sets it, and JLS §17.3 allows the loop to keep a value it read once: “The compiler is free to read the field <code>this.done</code> just once, and reuse the cached value in each execution of the loop.”</p>
 <div class="two top" style="grid-template-columns:1.05fr 1fr;gap:3mm">
   {code(dsrc("jmm/StaleFlag.java", "  static String stops", "\n  }"), "StaleFlag.java — the loop runs 1 s, then the flag is set", cls="xs")}
   <div>
     {code(SF.strip(), "real output · 5 runs in CI", kind="plain", cls="xs out")}
-    {ticks([f"<b>Plain field: {sf_stuck} of {len(sf_plain)} runs</b> still spinning 3 s after the flag was set — the compiled loop never reads the field again.",
-            f"<b>Volatile: {sf_vstop} of {len(sf_vol)}</b> stopped. Every volatile read must observe the latest write in the synchronisation order."], CJ)}
+    {ticks([f"<b>Plain field: {sf_stuck} of {len(sf_plain)} runs</b> still spinning 3 s after the flag was set, as §17.3 allows.",
+            f"<b>Volatile: {sf_vstop} of {len(sf_vol)}</b> stopped. A write to a volatile field happens-before every subsequent read of that field (§17.4.5)."], CJ)}
   </div>
 </div>
 <h2>The same question, asked by jcstress</h2>
@@ -211,15 +211,14 @@ page("jmm2", f'''
   <div>
     {jtable("SpinTest")}
     <p class="small" style="margin:1mm 0 2mm">With <code>volatile boolean ready</code>: <code>STALE</code> {jrow("SpinVolatileTest", "STALE")[1]} of {int(jrow("SpinVolatileTest", "STALE")[1].replace(",", "")) + int(jrow("SpinVolatileTest", "TERMINATED")[1].replace(",", "")):,}, declared forbidden.</p>
-    {ticks([f"<b>Only {stale[1]} of {int(stale[1].replace(',', '')) + int(term[1].replace(',', '')):,} runs ({stale[2]}) got stuck.</b> jcstress signals almost immediately, often before the loop is compiled; StaleFlag waits a second so that it is. A race that shows up {stale[2]} of the time in a stress tool shows up in production under load.",
+    {ticks([f"<b>Only {stale[1]} of {int(stale[1].replace(',', '')) + int(term[1].replace(',', '')):,} runs ({stale[2]}) got stuck.</b> StaleFlag, which let the loop run for 1 s before setting the flag, got stuck in every run.",
             f"<b>Lost updates</b>, from the guide’s own counter tests: <code>count++</code> on a plain field lost an update in {racy[2]} of {sum(int(r[1].replace(',', '')) for r in JCR['RacyCounterTest']):,} runs; <code>AtomicInteger</code> in {atomic[1]} of {sum(int(r[1].replace(',', '')) for r in JCR['AtomicCounterTest']):,}."], CJ)}
   </div>
 </div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   {ticks(["<b>Share mutable state through something that creates the edge:</b> <code>volatile</code>, an <code>Atomic*</code>, a lock, a concurrent collection, a future’s result, <code>Thread.start</code> / <code>join</code>.",
           "<b>Publish immutable objects through final fields</b> (JLS §17.5): a correctly constructed object’s final fields are seen initialised by every thread."], CJ)}
-  {ticks(["<b>A passing unit test proves nothing here</b> — the bad outcome may need the JIT, another CPU, or timing a test never hits. Use jcstress for the critical pieces.",
-          "<b>volatile gives visibility and ordering, not atomicity:</b> <code>volatileCount++</code> is still read, add, write."], CJ)}
+  {ticks([f"<b>The bad outcomes were rare in jcstress</b> ({stale[2]} stuck spins, {racy[2]} lost updates): a test that runs the code once will usually pass. jcstress runs it millions of times across compilation modes."], CJ)}
 </div>
 {src("JLS SE 21 §17.3, §17.4, §17.5", "jcstress 0.16: Mode.Termination, @Signal", "results: deepdive/logs/staleflag.txt; ci-logs-ops logs/jcstress.log")}
 ''', chapter=K10, color=CJ)

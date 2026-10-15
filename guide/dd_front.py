@@ -93,14 +93,14 @@ EXPS = [
 ]
 page("method", f'''
 {sub("Before you start", "How it was measured", "#0F172A")}
-<p class="lede-s">This book makes two kinds of statement: how something works, and what it did when we ran it. Both come with evidence. Nothing is taken from blog posts or from memory.</p>
+<p class="lede-s">Each page explains a mechanism and then measures it. Explanations cite a specification, the source code of the version discussed, or the vendor’s documentation; measurements come from programs in this repository, run in CI.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:#0F172A">
-    <h3>How it works: primary sources only</h3>
-    <p>The specification (RFC 9293 for TCP, the Java Language Specification for the memory model, JEPs for JDK features), the <b>source code of the version discussed</b> — OpenJDK 21, the Linux kernel, the libraries — or the vendor’s own documentation. Each page lists what it used at its foot; the full list is at the back.</p>
+    <h3>Sources for explanations</h3>
+    <p>The specification (RFC 9293 for TCP, the Java Language Specification for the memory model, JEPs for JDK features), the <b>source code of the version discussed</b> — OpenJDK 21, Linux 6.17, the libraries — or the vendor’s documentation. Each page lists what it used at its foot; the full list is at the back.</p>
   </div>
   <div class="mech" style="--accent:#0F172A">
-    <h3>What it did: an experiment, run in CI</h3>
+    <h3>Measurements</h3>
     <p>Each chapter has a small program in <code>deepdive/</code>. The <code>deepdive</code> CI job runs all of them on every push (<code>deepdive/run.sh</code>) and publishes the logs to the <code>ci-logs-deepdive</code> branch. This book is built from those logs: every measured number on a page is read from them at build time.</p>
   </div>
 </div>
@@ -124,10 +124,10 @@ page("method", f'''
     ("Why it waits at all", "RFC 9293 §3.7.4 (Nagle: hold small segments while data is unacknowledged) and §3.8.6.3 (delayed ACK)"),
 ], "xs")}
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:3mm">
-  {ticks(["<b>The text follows the data.</b> Where a sentence interprets a result — “slower”, “removed by the JIT”, “not a GC pause” — it is computed from the log, and changes if the result changes.",
+  {ticks(["<b>The text follows the data.</b> Where a sentence interprets a result — “slower”, “removed by the JIT”, “not caused by a GC pause” — it is computed from the log, and changes if the result changes.",
           "<b>Conclusions are checked.</b> <code>guide/claims_deep.py</code> re-reads the logs and fails the build if a conclusion this book states no longer holds.",
           "<b>Real output is printed as it ran</b> — packet traces, GC logs, JMH and jcstress tables — not retyped."])}
-  {ticks(["<b>One machine.</b> Absolute numbers depend on the CPU, kernel and JDK; the mechanisms and the ratios are what carry over. Rerun on yours: <code>bash deepdive/run.sh</code> (Linux, JDK 21, Maven, Docker; <code>sudo</code> for tcpdump and iptables).",
+  {ticks(["<b>One machine.</b> The numbers are from one CI runner and depend on its CPU, kernel and JDK. To rerun on another machine: <code>bash deepdive/run.sh</code> (Linux, JDK 21, Maven, Docker; <code>sudo</code> for tcpdump and iptables).",
           "<b>Versions matter.</b> Statements are for JDK 21 and the library versions named; where a later JDK changed the behaviour (JEP 474, 490, 491) the page says so."])}
 </div>
 ''', chapter="How it was measured", color="#0F172A", bm="How it was measured")

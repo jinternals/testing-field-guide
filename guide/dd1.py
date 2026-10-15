@@ -76,8 +76,8 @@ LINUX = [
 ]
 
 page("nagle", f'''
-{sub(K, "Two good ideas that wait for each other", CN)}
-<p class="lede-s">TCP has two old optimisations against tiny packets. The <b>sender</b> holds back a small segment while earlier data is unacknowledged (Nagle). The <b>receiver</b> holds back its ACK, hoping to piggyback it on a reply (delayed ACK). In a request/response exchange where one message goes out in two <code>write()</code> calls, each waits for the other — until a timer fires.</p>
+{sub(K, "Nagle’s algorithm and delayed ACK", CN)}
+<p class="lede-s">TCP has two mechanisms that reduce the number of small packets. The <b>sender</b> holds back a small segment while earlier data is unacknowledged (Nagle). The <b>receiver</b> holds back its ACK, hoping to piggyback it on a reply (delayed ACK). In a request/response exchange where one message goes out in two <code>write()</code> calls, each waits for the other — until a timer fires.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:{CN}">
     <h3>Nagle’s algorithm — the sender</h3>
@@ -95,7 +95,7 @@ page("nagle", f'''
 <div class="two top" style="grid-template-columns:1.25fr 1fr;gap:3mm;margin-top:1.5mm">
   {table(["Linux", "Value", "Meaning", "Where"], LINUX, "xs")}
   <div>
-    <p class="small">The capture shows the second request on the connection. <b>{WAIT_MS:.1f} ms</b> = the 40 ms minimum delayed-ACK timer plus timer granularity ({1000 / HZ:g} ms ticks on this kernel).</p>
+    <p class="small">The capture shows the second request on the connection. The server’s ACK left <b>{WAIT_MS:.1f} ms</b> after the first half of the request; <code>TCP_DELACK_MIN</code> is 40 ms on this kernel.</p>
     <p class="small" style="margin-top:1.2mm">The <b>first</b> request did not wait: its ACK came back in {FIRST_ACK_MS:.3f} ms, while the new connection was still in quick-ACK mode. After one request and its reply, Linux treats the connection as ping-pong and starts delaying ACKs.</p>
   </div>
 </div>
@@ -116,7 +116,7 @@ WHO = [
 res_rows = [(f"{r[0].strip()}", f"{float(r[1]):.2f}", f"{float(r[3]):.2f}", f"{float(r[4]):.2f}", f"{r[5]} of {r[6]}") for r in ROWS]
 
 page("nagle2", f'''
-{sub(K, f"Measured: 200 requests, {len(ROWS)} ways to send them", CN)}
+{sub(K, f"Measured: one or two writes per message, {len(ROWS)} setups", CN)}
 <p class="lede-s">One connection on loopback, 200 request/response round trips of 100 bytes each way. The only differences: whether a message is written in one <code>write()</code> or two (like headers, then body), on which side, and which socket option is set.</p>
 <div class="two top" style="grid-template-columns:1.12fr 1fr;gap:3mm">
   {code(dsrc("tcp/Nagle.java", "  static long[] exchange", "\n  }") + "\n\n" + dsrc("tcp/Nagle.java", "  /** 100 bytes in one write", "\n  }"), "Nagle.java — the client side", cls="xs")}
@@ -127,14 +127,14 @@ page("nagle2", f'''
 </div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   <div>
-    <h2 style="margin-top:0">Who turns Nagle off for you</h2>
+    <h2 style="margin-top:0">TCP_NODELAY defaults in common libraries</h2>
     {table(["Library", "TCP_NODELAY", "Evidence in its source"], WHO, "xs")}
   </div>
   {ticks([f"<b>Two writes per message + Nagle = one timer per message.</b> Every round trip took about {SLOW_P50:.0f} ms; every fix brought p99 under {FAST_P99:.1f} ms.",
           "<b>Write each message once.</b> Build it in a buffer (or wrap the stream in a <code>BufferedOutputStream</code>) and flush once: Nagle never has a second small segment to hold.",
           "<b>Or set <code>TCP_NODELAY</code></b> on request/response connections — on the side that writes twice. Most servers and the JDK client already do; the JDK’s own <code>HttpServer</code> does not.",
           "<b>The receiver can help:</b> <code>jdk.net.ExtendedSocketOptions.TCP_QUICKACK</code> (Linux, JDK 10+) asks for an immediate ACK — but it is not sticky. Set once, nothing changed; set before every read, the stall was gone.",
-          "<b>Test for it:</b> a latency test on loopback shows it at once — on Linux, a p50 just over 40 ms with idle CPUs. The main guide’s load test found exactly this in the JDK <code>HttpServer</code>."], CN)}
+          "<b>Symptom:</b> a p50 just above 40 ms on Linux while the CPUs are idle. The main guide’s load test of the JDK <code>HttpServer</code> showed the same stall."], CN)}
 </div>
 {src("OpenJDK 21: jdk/internal/net/http/PlainHttpConnection.java, sun/net/httpserver/ServerConfig.java, ServerImpl.java, java/net/StandardSocketOptions.java, jdk/net/ExtendedSocketOptions.java (TCP_QUICKACK, since 10)", "Tomcat main: SocketProperties.java", "Jetty 12.0: ServerConnector.java", "Netty 4.1: DefaultSocketChannelConfig.java", "pgjdbc: PGProperty.java", "Lettuce: SocketOptions.java", "Kafka: clients/…/network/Selector.java", "results: deepdive/logs/nagle.txt")}
 ''', chapter=K, color=CN)

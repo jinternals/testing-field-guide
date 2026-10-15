@@ -39,19 +39,19 @@ def pool_diagram():
 
 
 page("pools", f'''
-{sub(K4, "Throughput, latency and the size of a pool", CQ)}
+{sub(K4, "Little’s Law and pool size", CQ)}
 <p class="lede-s">Every pool is a queue in front of a resource. Little’s Law ties the three numbers you can measure together, for any stable system, whatever the pattern of arrivals: <b>L = λ·W</b> — the average number of requests inside equals the rate they leave times the average time each spends inside.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
   <div class="mech" style="--accent:{CQ}">
     <h3>Three consequences</h3>
     <p><b>1. A pool caps throughput:</b> with C connections each busy for S seconds, at most C/S requests per second leave. Our database (4 slots, ~{service_ms:.1f} ms per query as measured) tops out near {best} per second.</p>
     <p style="margin-top:1mm"><b>2. Past the cap, more callers only add waiting:</b> 64 callers in a system that serves {best}/s means W = 64 / {best} ≈ {64 / best * 1000:.0f} ms each, however the queue is arranged.</p>
-    <p style="margin-top:1mm"><b>3. A bigger pool moves the queue</b> — from the pool into the database, where waiting is more expensive: memory, locks, context switches.</p>
+    <p style="margin-top:1mm"><b>3. A bigger pool moves the queue</b> from the pool into the database: measured on the next page as time spent waiting inside the database.</p>
   </div>
   <div class="mech" style="--accent:{CQ}">
     <h3>How big, then?</h3>
     <p class="rfc">“connections = ((core_count * 2) + effective_spindle_count)” — a starting point from the PostgreSQL project, quoted by HikariCP’s “About Pool Sizing”</p>
-    <p>The reasoning: a CPU core runs one thread at a time; beyond that, more threads add context switching, not throughput — unless they wait on disk or network. Treat the formula as a first guess, then measure throughput and latency as you change it, as below.</p>
+    <p>It is a starting value. The next page measures throughput and latency as the pool size changes, for a pool in front of a database and for a pool of CPU-bound threads.</p>
   </div>
 </div>
 <h2>The experiment</h2>
@@ -78,7 +78,7 @@ c1 = next(r for r in CPU if int(r[0]) == 1)
 cn = next(r for r in CPU if int(r[0]) == CPUS)
 cbig = max(CPU, key=lambda r: int(r[0]))
 page("pools2", f'''
-{sub(K4, "Measured: six pool sizes, then real CPUs", CQ)}
+{sub(K4, "Measured: database pool and CPU pool sizes", CQ)}
 <p class="lede-s">Each row ran for 3 s with 64 callers. λ, W and L were measured independently over the steady window 0.5–2.5 s: λ from completions, W from each request’s time in the system, L by counting callers inside every millisecond.</p>
 <div class="two top" style="grid-template-columns:1.25fr 1fr;gap:3mm">
   <div>
@@ -144,8 +144,8 @@ def co_diagram():
 
 
 page("co", f'''
-{sub(K5, "Coordinated omission: the load test that hides the stall", CQ)}
-<p class="lede-s">Most load tests send a request, wait for the answer, then send the next. When the server stalls, the test stalls with it — and stops sending the requests that real users would have kept sending. Those requests are never measured. Gil Tene named this <b>coordinated omission</b>: the tester coordinates with the system it measures, and omits exactly the bad moments.</p>
+{sub(K5, "Coordinated omission", CQ)}
+<p class="lede-s">Most load tests send a request, wait for the answer, then send the next. When the server stalls, the test stalls with it — and stops sending the requests that real users would have kept sending. Those requests are never measured. This is <b>coordinated omission</b>, the term used in the wrk2 README and the HdrHistogram Javadoc: the tester slows down with the system it measures, and omits the requests that would have seen the stall.</p>
 {co_diagram()}
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   <div class="mech" style="--accent:{CQ}">
@@ -156,7 +156,7 @@ page("co", f'''
   <div class="mech" style="--accent:{CQ}">
     <h3>Open and closed models in load tools</h3>
     <p class="rfc">“In a closed model, the execution time of each iteration dictates the number of iterations executed … In the open model, on the other hand, VUs arrive independently of iteration completion.” — k6 documentation</p>
-    <p>k6: <code>constant-arrival-rate</code>, <code>ramping-arrival-rate</code> (open). Gatling: <code>constantUsersPerSec</code>, <code>rampUsersPerSec</code> (open) versus <code>constantConcurrentUsers</code> (closed). Real users arrive whether or not the last one finished: test with an open model.</p>
+    <p>k6: <code>constant-arrival-rate</code>, <code>ramping-arrival-rate</code> (open). Gatling: <code>constantUsersPerSec</code>, <code>rampUsersPerSec</code> (open) versus <code>constantConcurrentUsers</code> (closed). To reproduce users who arrive independently of each other’s responses, use an open model.</p>
   </div>
 </div>
 <div class="mech" style="--accent:{CQ};margin-top:2mm">
@@ -183,7 +183,7 @@ SPECTRUM = chart([("closed loop (naive)", "#1D4ED8", [float(naive[1][k]) for k i
                   ("open loop, from due time", "#B91C1C", [float(openl[1][k]) for k in PCTS])],
                  PCTS, "Latency by percentile, same stall, three measurements", "ms (log scale)", logy=True, w=520, h=170)
 page("co2", f'''
-{sub(K5, "Measured: one stall, three reports", CQ)}
+{sub(K5, "Measured: closed loop, corrected, open loop", CQ)}
 <p class="lede-s">A service that answers in 1 ms, except once: from second 2 to second 3 of a 10-second run it stalls. The intended rate is one request every 2 ms (500 per second). The same stall, measured three ways:</p>
 {table(["Measurement", "Samples", *[f"{k} ms" for k in PCTS]], CO_ROWS, "xs")}
 <p class="small muted" style="margin-top:1mm">Real output · {RUNNER}</p>
@@ -193,12 +193,12 @@ page("co2", f'''
   {code(dsrc("latency/CoordinatedOmission.java", "  /**\n   * HdrHistogram", "\n  }"), "the correction, as HdrHistogram does it", cls="xs")}
 </div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
-  {ticks([f"<b>The naive p99 was {naive[1]['p99']} ms</b> — a healthy-looking service. Measured from the due times, p99 was <b>{openl[1]['p99']} ms</b>: one request in ten was due during the stall, and more waited while the backlog drained.",
+  {ticks([f"<b>The naive p99 was {naive[1]['p99']} ms</b>. Measured from the due times, p99 was <b>{openl[1]['p99']} ms</b>: one request in ten was due during the stall, and more waited while the backlog drained.",
           f"<b>The naive run recorded {naive[0]} samples, not {CO_N:,}</b>: the missing {CO_N - int(naive[0])} are the requests the client did not send while it waited. The max was right; the percentiles below it were not.",
           f"<b>The correction recovered most of it</b> (p99 {corr[1]['p99']} ms) from the closed-loop data alone, because the expected interval was known."], CQ)}
   {ticks(["<b>Report max and high percentiles, with the sample count.</b> A drop in the count during a test is a stall the percentiles cannot show.",
           "<b>Generate load on a schedule</b> (open model) and measure from the due time; if your tool cannot, correct with the known interval.",
-          "<b>Never average latencies</b>, and never average percentiles across machines or intervals: merge the histograms, then read the percentile."], CQ)}
+          "<b>Percentiles cannot be averaged</b> across machines or intervals: merge the recorded values (or histograms), then read the percentile."], CQ)}
 </div>
 {src("results: deepdive/logs/co.txt", "deepdive/src/…/latency/CoordinatedOmission.java", "G. Tene, “How NOT to Measure Latency” (conference talk)")}
 ''', chapter=K5, color=CQ)

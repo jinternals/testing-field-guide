@@ -59,15 +59,15 @@ def life_diagram():
 
 STATES = [
     ("<code>SYN-SENT</code>", "connect() sent a SYN, no answer yet", "the server is unreachable or dropping packets — see the next chapter"),
-    ("<code>ESTABLISHED</code>", "open, data can flow both ways", "normal; compare with your pool sizes"),
+    ("<code>ESTABLISHED</code>", "open, data can flow both ways", "the number of open connections; compare with pool sizes"),
     ("<code>FIN-WAIT-2</code>", "we closed; the peer has not closed its side yet", "the peer is not closing its sockets"),
     ("<code>CLOSE-WAIT</code>", "the peer closed; our application has not called close()", "<b>a socket leak in our code</b>"),
-    ("<code>TIME-WAIT</code>", "we closed first; waiting before the port can be reused", "many short-lived connections: reuse them"),
+    ("<code>TIME-WAIT</code>", "we closed first; waiting before the port can be reused", "many short-lived connections closed by this side"),
 ]
 
 page("conn", f'''
-{sub(K2, "Open once, reuse, close carefully", CN)}
-<p class="lede-s">Before the first byte of a request, TCP spends a round trip on the handshake. After the last byte, the side that closes <b>first</b> keeps the connection in TIME_WAIT, holding its port. Both costs are paid per connection — so the number of connections, not requests, is what hurts.</p>
+{sub(K2, "Connection set-up, reuse and close", CN)}
+<p class="lede-s">Before the first byte of a request, TCP spends a round trip on the handshake. After the last byte, the side that closes <b>first</b> keeps the connection in TIME_WAIT, holding its port. Both costs are paid once per connection, however many requests it carries.</p>
 {life_diagram()}
 <div class="three top" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3mm;margin-top:2mm">
   <div class="mech" style="--accent:{CN}">
@@ -81,11 +81,11 @@ page("conn", f'''
   </div>
   <div class="mech" style="--accent:{CN}">
     <h3>Reuse is not on everywhere</h3>
-    <p><code>tcp_tw_reuse</code> lets a new outgoing connection take a port still in TIME_WAIT when that is safe. Its default is <b>2: loopback traffic only</b> — the runner has <code>{SC.get("tcp_tw_reuse", "?")}</code>. So a load test against <code>localhost</code> can open connections endlessly, while the same test against a real host runs out of ports. Test against the network you will run on.</p>
+    <p><code>tcp_tw_reuse</code> lets a new outgoing connection take a port still in TIME_WAIT when that is safe. Its default is <b>2: loopback traffic only</b> — the runner has <code>{SC.get("tcp_tw_reuse", "?")}</code>. With the default, a client connecting to <code>localhost</code> can reuse ports in TIME_WAIT; a client connecting to another host cannot.</p>
   </div>
 </div>
-<h2>States you will see in <code>ss</code>, and what they tell you</h2>
-{table(["State", "Means", "Many of them usually mean"], STATES, "xs")}
+<h2>TCP states shown by <code>ss</code></h2>
+{table(["State", "Means", "A large count indicates"], STATES, "xs")}
 {src("RFC 9293 §3.3.2, §3.4.2, §3.4.3, §3.6.1", "Linux include/net/tcp.h (TCP_TIMEWAIT_LEN)", "Documentation/networking/ip-sysctl.rst (ip_local_port_range, tcp_tw_reuse, tcp_fin_timeout)", f"capture and sysctl values: {RUNNER}")}
 ''', chapter=K2, color=CN, bm="02 · Connections")
 
@@ -103,21 +103,19 @@ for key, label in HOW.items():
 CF = CONN.get("new connection, client first", (0, {}))[0]
 
 page("conn2", f'''
-{sub(K2, "Measured: 2,000 requests, five ways", CN)}
+{sub(K2, "Measured: kept-alive and per-request connections", CN)}
 <p class="lede-s">2,000 request/response exchanges on loopback: over one kept-alive connection, then over a new connection each time, closed four different ways. Afterwards the program counts sockets by state in the kernel’s own tables, <code>/proc/net/tcp</code> and <code>tcp6</code>.</p>
 {table(["How", "µs / request", "vs kept-alive", "TIME_WAIT client / server", "CLOSE_WAIT client / server", "FIN_WAIT2 client / server"], CONN_ROWS, "xs")}
 <p class="small muted" style="margin-top:1mm">Real output · {RUNNER}</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
   {code(dsrc("tcp/Connections.java", "  static void perRequest", "\n  }"), "Connections.java — a new connection per request", cls="xs")}
-  {ticks([f"<b>Reuse wins even on loopback:</b> a new connection per request cost {CF / KEEP:.1f}× as much — no network latency involved. Over a real network add a round trip per connection, and TLS on top.",
-          "<b>TIME_WAIT lands on whoever closes first</b> — exactly 2,000 sockets on that side, none on the other. HTTP/1.1 <code>Connection: close</code> from a server leaves them on the server.",
-          "<b><code>SO_LINGER(0)</code> left no TIME_WAIT</b>: <code>close()</code> sends a reset instead of a FIN. It also throws away unsent data and tells the peer something went wrong — a tool for errors, not a fix for port exhaustion.",
-          "<b>A server that never closes</b> left 2,000 sockets in CLOSE_WAIT, and the clients’ ends waited in FIN_WAIT2 — the one state <code>tcp_fin_timeout</code> limits. Growing CLOSE_WAIT in <code>ss</code> means a socket leak in the application.",
-          "<b>One <code>HttpClient</code> per application.</b> The JDK client keeps idle connections for 30 s (<code>jdk.httpclient.keepalive.timeout</code>) and reuses them. A new client per request means a new connection per request."], CN)}
+  {ticks([f"<b>A new connection per request cost {CF / KEEP:.1f}× as much as a kept-alive one</b>, on loopback. Across a network each new connection also adds the handshake’s round trip.",
+          "<b>TIME_WAIT was on the side that closed first</b>: 2,000 sockets on that side, none on the other.",
+          "<b><code>SO_LINGER(0)</code> left no TIME_WAIT.</b> With a zero linger time, Linux <code>tcp_close()</code> calls <code>tcp_disconnect()</code>, which sends a reset (RST) instead of a FIN; unsent data is discarded.",
+          "<b>A server that never closed</b> left 2,000 sockets in CLOSE_WAIT, and the clients’ ends in FIN_WAIT2 — the state <code>tcp_fin_timeout</code> limits for orphaned sockets. CLOSE_WAIT means the application has not called <code>close()</code>.",
+          "<b>The JDK <code>HttpClient</code> keeps idle connections for 30 s</b> (<code>jdk.httpclient.keepalive.timeout</code>) and reuses them; a new client per request opens a new connection per request."], CN)}
 </div>
-<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:1mm">{ticks(["<b>Load tests:</b> open connections the way production does. A generator that reconnects for every request measures handshakes and can exhaust its own ports; one that never reconnects hides the cost of new users.",
-          "<b>Watch for it:</b> <code>ss -tan state time-wait | wc -l</code> during a test; connection errors such as “Cannot assign requested address” mean the client ran out of ports.",
-          "<b>Pools need a limit and an idle timeout</b> shorter than the server’s, or the pool hands out connections the server has already closed."], CN)}
+<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:1mm">{ticks(["<b>Count sockets by state</b> during a test with <code>ss -tan state time-wait</code> (or <code>close-wait</code>), or from <code>/proc/net/tcp</code> as the program on the right does."], CN)}
   {code(dsrc("tcp/Connections.java", "  static long count", "\n  }"), "counting sockets by state", cls="xs")}</div>
 {src("OpenJDK 21 java.net.http module-info.java (jdk.httpclient.keepalive.timeout, default 30)", "Linux ip-sysctl.rst", "results: deepdive/logs/connections.txt")}
 ''', chapter=K2, color=CN)
@@ -174,8 +172,8 @@ def phase_diagram():
 
 
 page("timeouts", f'''
-{sub(K3, "A timeout bounds one wait, not the call", CN)}
-<p class="lede-s">“The call has a 2-second timeout” is rarely true. Each setting bounds one phase of the call, and the phases nobody set wait forever. Read the JDK’s documentation and source carefully, then measure against servers that misbehave in each phase.</p>
+{sub(K3, "What each timeout covers", CN)}
+<p class="lede-s">An HTTP call has phases: connect, send, wait for the status line and headers, read the body. Each timeout setting bounds one phase; a phase without one waits indefinitely. The table gives the bound for each phase from the JDK 21 Javadoc and source; the next page measures them.</p>
 {phase_diagram()}
 <div class="two top" style="grid-template-columns:1.35fr 1fr;gap:3mm;margin-top:1.5mm">
   {table(["Phase", "Bounded by", "If unset"], PHASES, "xs")}
@@ -209,8 +207,8 @@ if has("syn.txt") and has("syn-ss.txt"):
     <p class="small" style="margin-top:1mm">The kernel’s SYN retransmission count, read from <code>ss</code> every second: {sched}. {how} <code>tcp_syn_retries = {SC.get("tcp_syn_retries", "?")}</code> the kernel gave up after <b>{float(secs):.0f} s</b>.</p>'''
 
 page("timeouts2", f'''
-{sub(K3, "Measured: three bad servers, eight settings", CN)}
-<p class="lede-s">Three local peers misbehave in different phases. The harness gives up after 5 s — the overall deadline the HTTP client does not provide. Packets to <code>192.0.2.1</code> (an address reserved for documentation, RFC 5737) are dropped with <code>iptables</code>, so the handshake simply never completes.</p>
+{sub(K3, "Measured: three unresponsive servers", CN)}
+<p class="lede-s">Three local peers misbehave in different phases. The harness gives up after 5 s — the overall deadline the HTTP client does not provide. Packets to <code>192.0.2.1</code> (an address reserved for documentation, RFC 5737) are dropped with <code>iptables</code>, so the handshake never completes.</p>
 <div class="two top" style="grid-template-columns:1.12fr 1fr;gap:3mm">
   {code(dsrc("tcp/Timeouts.java", "  static void call(String name, String hostPort", "\n  }"), "Timeouts.java — one call, two optional timeouts", cls="xs")}
   <div>
@@ -230,8 +228,7 @@ page("timeouts2", f'''
   </div>
   {ticks([f"<b>The trickling body beat the 2 s request timeout</b>: still waiting at {to('trickle', 'request')[2]:.0f} s. A raw socket with a 1 s read timeout read it all in {to('trickle', 'Socket')[2]:.0f} s without an error — every byte came within 1 s.",
           f"<b>A connect timeout alone does not help</b> against a server that accepts and stays silent: still waiting at {to('silent', 'connectTimeout')[2]:.0f} s.",
-          f"<b>Set both, and a deadline:</b> <code>connectTimeout</code> for the handshake, <code>timeout</code> for the headers, and a bound on the whole call around it (<code>future.get(…)</code>) — the only thing that stopped the trickle.",
-          "<b>Test each phase</b> with a fake that misbehaves in it: silent after accept, slow headers, slow body, dropped packets. WireMock’s fixed and chunked delays and Toxiproxy do this without writing servers."], CN)}
+          f"<b>Set both, and a deadline:</b> <code>connectTimeout</code> for the handshake, <code>timeout</code> for the headers, and a bound on the whole call around it (<code>future.get(…)</code>) — in this run, the only bound that ended the trickling call."], CN)}
 </div>
 {src("RFC 5737 (documentation addresses)", "Linux ip-sysctl.rst (tcp_syn_retries)", "results: deepdive/logs/timeouts.txt, syn.txt, syn-ss.txt")}
 ''', chapter=K3, color=CN)
