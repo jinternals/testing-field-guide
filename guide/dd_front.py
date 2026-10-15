@@ -22,6 +22,7 @@ CHAPTERS = [
     ("08", "Virtual threads", "Carriers, pinning and compensation", CJ, [("Measured: blocking and pinning", "vt")]),
     ("09", "Containers and CPUs", "What the JVM sizes from cgroup limits", CP, [("What the JVM sees", "box"), ("Sized from the CPU count; throttling", "box2")]),
     ("10", "The Java Memory Model", "Happens-before, measured with jcstress", CJ, [("What another thread may see", "jmm"), ("Visibility and lost updates", "jmm2")]),
+    ("11", "Kafka", "Producer batching, consumer fetching, partitions", CQ, [("Producer batching: linger.ms and batch.size", "kafka"), ("Consumer fetching, partitions, max.poll.interval.ms", "kafka2")]),
 ]
 HAS = {p[0] for p in PAGES}
 
@@ -38,10 +39,10 @@ page("dcover", f'''
   <div class="cover-title">
     <div class="pre">A companion to the Testing Field Guide</div>
     <h1>Java <em>performance</em><br>deep dives</h1>
-    <p>TCP_NODELAY and delayed ACKs, connections and timeouts, pools and Little’s Law, measuring latency, the JIT, GC pauses, virtual threads, containers and the memory model — each explained from the specification or the source code, and each measured. Every number in this book is read from a log written in CI.</p>
+    <p>TCP_NODELAY and delayed ACKs, connections and timeouts, pools and Little’s Law, measuring latency, the JIT, GC pauses, virtual threads, containers, the memory model and Kafka — each explained from the specification or the source code, and each measured. Every number in this book is read from a log written in CI.</p>
   </div>
   <div class="cover-foot">
-    <div><b>10</b> chapters</div><div><b>{N_JAVA}</b> experiments</div><div><b>{N_LOGS}</b> logs</div><div><b>1</b> runner, named</div>
+    <div><b>11</b> chapters</div><div><b>{N_JAVA}</b> experiments</div><div><b>{N_LOGS}</b> logs</div><div><b>1</b> runner, named</div>
   </div>
 </div>''', cls="p-cover", bm="Cover")
 
@@ -90,6 +91,7 @@ EXPS = [
     ("5", "latency/CoordinatedOmission.java", "co.txt"), ("6", "jit/WarmUp.java, DeadCodeBench.java (JMH)", "warmup*.txt, jmh.txt, jit-flags.txt"),
     ("7", "gc/GcLatency.java, G1 and ZGC", "gc-*.txt, gc-*.log"), ("8", "vt/VirtualThreads.java", "vt.txt"),
     ("9", "box/Resources.java, Throttle.java in Docker", "containers.txt, throttle.txt"), ("10", "jmm/StaleFlag.java + 4 jcstress tests", "staleflag.txt, jcstress.log"),
+    ("11", "kafka/KafkaLatency.java, one broker in Docker", "kafka-*.txt"),
 ]
 page("method", f'''
 {sub("Before you start", "How it was measured", "#0F172A")}
@@ -125,8 +127,7 @@ page("method", f'''
 ], "xs")}
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:3mm">
   {ticks(["<b>The text follows the data.</b> Where a sentence interprets a result — “slower”, “removed by the JIT”, “not caused by a GC pause” — it is computed from the log, and changes if the result changes.",
-          "<b>Conclusions are checked.</b> <code>guide/claims_deep.py</code> re-reads the logs and fails the build if a conclusion this book states no longer holds.",
-          "<b>Real output is printed as it ran</b> — packet traces, GC logs, JMH and jcstress tables — not retyped."])}
+          "<b>Conclusions are checked.</b> <code>guide/claims_deep.py</code> re-reads the logs and fails the build if a conclusion this book states no longer holds."])}
   {ticks(["<b>One machine.</b> The numbers are from one CI runner and depend on its CPU, kernel and JDK. To rerun on another machine: <code>bash deepdive/run.sh</code> (Linux, JDK 21, Maven, Docker; <code>sudo</code> for tcpdump and iptables).",
           "<b>Versions matter.</b> Statements are for JDK 21 and the library versions named; where a later JDK changed the behaviour (JEP 474, 490, 491) the page says so."])}
 </div>

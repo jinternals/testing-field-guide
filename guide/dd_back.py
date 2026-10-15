@@ -48,6 +48,11 @@ SOURCES = [
         + a("https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpRequest.Builder.html", "HttpRequest.Builder") + " Javadoc — connect and request timeouts",
         a("https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing", "HikariCP wiki, “About Pool Sizing”") + " · J. D. C. Little, “A Proof for the Queuing Formula: L = λW”, Operations Research 9(3), 1961",
     ]),
+    ("Apache Kafka 4.3.1 client source", [
+        ", ".join(a("https://github.com/apache/kafka/blob/4.3.1/clients/src/main/java/org/apache/kafka/clients/" + p, n) for p, n in [
+            ("producer/ProducerConfig.java", "ProducerConfig"), ("consumer/ConsumerConfig.java", "ConsumerConfig"),
+            ("consumer/KafkaConsumer.java", "KafkaConsumer"), ("CommonClientConfigs.java", "CommonClientConfigs")]) + " — defaults and documentation of every setting the chapter uses",
+    ]),
     ("Libraries (source, default branch or named version)", [
         "Tomcat SocketProperties · Jetty 12.0 ServerConnector · Netty 4.1 DefaultSocketChannelConfig, MultithreadEventLoopGroup",
         "pgjdbc PGProperty · HikariCP HikariConfig · Lettuce SocketOptions, RedisURI · Kafka Selector, ProducerConfig",
@@ -87,6 +92,9 @@ IDX = {
     "CPU throttling": ["box", "box2"], "ForkJoinPool.commonPool": ["box2"], "Native memory": ["box2"], "Java Memory Model": ["jmm", "jmm2"],
     "Happens-before": ["jmm", "jmm2"], "Data race": ["jmm"], "volatile": ["jmm", "jmm2"], "Store buffering": ["jmm"], "jcstress": ["jmm", "jmm2"],
     "Visibility": ["jmm2"], "Lost update": ["jmm2"], "Final fields": ["jmm2"],
+    "Kafka producer batching": ["kafka"], "linger.ms": ["kafka"], "batch.size": ["kafka"], "acks": ["kafka"], "enable.idempotence": ["kafka"],
+    "fetch.min.bytes / fetch.max.wait.ms": ["kafka2"], "Consumer groups and partitions": ["kafka2"], "max.poll.interval.ms": ["kafka2"],
+    "CommitFailedException": ["kafka2"], "Rebalance (Kafka)": ["kafka2"],
 }
 HAS = {p[0] for p in PAGES} | {"dsources", "dindex"}
 

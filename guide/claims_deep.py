@@ -3,7 +3,7 @@ If a fresh run tells a different story, this fails and the PDF is not published.
 import os, sys
 
 import lib
-import dd1, dd2, dd3, dd4, dd5
+import dd1, dd2, dd3, dd4, dd5, dd6
 
 CI = bool(os.environ.get("GITHUB_ACTIONS"))
 problems = []
@@ -109,6 +109,16 @@ claim(dd5.sbv[1] == "0", "store buffering: never with volatile")
 claim(dd5.sf_stuck >= 1 and dd5.sf_vstop == len(dd5.sf_vol), f"StaleFlag: plain stuck {dd5.sf_stuck}/{len(dd5.sf_plain)}, volatile always stopped")
 claim(dd5.jrow("SpinVolatileTest", "STALE")[1] == "0", "SpinVolatileTest never stale")
 claim(dd5.atomic[1] == "0" and dd5.racy[1] != "0", "racy counter loses updates, atomic never does")
+
+# 11 · Kafka
+if needed(dd6.PROD and dd6.FETCH and dd6.PARTS and dd6.POLL, "kafka-*.txt"):
+    h0, h5, h50 = dd6.p(2000, 0), dd6.p(2000, 5), dd6.p(2000, 50)
+    claim(h0["req"] > 3 * h5["req"] > 3 * h50["req"], f"linger.ms cuts requests: {h0['req']} / {h5['req']} / {h50['req']}")
+    claim(h50["p50"] > 10 and dd6.p(20, 50)["p90"] > 40, "linger.ms=50 adds latency to records that wait for a batch")
+    claim(dd6.p(20, 50)["rpr"] >= 1.5, "at 20/s linger.ms=50 batches two records")
+    claim(dd6.FETCH[1][1] > 10 * dd6.FETCH[0][1] and dd6.FETCH[1][4] <= 550, "fetch.min.bytes 1e6 waits up to fetch.max.wait.ms")
+    claim(sorted(n for _, n in dd6.PARTS) == [0, 0, 1, 1], "2 partitions, 4 consumers: two idle")
+    claim("CommitFailedException" in dd6.POLL, "exceeding max.poll.interval.ms fails the commit")
 
 print(f"\n{len(problems)} problem(s)")
 sys.exit(1 if problems else 0)
