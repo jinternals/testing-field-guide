@@ -139,7 +139,7 @@ if needed(dd7.VM, "vt-memory.txt"):
     claim(dd7.VM["platform"]["nmt_res"] > 100 * dd7.VM["virtual"]["nmt_res"], "platform stacks reserve far more native memory")
 if needed(dd7.FB, "jmh-fence.txt"):
     f = dd7.FB
-    claim(f["volatileStore"][0] > 5 * f["plainStore"][0], "volatile store much costlier than plain store")
+    claim(f["volatileStore"][0] - f["plainStore"][0] > 1.5, f"volatile store adds {f['volatileStore'][0] - f['plainStore'][0]:.2f} ns to the plain store")
     claim(abs(f["volatileLoad"][0] - f["plainLoad"][0]) < 0.2, "volatile load costs the same as a plain load on x86-64")
 
 print(f"\n{len(problems)} problem(s)")
