@@ -1,0 +1,204 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ---------------------------< shop:shop-auth >---------------------------
+[INFO] Building shop-auth 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] Could not validate integrity of download from https://build.shibboleth.net/nexus/content/repositories/releases/.meta/prefixes.txt: no checksums available
+[INFO] Loaded 7 auto-discovered prefixes for remote repository shibboleth-repo (prefixes-shibboleth-repo.txt)
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository maven_central (prefixes-maven_central.txt)
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shop-auth ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ shop-auth ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shop-auth ---
+[INFO] skip non existing resourceDirectory /home/runner/work/testing-field-guide/testing-field-guide/spring-auth/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ shop-auth ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 3 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ shop-auth ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.ReportControllerTest
+08:53:24.569 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.ReportControllerTest]: ReportControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:53:24.699 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.AuthApplication for test class shop.ReportControllerTest
+08:53:24.701 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.ReportControllerTest]: ReportControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:53:24.715 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.AuthApplication for test class shop.ReportControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:53:25.104Z  INFO 5591 --- [reports] [           main] shop.ReportControllerTest                : Starting ReportControllerTest using Java 21.0.12.1 with PID 5591 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-auth)
+2026-10-16T08:53:25.106Z  INFO 5591 --- [reports] [           main] shop.ReportControllerTest                : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:53:26.199Z  INFO 5591 --- [reports] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-16T08:53:26.200Z  INFO 5591 --- [reports] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-16T08:53:26.202Z  INFO 5591 --- [reports] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-10-16T08:53:26.250Z  INFO 5591 --- [reports] [           main] shop.ReportControllerTest                : Started ReportControllerTest in 1.482 seconds (process running for 2.56)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.18.11/byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.665 s -- in shop.ReportControllerTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ shop-auth ---
+[INFO] Building jar: /home/runner/work/testing-field-guide/testing-field-guide/spring-auth/target/shop-auth-1.0.jar
+[INFO] 
+[INFO] --- failsafe:3.5.6:integration-test (default) @ shop-auth ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.MockAuthServerIT
+08:53:28.494 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.MockAuthServerIT]: MockAuthServerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:53:28.612 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.AuthApplication for test class shop.MockAuthServerIT
+08:53:28.684 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.MockAuthServerIT]: MockAuthServerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:53:28.686 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.AuthApplication for test class shop.MockAuthServerIT
+08:53:28.723 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+08:53:28.725 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+08:53:28.751 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+08:53:28.975 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+08:53:29.340 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+08:53:29.341 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+08:53:29.362 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Ubuntu 24.04.5 LTS
+  Total Memory: 15989 MB
+08:53:29.385 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+08:53:29.488 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: 596fce04d29fc06e7695e2d07ff36fc70cc4167cc398bc2a585240ff3140a511
+08:53:29.796 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT0.410231216S
+08:53:29.801 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+08:53:29.801 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+08:53:29.801 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+08:53:29.809 [main] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling docker image: ghcr.io/navikt/mock-oauth2-server:6.0.7. Please be patient; this may take some time but only needs to be done once.
+08:53:30.028 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Starting to pull image
+08:53:30.043 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:53:30.190 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers: 14 pending,  1 downloaded,  0 extracted, (878 KB/? MB)
+08:53:30.231 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers: 13 pending,  2 downloaded,  0 extracted, (878 KB/? MB)
+08:53:30.294 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers: 12 pending,  3 downloaded,  0 extracted, (26 MB/? MB)
+08:53:30.301 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers: 11 pending,  4 downloaded,  0 extracted, (28 MB/? MB)
+08:53:30.364 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers: 10 pending,  5 downloaded,  0 extracted, (59 MB/? MB)
+08:53:30.367 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  9 pending,  6 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.369 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  8 pending,  7 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.430 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  7 pending,  8 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.432 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  6 pending,  9 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.489 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  5 pending, 10 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.491 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  4 pending, 11 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.545 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  3 pending, 12 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.555 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  2 pending, 13 downloaded,  0 extracted, (62 MB/? MB)
+08:53:30.607 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  1 pending, 14 downloaded,  0 extracted, (90 MB/? MB)
+08:53:30.617 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  0 extracted, (90 MB/160 MB)
+08:53:31.318 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  1 extracted, (97 MB/160 MB)
+08:53:32.299 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  2 extracted, (119 MB/160 MB)
+08:53:32.471 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  3 extracted, (129 MB/160 MB)
+08:53:32.591 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  4 extracted, (138 MB/160 MB)
+08:53:32.741 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  5 extracted, (138 MB/160 MB)
+08:53:32.795 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  6 extracted, (138 MB/160 MB)
+08:53:32.831 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  7 extracted, (138 MB/160 MB)
+08:53:32.863 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  8 extracted, (140 MB/160 MB)
+08:53:32.897 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded,  9 extracted, (141 MB/160 MB)
+08:53:33.278 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded, 10 extracted, (152 MB/160 MB)
+08:53:33.456 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded, 11 extracted, (152 MB/160 MB)
+08:53:33.659 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded, 12 extracted, (160 MB/160 MB)
+08:53:33.671 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded, 13 extracted, (160 MB/160 MB)
+08:53:33.735 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded, 14 extracted, (160 MB/160 MB)
+08:53:33.746 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pulling image layers:  0 pending, 15 downloaded, 15 extracted, (160 MB/160 MB)
+08:53:33.753 [docker-java-stream-1976301087] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Pull complete. 15 layers, pulled in 3s (downloaded 160 MB at 53 MB/s)
+08:53:33.753 [main] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Image ghcr.io/navikt/mock-oauth2-server:6.0.7 pull took PT3.943795713S
+08:53:33.757 [main] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Creating container for image: ghcr.io/navikt/mock-oauth2-server:6.0.7
+08:53:33.769 [main] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Container ghcr.io/navikt/mock-oauth2-server:6.0.7 is starting: 903591df8ab7497df53cc51f0e753708e5c97c6cb176382ee4d11c53b831eda9
+08:53:35.466 [main] INFO tc.ghcr.io/navikt/mock-oauth2-server:6.0.7 -- Container ghcr.io/navikt/mock-oauth2-server:6.0.7 started in PT1.709352264S
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:53:35.925Z  INFO 5656 --- [reports] [           main] shop.MockAuthServerIT                    : Starting MockAuthServerIT using Java 21.0.12.1 with PID 5656 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-auth)
+2026-10-16T08:53:35.927Z  INFO 5656 --- [reports] [           main] shop.MockAuthServerIT                    : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:53:36.699Z  INFO 5656 --- [reports] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-16T08:53:36.713Z  INFO 5656 --- [reports] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T08:53:36.714Z  INFO 5656 --- [reports] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-16T08:53:36.758Z  INFO 5656 --- [reports] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 815 ms
+2026-10-16T08:53:37.263Z  INFO 5656 --- [reports] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 40803 (http) with context path '/'
+2026-10-16T08:53:37.269Z  INFO 5656 --- [reports] [           main] shop.MockAuthServerIT                    : Started MockAuthServerIT in 1.598 seconds (process running for 9.657)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.18.11/byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-16T08:53:38.272Z  INFO 5656 --- [reports] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T08:53:38.272Z  INFO 5656 --- [reports] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T08:53:38.274Z  INFO 5656 --- [reports] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.36 s -- in shop.MockAuthServerIT
+[INFO] Running shop.InProcessAuthServerIT
+2026-10-16T08:53:38.680Z  INFO 5656 --- [reports] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.InProcessAuthServerIT]: InProcessAuthServerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:53:38.685Z  INFO 5656 --- [reports] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.AuthApplication for test class shop.InProcessAuthServerIT
+2026-10-16T08:53:38.687Z  INFO 5656 --- [reports] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.InProcessAuthServerIT]: InProcessAuthServerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:53:38.690Z  INFO 5656 --- [reports] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.AuthApplication for test class shop.InProcessAuthServerIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:53:38.899Z  INFO 5656 --- [reports] [           main] shop.InProcessAuthServerIT               : Starting InProcessAuthServerIT using Java 21.0.12.1 with PID 5656 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-auth)
+2026-10-16T08:53:38.899Z  INFO 5656 --- [reports] [           main] shop.InProcessAuthServerIT               : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:53:39.090Z  INFO 5656 --- [reports] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-16T08:53:39.091Z  INFO 5656 --- [reports] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T08:53:39.092Z  INFO 5656 --- [reports] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-16T08:53:39.113Z  INFO 5656 --- [reports] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 212 ms
+2026-10-16T08:53:39.230Z  INFO 5656 --- [reports] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 39715 (http) with context path '/'
+2026-10-16T08:53:39.233Z  INFO 5656 --- [reports] [           main] shop.InProcessAuthServerIT               : Started InProcessAuthServerIT in 0.361 seconds (process running for 11.62)
+2026-10-16T08:53:39.294Z  INFO 5656 --- [reports] [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T08:53:39.294Z  INFO 5656 --- [reports] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T08:53:39.295Z  INFO 5656 --- [reports] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.149 s -- in shop.InProcessAuthServerIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.5.6:verify (default) @ shop-auth ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  21.560 s
+[INFO] Finished at: 2026-10-16T08:53:40Z
+[INFO] ------------------------------------------------------------------------

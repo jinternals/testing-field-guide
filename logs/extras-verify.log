@@ -1,0 +1,272 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --------------------------< shop:shop-extras >--------------------------
+[INFO] Building shop-extras 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to jvnet-nexus-snapshots (https://maven.java.net/content/repositories/snapshots): (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shop-extras ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ shop-extras ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shop-extras ---
+[INFO] Copying 4 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ shop-extras ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.0:test (default-test) @ shop-extras ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.http.PriceClientTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.421 s -- in shop.http.PriceClientTest
+[INFO] Running shop.contract.OrderStatusConsumerPactTest
+08:52:17.343 WARN  a.c.d.p.core.support.Metrics - 
+            Please note: we are tracking events anonymously to gather important usage statistics like JVM version
+            and operating system. To disable tracking, set the 'pact_do_not_track' system property or environment
+            variable to 'true'.
+            
+Oct 16, 2026 8:52:17 AM org.junit.jupiter.engine.descriptor.AbstractExtensionContext lambda$createCloseAction$1
+WARNING: Type implements CloseableResource but not AutoCloseable: au.com.dius.pact.consumer.junit5.JUnit5MockServerSupport
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.882 s -- in shop.contract.OrderStatusConsumerPactTest
+[INFO] Running shop.observe.PaymentServiceTest
+08:52:17.860 INFO  shop.observe.PaymentService - Charged order ord-1
+08:52:17.878 WARN  shop.observe.PaymentService - Payment declined for order ord-9: over limit
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.056 s -- in shop.observe.PaymentServiceTest
+[INFO] Running shop.mail.OrderMailerTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 s -- in shop.mail.OrderMailerTest
+[INFO] Running shop.junitext.DeliveryDateTest
+[timing] fridayOrderArrivesTuesday(Clock) took 4 ms
+[timing] repetition 1 of 3 took 2 ms
+[timing] repetition 2 of 3 took 0 ms
+[timing] repetition 3 of 3 took 0 ms
+[timing] tuesdayOrderArrivesThursday(Clock, TestInfo) took 1 ms
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.059 s -- in shop.junitext.DeliveryDateTest
+[INFO] Running shop.legacy.InvoiceReportCharacterizationTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.060 s -- in shop.legacy.InvoiceReportCharacterizationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ shop-extras ---
+[INFO] Building jar: /home/runner/work/testing-field-guide/testing-field-guide/extras/target/shop-extras-1.0.jar
+[INFO] 
+[INFO] --- failsafe:3.6.0:integration-test (default) @ shop-extras ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.cloud.AzureStorageIT
+08:52:20.518 INFO  tc.testcontainers/ryuk:0.14.0 - Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
+08:52:20.850 INFO  tc.testcontainers/ryuk:0.14.0 - Starting to pull image
+08:52:20.871 INFO  tc.testcontainers/ryuk:0.14.0 - Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:52:20.987 INFO  tc.testcontainers/ryuk:0.14.0 - Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (242 KB/? MB)
+08:52:20.996 INFO  tc.testcontainers/ryuk:0.14.0 - Pulling image layers:  1 pending,  1 downloaded,  1 extracted, (242 KB/? MB)
+08:52:21.001 INFO  tc.testcontainers/ryuk:0.14.0 - Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (242 KB/2 MB)
+08:52:22.236 INFO  tc.testcontainers/ryuk:0.14.0 - Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
+08:52:22.242 INFO  tc.testcontainers/ryuk:0.14.0 - Pull complete. 2 layers, pulled in 1s (downloaded 2 MB at 2 MB/s)
+08:52:22.242 INFO  tc.testcontainers/ryuk:0.14.0 - Image testcontainers/ryuk:0.14.0 pull took PT1.715128902S
+08:52:22.265 INFO  tc.testcontainers/ryuk:0.14.0 - Creating container for image: testcontainers/ryuk:0.14.0
+08:52:22.326 INFO  tc.testcontainers/ryuk:0.14.0 - Container testcontainers/ryuk:0.14.0 is starting: 89e2205565f069170bcdbe97946b20f82c70706a55020bc0599e6bec09ca71ce
+08:52:22.708 INFO  tc.testcontainers/ryuk:0.14.0 - Container testcontainers/ryuk:0.14.0 started in PT0.442669146S
+08:52:22.716 INFO  t.m.m.c.37.0 - Pulling docker image: mcr.microsoft.com/azure-storage/azurite:3.37.0. Please be patient; this may take some time but only needs to be done once.
+08:52:22.831 INFO  t.m.m.c.37.0 - Starting to pull image
+08:52:22.833 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:52:22.931 INFO  t.m.m.c.37.0 - Pulling image layers:  9 pending,  1 downloaded,  0 extracted, (62 KB/? MB)
+08:52:22.934 INFO  t.m.m.c.37.0 - Pulling image layers:  8 pending,  2 downloaded,  0 extracted, (62 KB/? MB)
+08:52:22.982 INFO  t.m.m.c.37.0 - Pulling image layers:  7 pending,  3 downloaded,  0 extracted, (605 KB/? MB)
+08:52:22.985 INFO  t.m.m.c.37.0 - Pulling image layers:  6 pending,  4 downloaded,  0 extracted, (605 KB/? MB)
+08:52:23.040 INFO  t.m.m.c.37.0 - Pulling image layers:  5 pending,  5 downloaded,  0 extracted, (25 MB/? MB)
+08:52:23.060 INFO  t.m.m.c.37.0 - Pulling image layers:  4 pending,  6 downloaded,  0 extracted, (25 MB/? MB)
+08:52:23.096 INFO  t.m.m.c.37.0 - Pulling image layers:  3 pending,  7 downloaded,  0 extracted, (28 MB/? MB)
+08:52:23.106 INFO  t.m.m.c.37.0 - Pulling image layers:  3 pending,  7 downloaded,  1 extracted, (28 MB/? MB)
+08:52:23.145 INFO  t.m.m.c.37.0 - Pulling image layers:  2 pending,  8 downloaded,  1 extracted, (48 MB/? MB)
+08:52:23.172 INFO  t.m.m.c.37.0 - Pulling image layers:  1 pending,  9 downloaded,  1 extracted, (48 MB/? MB)
+08:52:23.512 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  1 extracted, (79 MB/108 MB)
+08:52:24.851 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  2 extracted, (87 MB/108 MB)
+08:52:24.895 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  3 extracted, (88 MB/108 MB)
+08:52:24.909 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  4 extracted, (88 MB/108 MB)
+08:52:24.920 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  5 extracted, (88 MB/108 MB)
+08:52:24.936 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  6 extracted, (88 MB/108 MB)
+08:52:25.236 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  7 extracted, (88 MB/108 MB)
+08:52:25.362 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  8 extracted, (88 MB/108 MB)
+08:52:36.009 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded,  9 extracted, (108 MB/108 MB)
+08:52:36.038 INFO  t.m.m.c.37.0 - Pulling image layers:  0 pending, 10 downloaded, 10 extracted, (108 MB/108 MB)
+08:52:36.044 INFO  t.m.m.c.37.0 - Pull complete. 10 layers, pulled in 13s (downloaded 108 MB at 8 MB/s)
+08:52:36.044 INFO  t.m.m.c.37.0 - Image mcr.microsoft.com/azure-storage/azurite:3.37.0 pull took PT13.326224887S
+08:52:36.048 INFO  t.m.m.c.37.0 - Creating container for image: mcr.microsoft.com/azure-storage/azurite:3.37.0
+08:52:36.064 INFO  t.m.m.c.37.0 - Container mcr.microsoft.com/azure-storage/azurite:3.37.0 is starting: 301ecd7c6639a6f4cd884f0f96ffac6455d25b978189f0bb096059d8f6833275
+08:52:37.831 INFO  t.m.m.c.37.0 - Container mcr.microsoft.com/azure-storage/azurite:3.37.0 started in PT1.782865768S
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.55 s -- in shop.cloud.AzureStorageIT
+[INFO] Running shop.cloud.MotoAwsIT
+08:52:39.087 INFO  tc.motoserver/moto:5.2.4 - Pulling docker image: motoserver/moto:5.2.4. Please be patient; this may take some time but only needs to be done once.
+08:52:39.305 INFO  tc.motoserver/moto:5.2.4 - Starting to pull image
+08:52:39.306 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:52:39.672 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  7 pending,  1 downloaded,  0 extracted, (15 KB/? MB)
+08:52:39.681 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  6 pending,  2 downloaded,  0 extracted, (566 KB/? MB)
+08:52:39.713 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  5 pending,  3 downloaded,  0 extracted, (566 KB/? MB)
+08:52:39.739 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  4 pending,  4 downloaded,  0 extracted, (677 KB/? MB)
+08:52:39.766 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  3 pending,  5 downloaded,  0 extracted, (1 MB/? MB)
+08:52:39.792 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  2 pending,  6 downloaded,  0 extracted, (1 MB/? MB)
+08:52:39.977 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  2 pending,  6 downloaded,  1 extracted, (12 MB/? MB)
+08:52:40.181 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  1 extracted, (70 MB/? MB)
+08:52:40.693 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  2 extracted, (80 MB/? MB)
+08:52:40.706 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  3 extracted, (80 MB/? MB)
+08:52:42.127 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  4 extracted, (89 MB/? MB)
+08:52:42.137 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  5 extracted, (89 MB/? MB)
+08:52:47.200 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  6 extracted, (93 MB/? MB)
+08:52:47.246 INFO  tc.motoserver/moto:5.2.4 - Pulling image layers:  1 pending,  7 downloaded,  7 extracted, (95 MB/? MB)
+08:52:47.251 INFO  tc.motoserver/moto:5.2.4 - Pull complete. 8 layers, pulled in 7s (downloaded 95 MB at 13 MB/s)
+08:52:47.251 INFO  tc.motoserver/moto:5.2.4 - Image motoserver/moto:5.2.4 pull took PT8.162679347S
+08:52:47.254 INFO  tc.motoserver/moto:5.2.4 - Creating container for image: motoserver/moto:5.2.4
+08:52:47.268 INFO  tc.motoserver/moto:5.2.4 - Container motoserver/moto:5.2.4 is starting: 5a23dbec9467c1d3b6b35a9dc41acdf2e09079153adfc016fc4eb85d7eade40c
+08:52:48.355 INFO  tc.motoserver/moto:5.2.4 - Container motoserver/moto:5.2.4 started in PT1.100851088S
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.44 s -- in shop.cloud.MotoAwsIT
+[INFO] Running shop.cloud.LocalStackAwsIT
+[WARNING] Tests run: 2, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0 s -- in shop.cloud.LocalStackAwsIT
+[INFO] Running shop.e2e.CheckoutE2EIT
+Playwright Host validation warning: 
+╔══════════════════════════════════════════════════════╗
+║ Host system is missing dependencies to run browsers. ║
+║ Missing libraries:                                   ║
+║     libgtk-4.so.1                                    ║
+║     libgraphene-1.0.so.0                             ║
+║     libevent-2.1.so.7                                ║
+║     libopus.so.0                                     ║
+║     libgstallocators-1.0.so.0                        ║
+║     libgstapp-1.0.so.0                               ║
+║     libgstpbutils-1.0.so.0                           ║
+║     libgstaudio-1.0.so.0                             ║
+║     libgsttag-1.0.so.0                               ║
+║     libgstvideo-1.0.so.0                             ║
+║     libgstgl-1.0.so.0                                ║
+║     libgstcodecparsers-1.0.so.0                      ║
+║     libgstfft-1.0.so.0                               ║
+║     libflite.so.1                                    ║
+║     libflite_usenglish.so.1                          ║
+║     libflite_cmu_grapheme_lang.so.1                  ║
+║     libflite_cmu_grapheme_lex.so.1                   ║
+║     libflite_cmu_indic_lang.so.1                     ║
+║     libflite_cmu_indic_lex.so.1                      ║
+║     libflite_cmulex.so.1                             ║
+║     libflite_cmu_time_awb.so.1                       ║
+║     libflite_cmu_us_awb.so.1                         ║
+║     libflite_cmu_us_kal16.so.1                       ║
+║     libflite_cmu_us_kal.so.1                         ║
+║     libflite_cmu_us_rms.so.1                         ║
+║     libflite_cmu_us_slt.so.1                         ║
+║     libavif.so.16                                    ║
+║     libharfbuzz-icu.so.0                             ║
+║     libwayland-server.so.0                           ║
+║     libmanette-0.2.so.0                              ║
+║     libhyphen.so.0                                   ║
+║     libsecret-1.so.0                                 ║
+║     libGLESv2.so.2                                   ║
+║     libx264.so                                       ║
+╚══════════════════════════════════════════════════════╝
+    at validateDependenciesLinux (/tmp/playwright-java-10379428603672572838/package/lib/coreBundle.js:32259:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async Registry._validateHostRequirements (/tmp/playwright-java-10379428603672572838/package/lib/coreBundle.js:33519:18)
+    at async Registry._validateHostRequirementsForExecutableIfNeeded (/tmp/playwright-java-10379428603672572838/package/lib/coreBundle.js:33641:11)
+    at async Registry.validateHostRequirementsForExecutablesIfNeeded (/tmp/playwright-java-10379428603672572838/package/lib/coreBundle.js:33630:11)
+    at async installBrowsers (/tmp/playwright-java-10379428603672572838/package/lib/coreBundle.js:70097:5)
+    at async _Command.<anonymous> (/tmp/playwright-java-10379428603672572838/package/lib/coreBundle.js:73670:7)
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.68 s -- in shop.e2e.CheckoutE2EIT
+[INFO] Running shop.contract.OrderStatusProviderPactIT
+
+Verifying a pact between shop and orders
+  [Using File target/pacts/shop-orders.json]
+  Given order ord-1 is paid
+  a status request for ord-1
+08:53:00.868 WARN  a.c.d.p.core.support.Metrics - 
+            Please note: we are tracking events anonymously to gather important usage statistics like JVM version
+            and operating system. To disable tracking, set the 'pact_do_not_track' system property or environment
+            variable to 'true'.
+            
+    returns a response which
+      has status code 200 (OK)
+      has a matching body (OK)
+08:53:00.915 WARN  a.c.d.p.p.DefaultTestResultAccumulator - Skipping publishing of verification results as it has been disabled (pact.verifier.publishResults is not 'true')
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.702 s -- in shop.contract.OrderStatusProviderPactIT
+[INFO] Running shop.events.OrderEventsIT
+08:53:00.926 INFO  tc.apache/kafka-native:4.3.1 - Pulling docker image: apache/kafka-native:4.3.1. Please be patient; this may take some time but only needs to be done once.
+08:53:01.155 INFO  tc.apache/kafka-native:4.3.1 - Starting to pull image
+08:53:01.157 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:53:01.266 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  7 pending,  1 downloaded,  0 extracted, (2 KB/? MB)
+08:53:01.297 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  6 pending,  2 downloaded,  0 extracted, (513 KB/? MB)
+08:53:01.302 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  5 pending,  3 downloaded,  0 extracted, (531 KB/? MB)
+08:53:01.327 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  4 pending,  4 downloaded,  0 extracted, (532 KB/? MB)
+08:53:01.333 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  3 pending,  5 downloaded,  0 extracted, (534 KB/? MB)
+08:53:01.363 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  2 pending,  6 downloaded,  0 extracted, (536 KB/? MB)
+08:53:01.432 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  0 extracted, (28 MB/? MB)
+08:53:02.500 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  1 extracted, (31 MB/? MB)
+08:53:02.511 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  2 extracted, (31 MB/? MB)
+08:53:03.159 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  3 extracted, (48 MB/? MB)
+08:53:03.168 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  4 extracted, (48 MB/? MB)
+08:53:03.179 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  5 extracted, (48 MB/? MB)
+08:53:03.189 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  6 extracted, (48 MB/? MB)
+08:53:03.197 INFO  tc.apache/kafka-native:4.3.1 - Pulling image layers:  1 pending,  7 downloaded,  7 extracted, (48 MB/? MB)
+08:53:03.203 INFO  tc.apache/kafka-native:4.3.1 - Pull complete. 8 layers, pulled in 2s (downloaded 48 MB at 24 MB/s)
+08:53:03.203 INFO  tc.apache/kafka-native:4.3.1 - Image apache/kafka-native:4.3.1 pull took PT2.276164752S
+08:53:03.205 INFO  tc.apache/kafka-native:4.3.1 - Creating container for image: apache/kafka-native:4.3.1
+08:53:03.218 INFO  tc.apache/kafka-native:4.3.1 - Container apache/kafka-native:4.3.1 is starting: f7a738d69a6b8d1a77ec6790107aa67aee40d03953042e2d863bc3faa6bfc0df
+08:53:03.693 INFO  tc.apache/kafka-native:4.3.1 - Container apache/kafka-native:4.3.1 started in PT0.487938911S
+08:53:04.193 WARN  o.a.k.clients.NetworkClient - [Consumer clientId=consumer-order-projection-1, groupId=order-projection] The metadata response from the cluster reported a recoverable issue with correlation id 2 : {orders=UNKNOWN_TOPIC_OR_PARTITION}
+08:53:04.193 WARN  o.a.k.clients.NetworkClient - [Producer clientId=producer-1] The metadata response from the cluster reported a recoverable issue with correlation id 1 : {orders=UNKNOWN_TOPIC_OR_PARTITION}
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.961 s -- in shop.events.OrderEventsIT
+[INFO] Running shop.migrations.MigrationsIT
+08:53:04.889 INFO  tc.postgres:17-alpine - Pulling docker image: postgres:17-alpine. Please be patient; this may take some time but only needs to be done once.
+08:53:05.111 INFO  tc.postgres:17-alpine - Starting to pull image
+08:53:05.112 INFO  tc.postgres:17-alpine - Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:53:05.209 INFO  tc.postgres:17-alpine - Pulling image layers:  9 pending,  1 downloaded,  0 extracted, (1 KB/? MB)
+08:53:05.227 INFO  tc.postgres:17-alpine - Pulling image layers:  9 pending,  1 downloaded,  1 extracted, (16 KB/? MB)
+08:53:05.230 INFO  tc.postgres:17-alpine - Pulling image layers:  8 pending,  2 downloaded,  1 extracted, (16 KB/? MB)
+08:53:05.238 INFO  tc.postgres:17-alpine - Pulling image layers:  7 pending,  3 downloaded,  1 extracted, (42 KB/? MB)
+08:53:05.265 INFO  tc.postgres:17-alpine - Pulling image layers:  6 pending,  4 downloaded,  1 extracted, (1 MB/? MB)
+08:53:05.270 INFO  tc.postgres:17-alpine - Pulling image layers:  5 pending,  5 downloaded,  1 extracted, (1 MB/? MB)
+08:53:05.271 INFO  tc.postgres:17-alpine - Pulling image layers:  5 pending,  5 downloaded,  2 extracted, (1 MB/? MB)
+08:53:05.284 INFO  tc.postgres:17-alpine - Pulling image layers:  5 pending,  5 downloaded,  3 extracted, (1 MB/? MB)
+08:53:05.294 INFO  tc.postgres:17-alpine - Pulling image layers:  4 pending,  6 downloaded,  3 extracted, (1 MB/? MB)
+08:53:05.297 INFO  tc.postgres:17-alpine - Pulling image layers:  3 pending,  7 downloaded,  3 extracted, (1 MB/? MB)
+08:53:05.588 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  3 extracted, (96 MB/? MB)
+08:53:08.096 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  4 extracted, (108 MB/? MB)
+08:53:08.110 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  5 extracted, (108 MB/? MB)
+08:53:08.123 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  6 extracted, (108 MB/? MB)
+08:53:08.135 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  7 extracted, (108 MB/? MB)
+08:53:08.144 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  8 extracted, (108 MB/? MB)
+08:53:08.153 INFO  tc.postgres:17-alpine - Pulling image layers:  2 pending,  8 downloaded,  9 extracted, (108 MB/? MB)
+08:53:08.159 INFO  tc.postgres:17-alpine - Pull complete. 10 layers, pulled in 3s (downloaded 108 MB at 36 MB/s)
+08:53:08.159 INFO  tc.postgres:17-alpine - Image postgres:17-alpine pull took PT3.269095958S
+08:53:08.161 INFO  tc.postgres:17-alpine - Creating container for image: postgres:17-alpine
+08:53:08.175 INFO  tc.postgres:17-alpine - Container postgres:17-alpine is starting: f360fbc155ddb7b9fea925ea98d6884ae69498ea3f6d5c6b6eea3abb0f83046f
+08:53:09.881 INFO  tc.postgres:17-alpine - Container postgres:17-alpine started in PT1.719459809S
+08:53:09.882 INFO  tc.postgres:17-alpine - Container is started (JDBC URL: jdbc:postgresql://localhost:32774/test?loggerLevel=OFF)
+08:53:10.742 ERROR o.f.c.i.command.DbMigrate - Migration of schema "broken" to version "3 - status required" failed! Changes successfully rolled back.
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.866 s -- in shop.migrations.MigrationsIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 2
+[INFO] 
+[WARNING] Corrupted channel by directly writing to native stream in forked JVM 1. See FAQ web page and the dump file /home/runner/work/testing-field-guide/testing-field-guide/extras/target/failsafe-reports/2026-10-16T08-52-18_557-jvmRun1.dumpstream
+[INFO] 
+[INFO] --- failsafe:3.6.0:verify (default) @ shop-extras ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:03 min
+[INFO] Finished at: 2026-10-16T08:53:11Z
+[INFO] ------------------------------------------------------------------------

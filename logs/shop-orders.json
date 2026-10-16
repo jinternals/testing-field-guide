@@ -1,0 +1,73 @@
+{
+  "consumer": {
+    "name": "shop"
+  },
+  "interactions": [
+    {
+      "description": "a status request for ord-1",
+      "key": "a89dd475",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "order ord-1 is paid"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/ord-1/status"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "id": "ord-1",
+            "status": "PAID"
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.7.5"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "orders"
+  }
+}

@@ -1,0 +1,2 @@
+-rw-r--r-- 1 runner runner 30631 Oct 16 08:53 extras/target/smallOrderPaysFullPrice-trace.zip
+-rw-r--r-- 1 runner runner 36667 Oct 16 08:52 extras/target/twoBooksGetTheBulkDiscount-trace.zip

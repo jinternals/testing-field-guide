@@ -1,0 +1,113 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --------------------------< shop:shop-extras >--------------------------
+[INFO] Building shop-extras 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to jvnet-nexus-snapshots (https://maven.java.net/content/repositories/snapshots): (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+[INFO] 
+[INFO] --- failsafe:3.6.0:integration-test (default-cli) @ shop-extras ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.contract.OrderStatusProviderPactIT
+
+Verifying a pact between shop and orders
+  [Using File target/pacts/shop-orders.json]
+  Given order ord-1 is paid
+  a status request for ord-1
+08:53:16.825 WARN  a.c.d.p.core.support.Metrics - 
+            Please note: we are tracking events anonymously to gather important usage statistics like JVM version
+            and operating system. To disable tracking, set the 'pact_do_not_track' system property or environment
+            variable to 'true'.
+            
+    returns a response which
+      has status code 200 (OK)
+      has a matching body (FAILED)
+
+Failures:
+
+1) Verifying a pact between shop and orders - a status request for ord-1 has a matching body
+
+    1.1) body: $ Actual map is missing the following keys: status
+
+        {
+          "id": "ord-1",
+        -  "status": "PAID"
+        +  "state": "PAID",
+        +  "total": "1140.00"
+        }
+
+
+
+08:53:17.176 WARN  a.c.d.p.p.DefaultTestResultAccumulator - Skipping publishing of verification results as it has been disabled (pact.verifier.publishResults is not 'true')
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.296 s <<< FAILURE! -- in shop.contract.OrderStatusProviderPactIT
+[ERROR] shop.contract.OrderStatusProviderPactIT.honoursTheContract(PactVerificationContext)[1] -- Time elapsed: 0.615 s <<< FAILURE!
+java.lang.AssertionError: 
+shop - Upon a status request for ord-1 
+Failures:
+
+1) Verifying a pact between shop and orders - a status request for ord-1 has a matching body
+
+    1.1) body: $ Actual map is missing the following keys: status
+
+        {
+          "id": "ord-1",
+        -  "status": "PAID"
+        +  "state": "PAID",
+        +  "total": "1140.00"
+        }
+
+
+
+	at au.com.dius.pact.provider.junit5.PactVerificationContext.verifyInteraction(PactVerificationContext.kt:75)
+	at shop.contract.OrderStatusProviderPactIT.honoursTheContract(OrderStatusProviderPactIT.java:35)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   OrderStatusProviderPactIT.honoursTheContract:35 shop - Upon a status request for ord-1 
+Failures:
+
+1) Verifying a pact between shop and orders - a status request for ord-1 has a matching body
+
+    1.1) body: $ Actual map is missing the following keys: status
+
+        {
+          "id": "ord-1",
+        -  "status": "PAID"
+        +  "state": "PAID",
+        +  "total": "1140.00"
+        }
+
+
+
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.6.0:verify (default-cli) @ shop-extras ---
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.803 s
+[INFO] Finished at: 2026-10-16T08:53:17Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-failsafe-plugin:3.6.0:verify (default-cli) on project shop-extras: There are test failures.
+[ERROR] 
+[ERROR] See /home/runner/work/testing-field-guide/testing-field-guide/extras/target/failsafe-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
