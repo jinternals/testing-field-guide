@@ -1,0 +1,258 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --------------------------< shop:shop-spring >--------------------------
+[INFO] Building shop-spring 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.10.0:properties (default) @ shop-spring ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shop-spring ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ shop-spring ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 7 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shop-spring ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ shop-spring ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 7 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ shop-spring ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.OrderControllerTest
+08:51:45.347 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.OrderControllerTest]: OrderControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:45.474 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.ShopApplication for test class shop.OrderControllerTest
+08:51:45.477 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.OrderControllerTest]: OrderControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:45.487 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.ShopApplication for test class shop.OrderControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:51:45.885Z  INFO 2205 --- [shop] [           main] shop.OrderControllerTest                 : Starting OrderControllerTest using Java 21.0.12.1 with PID 2205 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring)
+2026-10-16T08:51:45.887Z  INFO 2205 --- [shop] [           main] shop.OrderControllerTest                 : No active profile set, falling back to 1 default profile: "default"
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-16T08:51:46.930Z  INFO 2205 --- [shop] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-16T08:51:46.930Z  INFO 2205 --- [shop] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-16T08:51:46.932Z  INFO 2205 --- [shop] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-16T08:51:46.962Z  INFO 2205 --- [shop] [           main] shop.OrderControllerTest                 : Started OrderControllerTest in 1.423 seconds (process running for 2.66)
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.943 s -- in shop.OrderControllerTest
+[INFO] Running shop.ArchitectureRulesCatchViolationsTest
+2026-10-16T08:51:47.190Z  INFO 2205 --- [shop] [           main] com.tngtech.archunit.core.PluginLoader   : Detected Java version 21.0.12.1
+Architecture Violation [Priority: MEDIUM] - Rule 'no classes that have simple name ending with 'Controller' should depend on classes that have simple name ending with 'Repository', because controllers go through a service' was violated (3 times):
+Constructor <shop.archdemo.ShortcutController.<init>(shop.OrderRepository)> has parameter of type <shop.OrderRepository> in (ShortcutController.java:0)
+Field <shop.archdemo.ShortcutController.repository> has type <shop.OrderRepository> in (ShortcutController.java:0)
+Method <shop.archdemo.ShortcutController.count()> calls method <shop.OrderRepository.count()> in (ShortcutController.java:13)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.877 s -- in shop.ArchitectureRulesCatchViolationsTest
+[INFO] Running shop.ArchitectureTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.354 s -- in shop.ArchitectureTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ shop-spring ---
+[INFO] Building jar: /home/runner/work/testing-field-guide/testing-field-guide/spring/target/shop-spring-1.0.jar
+[INFO] 
+[INFO] --- failsafe:3.5.6:integration-test (default) @ shop-spring ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.OrderRepositoryIT
+08:51:49.442 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.OrderRepositoryIT]: OrderRepositoryIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:49.537 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.ShopApplication for test class shop.OrderRepositoryIT
+08:51:49.539 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.OrderRepositoryIT]: OrderRepositoryIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:49.554 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.ShopApplication for test class shop.OrderRepositoryIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:51:49.844Z  INFO 2250 --- [shop] [           main] shop.OrderRepositoryIT                   : Starting OrderRepositoryIT using Java 21.0.12.1 with PID 2250 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring)
+2026-10-16T08:51:49.845Z  INFO 2250 --- [shop] [           main] shop.OrderRepositoryIT                   : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:51:50.092Z  INFO 2250 --- [shop] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-16T08:51:50.134Z  INFO 2250 --- [shop] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 1 JPA repository interface.
+2026-10-16T08:51:50.252Z  INFO 2250 --- [shop] [           main] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-10-16T08:51:50.253Z  INFO 2250 --- [shop] [           main] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-10-16T08:51:50.266Z  INFO 2250 --- [shop] [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-10-16T08:51:50.659Z  INFO 2250 --- [shop] [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-10-16T08:51:50.661Z  INFO 2250 --- [shop] [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-10-16T08:51:50.673Z  INFO 2250 --- [shop] [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Ubuntu 24.04.5 LTS
+  Total Memory: 15988 MB
+2026-10-16T08:51:50.693Z  INFO 2250 --- [shop] [           main] tc.testcontainers/ryuk:0.14.0            : Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
+2026-10-16T08:51:51.409Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Starting to pull image
+2026-10-16T08:51:51.427Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-10-16T08:51:51.766Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (242 KB/? MB)
+2026-10-16T08:51:51.773Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  1 pending,  1 downloaded,  1 extracted, (242 KB/? MB)
+2026-10-16T08:51:51.798Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (2 MB/2 MB)
+2026-10-16T08:51:52.590Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
+2026-10-16T08:51:52.598Z  INFO 2250 --- [shop] [           main] tc.testcontainers/ryuk:0.14.0            : Image testcontainers/ryuk:0.14.0 pull took PT1.90470314S
+2026-10-16T08:51:52.598Z  INFO 2250 --- [shop] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pull complete. 2 layers, pulled in 1s (downloaded 2 MB at 2 MB/s)
+2026-10-16T08:51:52.614Z  INFO 2250 --- [shop] [           main] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-10-16T08:51:52.656Z  INFO 2250 --- [shop] [           main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 0a262ac5078263949274cc19fcd823606c28f7b863531b81745a65f7ffde56a1
+2026-10-16T08:51:52.947Z  INFO 2250 --- [shop] [           main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.333123491S
+2026-10-16T08:51:52.951Z  INFO 2250 --- [shop] [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-10-16T08:51:52.951Z  INFO 2250 --- [shop] [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-10-16T08:51:52.952Z  INFO 2250 --- [shop] [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-10-16T08:51:52.954Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Pulling docker image: postgres:17-alpine. Please be patient; this may take some time but only needs to be done once.
+2026-10-16T08:51:53.491Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Starting to pull image
+2026-10-16T08:51:53.492Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-10-16T08:51:53.808Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  9 pending,  1 downloaded,  0 extracted, (15 KB/? MB)
+2026-10-16T08:51:53.809Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  8 pending,  2 downloaded,  0 extracted, (16 KB/? MB)
+2026-10-16T08:51:53.830Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  8 pending,  2 downloaded,  1 extracted, (16 KB/? MB)
+2026-10-16T08:51:53.844Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  7 pending,  3 downloaded,  1 extracted, (16 KB/? MB)
+2026-10-16T08:51:53.880Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  7 pending,  3 downloaded,  2 extracted, (881 KB/? MB)
+2026-10-16T08:51:53.890Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  7 pending,  3 downloaded,  3 extracted, (881 KB/? MB)
+2026-10-16T08:51:53.971Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  6 pending,  4 downloaded,  3 extracted, (891 KB/? MB)
+2026-10-16T08:51:53.998Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  5 pending,  5 downloaded,  3 extracted, (1 MB/? MB)
+2026-10-16T08:51:54.128Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  4 pending,  6 downloaded,  3 extracted, (22 MB/? MB)
+2026-10-16T08:51:54.139Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  3 pending,  7 downloaded,  3 extracted, (22 MB/? MB)
+2026-10-16T08:51:54.254Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  2 pending,  8 downloaded,  3 extracted, (62 MB/? MB)
+2026-10-16T08:51:54.285Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  3 extracted, (103 MB/? MB)
+2026-10-16T08:51:57.396Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  4 extracted, (108 MB/? MB)
+2026-10-16T08:51:57.409Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  5 extracted, (108 MB/? MB)
+2026-10-16T08:51:57.421Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  6 extracted, (108 MB/? MB)
+2026-10-16T08:51:57.430Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  7 extracted, (108 MB/? MB)
+2026-10-16T08:51:57.440Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  8 extracted, (108 MB/? MB)
+2026-10-16T08:51:57.449Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pulling image layers:  1 pending,  9 downloaded,  9 extracted, (108 MB/? MB)
+2026-10-16T08:51:57.455Z  INFO 2250 --- [shop] [eam--1852279113] tc.postgres:17-alpine                    : Pull complete. 10 layers, pulled in 3s (downloaded 108 MB at 36 MB/s)
+2026-10-16T08:51:57.455Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Image postgres:17-alpine pull took PT4.501128005S
+2026-10-16T08:51:57.458Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Creating container for image: postgres:17-alpine
+2026-10-16T08:51:57.471Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Container postgres:17-alpine is starting: 1ef4038cecf20c128c91efed06598d0eccdf0b319d972605c2c4b9b30d5ea3d6
+2026-10-16T08:51:58.664Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Container postgres:17-alpine started in PT1.205665336S
+2026-10-16T08:51:58.665Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32769/test?loggerLevel=OFF)
+2026-10-16T08:51:58.799Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-16T08:51:58.838Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-16T08:51:59.103Z  INFO 2250 --- [shop] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-16T08:51:59.121Z  INFO 2250 --- [shop] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T08:51:59.249Z  INFO 2250 --- [shop] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@e460ca1
+2026-10-16T08:51:59.250Z  INFO 2250 --- [shop] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T08:51:59.305Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:32769/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-16T08:51:59.920Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: set client_min_messages = WARNING
+Hibernate: alter table if exists order_line drop constraint if exists FKk9f9t1tmkbq5w27u8rrjbxxg6
+Hibernate: drop table if exists order_line cascade
+Hibernate: drop table if exists orders cascade
+Hibernate: create table order_line (quantity integer not null, id uuid not null, order_id uuid not null, sku varchar(255), primary key (id))
+Hibernate: create table orders (total numeric(38,2) not null, id uuid not null, reference varchar(255) not null unique, primary key (id))
+Hibernate: alter table if exists order_line add constraint FKk9f9t1tmkbq5w27u8rrjbxxg6 foreign key (order_id) references orders
+2026-10-16T08:51:59.946Z  INFO 2250 --- [shop] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-16T08:52:00.035Z  INFO 2250 --- [shop] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-16T08:52:00.546Z  INFO 2250 --- [shop] [           main] shop.OrderRepositoryIT                   : Started OrderRepositoryIT in 10.955 seconds (process running for 11.789)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Hibernate: select co1_0.id,co1_0.reference,co1_0.total,l1_0.order_id,l1_0.id,l1_0.quantity,l1_0.sku from orders co1_0 left join order_line l1_0 on co1_0.id=l1_0.order_id where co1_0.id=?
+Hibernate: select co1_0.id,co1_0.reference,co1_0.total,l1_0.order_id,l1_0.id,l1_0.quantity,l1_0.sku from orders co1_0 left join order_line l1_0 on co1_0.id=l1_0.order_id where co1_0.id=?
+Hibernate: insert into orders (reference,total,id) values (?,?,?)
+Hibernate: insert into orders (reference,total,id) values (?,?,?)
+2026-10-16T08:52:00.743Z  WARN 2250 --- [shop] [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: 23505
+2026-10-16T08:52:00.744Z  WARN 2250 --- [shop] [           main] org.hibernate.orm.jdbc.error             : ERROR: duplicate key value violates unique constraint "orders_reference_key"
+  Detail: Key (reference)=(A-1) already exists.
+Hibernate: select co1_0.id,co1_0.reference,co1_0.total,l1_0.order_id,l1_0.id,l1_0.quantity,l1_0.sku from orders co1_0 left join order_line l1_0 on co1_0.id=l1_0.order_id where co1_0.id=?
+Hibernate: select ol1_0.id,ol1_0.order_id,ol1_0.quantity,ol1_0.sku from order_line ol1_0 where ol1_0.id=?
+Hibernate: select ol1_0.id,ol1_0.order_id,ol1_0.quantity,ol1_0.sku from order_line ol1_0 where ol1_0.id=?
+Hibernate: insert into orders (reference,total,id) values (?,?,?)
+Hibernate: insert into order_line (order_id,quantity,sku,id) values (?,?,?,?)
+Hibernate: insert into order_line (order_id,quantity,sku,id) values (?,?,?,?)
+Hibernate: select co1_0.id,co1_0.reference,co1_0.total from orders co1_0 where co1_0.reference=?
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.51 s -- in shop.OrderRepositoryIT
+[INFO] Running shop.OrderFlowIT
+2026-10-16T08:52:00.870Z  INFO 2250 --- [shop] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.OrderFlowIT]: OrderFlowIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:00.874Z  INFO 2250 --- [shop] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.ShopApplication for test class shop.OrderFlowIT
+2026-10-16T08:52:00.879Z  INFO 2250 --- [shop] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.OrderFlowIT]: OrderFlowIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:00.882Z  INFO 2250 --- [shop] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.ShopApplication for test class shop.OrderFlowIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:52:00.915Z  INFO 2250 --- [shop] [           main] shop.OrderFlowIT                         : Starting OrderFlowIT using Java 21.0.12.1 with PID 2250 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring)
+2026-10-16T08:52:00.915Z  INFO 2250 --- [shop] [           main] shop.OrderFlowIT                         : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:52:01.171Z  INFO 2250 --- [shop] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-16T08:52:01.177Z  INFO 2250 --- [shop] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-10-16T08:52:01.267Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Creating container for image: postgres:17-alpine
+2026-10-16T08:52:01.357Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Container postgres:17-alpine is starting: 84a96c8f540e92fe48d1756e29b3ac0b9ad414fb9063c876366dff8341412272
+2026-10-16T08:52:02.527Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Container postgres:17-alpine started in PT1.259227859S
+2026-10-16T08:52:02.527Z  INFO 2250 --- [shop] [           main] tc.postgres:17-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32770/test?loggerLevel=OFF)
+2026-10-16T08:52:02.570Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-16T08:52:02.585Z  INFO 2250 --- [shop] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-16T08:52:02.586Z  INFO 2250 --- [shop] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-10-16T08:52:02.599Z  INFO 2250 --- [shop] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@3217aada
+2026-10-16T08:52:02.599Z  INFO 2250 --- [shop] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-10-16T08:52:02.605Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:32770/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-16T08:52:02.639Z  INFO 2250 --- [shop] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-16T08:52:02.649Z  INFO 2250 --- [shop] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-16T08:52:03.094Z  INFO 2250 --- [shop] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-16T08:52:03.094Z  INFO 2250 --- [shop] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-16T08:52:03.097Z  INFO 2250 --- [shop] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-10-16T08:52:03.112Z  INFO 2250 --- [shop] [           main] shop.OrderFlowIT                         : Started OrderFlowIT in 2.219 seconds (process running for 14.355)
+2026-10-16T08:52:03.147Z  WARN 2250 --- [shop] [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: 23505
+2026-10-16T08:52:03.147Z  WARN 2250 --- [shop] [           main] org.hibernate.orm.jdbc.error             : ERROR: duplicate key value violates unique constraint "orders_reference_key"
+  Detail: Key (reference)=(A-1) already exists.
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.471 s -- in shop.OrderFlowIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.5.6:verify (default) @ shop-spring ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  26.170 s
+[INFO] Finished at: 2026-10-16T08:52:04Z
+[INFO] ------------------------------------------------------------------------
