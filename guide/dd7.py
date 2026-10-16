@@ -60,8 +60,8 @@ if SW:
         notes.append(f"<b>TCP_NODELAY, autocorking off</b>: {nd0[1]:,} data segments" + (" — one per write." if nd0[1] >= 9_900 else "."))
     notes.append(f"<b>TCP_NODELAY, autocorking on</b> (the default): {nd[1]:,}" + (" — <code>tcp_autocorking</code> merged writes while earlier packets were still queued." if nd0 and nd[1] < 0.9 * nd0[1] else "."))
     notes.append(f"<b>One buffered write</b>: {buf[1]:,} segments in {buf[0]} ms.")
-    sw_html = f'''<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm"><div>{table(["Writer", "tcp_autocorking", "ms", "data segments sent"], rows, "xs")}
-    <p class="small muted" style="margin:1mm 0">SmallWrites.java · 10,000 one-byte writes to a reader that sends nothing back · data segments from the client socket’s <code>data_segs_out</code> counter (<code>ss -ti</code>), read once the reader had every byte · {RUNNER}</p></div>
+    sw_html = f'''<div class="two top" style="grid-template-columns:1.15fr 1fr;gap:3mm"><div>{table(["Writer", "tcp_autocorking", "ms", "data segments sent"], rows, "xs")}
+    <p class="small muted" style="margin:1mm 0">SmallWrites.java · the client socket’s <code>data_segs_out</code> counter (<code>ss -ti</code>) · {RUNNER}</p></div>
     {ticks(notes, CN)}</div>'''
 
 page("nagle3", f'''
@@ -322,7 +322,7 @@ if FB:
     fb_html = f'''{table(["One thread, no contention", "ns/op", "error"], rows, "xs")}
     <p class="small muted" style="margin-top:1mm">FenceBench.java · JMH 1.37 · {RUNNER}</p>
     {ticks([f"<b>The volatile store</b> added {FB['volatileStore'][0] - FB['plainStore'][0]:.2f} ns to the plain increment: the <code>lock addl</code> after it.",
-            f"<b>The release store</b> added {FB['releaseStore'][0] - FB['plainStore'][0]:.2f} ns, although its barrier emits no instruction on x86-64; this benchmark does not show where that time goes.",
+            f"<b>The release store</b> added {FB['releaseStore'][0] - FB['plainStore'][0]:.2f} ns" + (", consistent with a barrier that emits no instruction on x86-64." if FB['releaseStore'][0] - FB['plainStore'][0] < 0.5 else ", although its barrier emits no instruction on x86-64; this benchmark does not show where that time goes."),
             f"<b>The volatile load</b> took {FB['volatileLoad'][0]:.3f} ns against {FB['plainLoad'][0]:.3f} ns for a plain load: on x86-64 the acquire barrier is empty.",
             f"<b>The atomic increment</b> (a <code>lock</code>-prefixed instruction) took {FB['atomicIncrement'][0]:.2f} ns; an uncontended <code>synchronized</code> block {FB['synchronizedIncrement'][0]:.2f} ns."], CJ)}'''
 

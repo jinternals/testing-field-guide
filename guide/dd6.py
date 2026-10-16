@@ -46,8 +46,8 @@ if PROD:
              f"<code>linger.ms=5</code> sent {hi5['req']:,} requests ({hi5['rpr']:.1f} records each) with a p99 of {hi5['p99']:.1f} ms"
              + (" — fewer requests and a lower tail, as the source’s note on the 4.0 default change says." if hi5["p99"] < hi0["p99"] and hi5["req"] < hi0["req"] else "."),
              f"<b>At 2,000 records/s with <code>linger.ms=50</code></b>: {hi50['rpr']:.0f} records per request and a p50 of {hi50['p50']:.1f} ms — records waited for the batch.",
-             f"<b>At 20 records/s</b> (one every 50 ms) <code>linger.ms=50</code> put {lo50['rpr']:.0f} records in each request: p50 {lo50['p50']:.1f} ms, p90 {lo50['p90']:.1f} ms. "
-             f"The first record of each pair waited for the linger; with <code>linger.ms=0</code> the p90 was {lo0['p90']:.1f} ms."]
+             f"<b>At 20 records/s</b> (one every 50 ms) with <code>linger.ms=50</code>: p90 {lo50['p90']:.1f} ms against {lo0['p90']:.1f} ms with <code>linger.ms=0</code>, "
+             f"and {lo50['rpr']:.1f} records per request — a record with no others to batch waits up to the linger time, as the source says."]
     prod_html = f'''{table(["Rate", "linger.ms", "p50 ms", "p99 ms", "max ms", "requests", "records / request"], rows, "xs")}
   <p class="small muted" style="margin:1mm 0 2mm">KafkaLatency.java · 5 s per row, 100-byte records, one partition · latency from each record’s due time to its acknowledgement · requests and records per request from the producer’s own metrics (<code>request-total</code>, <code>records-per-request-avg</code>) · broker {BROKER} in Docker · {RUNNER}</p>
   <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">{ticks(notes, CQ)}
