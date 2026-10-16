@@ -1,0 +1,5 @@
+$ docker stop redis; java -cp … SyntheticCheck http://localhost:8080
+✘ /actuator/health  503  2096 ms
+✘ /prices/book-1  500  2039 ms
+synthetic check FAILED: 2
+exit code 1

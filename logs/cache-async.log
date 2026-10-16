@@ -1,0 +1,1 @@
+[async writes] 303 of 1000 entries were not in Redis when price() returned

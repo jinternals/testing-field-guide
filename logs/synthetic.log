@@ -1,0 +1,5 @@
+$ java -cp target/classes shop.synthetic.SyntheticCheck http://localhost:8080
+✔ /actuator/health  200  88 ms
+✔ /prices/book-1  200  55 ms
+synthetic check passed
+exit code 0

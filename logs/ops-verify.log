@@ -1,0 +1,258 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ---------------------------< shop:shop-ops >----------------------------
+[INFO] Building shop-ops 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.10.0:properties (default) @ shop-ops ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shop-ops ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ shop-ops ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 18 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shop-ops ---
+[INFO] skip non existing resourceDirectory /home/runner/work/testing-field-guide/testing-field-guide/spring-ops/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ shop-ops ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ shop-ops ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.flags.FeatureWiringTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.609 s -- in shop.flags.FeatureWiringTest
+[INFO] Running shop.flags.CheckoutPricingTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.116 s -- in shop.flags.CheckoutPricingTest
+[INFO] Running shop.jobs.CartCleanupTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in shop.jobs.CartCleanupTest
+[INFO] Running shop.jobs.NightlyReportCronTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in shop.jobs.NightlyReportCronTest
+[INFO] Running shop.batch.ToPaiseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in shop.batch.ToPaiseTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ shop-ops ---
+[INFO] Building jar: /home/runner/work/testing-field-guide/testing-field-guide/spring-ops/target/shop-ops-1.0.jar
+[INFO] 
+[INFO] --- spring-boot:4.1.1:repackage (repackage) @ shop-ops ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Replacing main artifact /home/runner/work/testing-field-guide/testing-field-guide/spring-ops/target/shop-ops-1.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /home/runner/work/testing-field-guide/testing-field-guide/spring-ops/target/shop-ops-1.0.jar.original
+[INFO] 
+[INFO] --- failsafe:3.5.6:integration-test (default) @ shop-ops ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.synthetic.SyntheticCheckIT
+08:51:52.551 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.synthetic.SyntheticCheckIT]: SyntheticCheckIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:52.681 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.OpsApplication for test class shop.synthetic.SyntheticCheckIT
+08:51:52.764 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [shop.synthetic.SyntheticCheckIT]: SyntheticCheckIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:52.767 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration shop.OpsApplication for test class shop.synthetic.SyntheticCheckIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:51:53.140Z  INFO 2395 --- [shop-ops] [           main] shop.synthetic.SyntheticCheckIT          : Starting SyntheticCheckIT using Java 21.0.12.1 with PID 2395 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-ops)
+2026-10-16T08:51:53.142Z  INFO 2395 --- [shop-ops] [           main] shop.synthetic.SyntheticCheckIT          : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:51:53.917Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T08:51:53.920Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T08:51:53.950Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-10-16T08:51:54.606Z  INFO 2395 --- [shop-ops] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-16T08:51:54.623Z  INFO 2395 --- [shop-ops] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T08:51:54.624Z  INFO 2395 --- [shop-ops] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-16T08:51:54.664Z  INFO 2395 --- [shop-ops] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1502 ms
+2026-10-16T08:51:54.884Z  INFO 2395 --- [shop-ops] [           main] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-10-16T08:51:54.887Z  INFO 2395 --- [shop-ops] [           main] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-10-16T08:51:54.904Z  INFO 2395 --- [shop-ops] [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-10-16T08:51:55.548Z  INFO 2395 --- [shop-ops] [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-10-16T08:51:55.551Z  INFO 2395 --- [shop-ops] [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-10-16T08:51:55.572Z  INFO 2395 --- [shop-ops] [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Ubuntu 24.04.5 LTS
+  Total Memory: 15988 MB
+2026-10-16T08:51:55.603Z  INFO 2395 --- [shop-ops] [           main] tc.testcontainers/ryuk:0.14.0            : Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
+2026-10-16T08:51:56.443Z  INFO 2395 --- [shop-ops] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Starting to pull image
+2026-10-16T08:51:56.464Z  INFO 2395 --- [shop-ops] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-10-16T08:51:56.869Z  INFO 2395 --- [shop-ops] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (242 KB/? MB)
+2026-10-16T08:51:56.875Z  INFO 2395 --- [shop-ops] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  1 pending,  1 downloaded,  1 extracted, (242 KB/? MB)
+2026-10-16T08:51:56.879Z  INFO 2395 --- [shop-ops] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (242 KB/2 MB)
+2026-10-16T08:51:57.184Z  INFO 2395 --- [shop-ops] [tream-379213951] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
+2026-10-16T08:51:57.191Z  INFO 2395 --- [shop-ops] [           main] tc.testcontainers/ryuk:0.14.0            : Image testcontainers/ryuk:0.14.0 pull took PT1.587405133S
+2026-10-16T08:51:57.214Z  INFO 2395 --- [shop-ops] [           main] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-10-16T08:51:57.280Z  INFO 2395 --- [shop-ops] [           main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 8a9507acf518307ad7dfef9da31894c5cf0288a0a49ba18f9972db00044dce5b
+2026-10-16T08:51:57.614Z  INFO 2395 --- [shop-ops] [           main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.400087007S
+2026-10-16T08:51:57.619Z  INFO 2395 --- [shop-ops] [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-10-16T08:51:57.619Z  INFO 2395 --- [shop-ops] [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-10-16T08:51:57.619Z  INFO 2395 --- [shop-ops] [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-10-16T08:51:57.621Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Pulling docker image: redis:8-alpine. Please be patient; this may take some time but only needs to be done once.
+2026-10-16T08:51:58.349Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Starting to pull image
+2026-10-16T08:51:58.350Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-10-16T08:51:58.761Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  6 pending,  1 downloaded,  0 extracted, (948 bytes/? MB)
+2026-10-16T08:51:58.769Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  5 pending,  2 downloaded,  0 extracted, (51 KB/? MB)
+2026-10-16T08:51:58.779Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  4 pending,  3 downloaded,  0 extracted, (51 KB/? MB)
+2026-10-16T08:51:58.868Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  4 pending,  3 downloaded,  1 extracted, (3 MB/? MB)
+2026-10-16T08:51:58.884Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  4 pending,  3 downloaded,  2 extracted, (3 MB/? MB)
+2026-10-16T08:51:58.951Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  3 pending,  4 downloaded,  2 extracted, (4 MB/? MB)
+2026-10-16T08:51:58.960Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  2 pending,  5 downloaded,  2 extracted, (4 MB/? MB)
+2026-10-16T08:51:59.005Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  2 pending,  5 downloaded,  3 extracted, (4 MB/? MB)
+2026-10-16T08:51:59.060Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  1 pending,  6 downloaded,  3 extracted, (34 MB/? MB)
+2026-10-16T08:51:59.133Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  0 pending,  7 downloaded,  3 extracted, (34 MB/37 MB)
+2026-10-16T08:51:59.571Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  0 pending,  7 downloaded,  4 extracted, (37 MB/37 MB)
+2026-10-16T08:51:59.578Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  0 pending,  7 downloaded,  5 extracted, (37 MB/37 MB)
+2026-10-16T08:51:59.584Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  0 pending,  7 downloaded,  6 extracted, (37 MB/37 MB)
+2026-10-16T08:51:59.598Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pulling image layers:  0 pending,  7 downloaded,  7 extracted, (37 MB/37 MB)
+2026-10-16T08:51:59.606Z  INFO 2395 --- [shop-ops] [tream-765227395] tc.redis:8-alpine                        : Pull complete. 7 layers, pulled in 1s (downloaded 37 MB at 37 MB/s)
+2026-10-16T08:51:59.606Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Image redis:8-alpine pull took PT1.983998019S
+2026-10-16T08:51:59.608Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Creating container for image: redis:8-alpine
+2026-10-16T08:51:59.621Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Container redis:8-alpine is starting: 638514b9b6fb72d5a9b02f301df0f37239c4ab8a354af566e2b8034207938252
+2026-10-16T08:51:59.793Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Container redis:8-alpine started in PT0.184743698S
+2026-10-16T08:52:00.798Z  INFO 2395 --- [shop-ops] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-10-16T08:52:00.869Z  INFO 2395 --- [shop-ops] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 44229 (http) with context path '/'
+2026-10-16T08:52:00.886Z  INFO 2395 --- [shop-ops] [           main] shop.synthetic.SyntheticCheckIT          : Started SyntheticCheckIT in 8.067 seconds (process running for 9.224)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-16T08:52:01.515Z  INFO 2395 --- [shop-ops] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T08:52:01.515Z  INFO 2395 --- [shop-ops] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T08:52:01.517Z  INFO 2395 --- [shop-ops] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+✔ /actuator/health  200  541 ms
+✔ /prices/book-1  200  50 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.730 s -- in shop.synthetic.SyntheticCheckIT
+[INFO] Running shop.jobs.CartCleanupScheduleIT
+2026-10-16T08:52:02.092Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.jobs.CartCleanupScheduleIT]: CartCleanupScheduleIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:02.105Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.jobs.CartCleanupScheduleIT
+2026-10-16T08:52:02.107Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.jobs.CartCleanupScheduleIT]: CartCleanupScheduleIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:02.110Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.jobs.CartCleanupScheduleIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:52:02.166Z  INFO 2395 --- [shop-ops] [           main] shop.jobs.CartCleanupScheduleIT          : Starting CartCleanupScheduleIT using Java 21.0.12.1 with PID 2395 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-ops)
+2026-10-16T08:52:02.167Z  INFO 2395 --- [shop-ops] [           main] shop.jobs.CartCleanupScheduleIT          : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:52:02.366Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T08:52:02.367Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T08:52:02.374Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2026-10-16T08:52:02.780Z  INFO 2395 --- [shop-ops] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-10-16T08:52:02.798Z  INFO 2395 --- [shop-ops] [           main] shop.jobs.CartCleanupScheduleIT          : Started CartCleanupScheduleIT in 0.655 seconds (process running for 11.135)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.942 s -- in shop.jobs.CartCleanupScheduleIT
+[INFO] Running shop.batch.ImportPricesJobIT
+2026-10-16T08:52:03.041Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.batch.ImportPricesJobIT]: ImportPricesJobIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:03.055Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.batch.ImportPricesJobIT
+2026-10-16T08:52:03.058Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.batch.ImportPricesJobIT]: ImportPricesJobIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:03.062Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.batch.ImportPricesJobIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:52:03.088Z  INFO 2395 --- [shop-ops] [           main] shop.batch.ImportPricesJobIT             : Starting ImportPricesJobIT using Java 21.0.12.1 with PID 2395 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-ops)
+2026-10-16T08:52:03.088Z  INFO 2395 --- [shop-ops] [           main] shop.batch.ImportPricesJobIT             : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:52:03.246Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T08:52:03.246Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T08:52:03.250Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2026-10-16T08:52:03.508Z  INFO 2395 --- [shop-ops] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-10-16T08:52:03.524Z  INFO 2395 --- [shop-ops] [           main] shop.batch.ImportPricesJobIT             : Started ImportPricesJobIT in 0.456 seconds (process running for 11.861)
+2026-10-16T08:52:03.544Z  INFO 2395 --- [shop-ops] [           main] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=importPrices]] launched with the following parameters: [{JobParameter{name='batch.random', value=5701021248534574102, type=class java.lang.Long, identifying=true}}]
+2026-10-16T08:52:03.548Z  INFO 2395 --- [shop-ops] [           main] o.s.batch.core.step.AbstractStep         : Executing step: [importStep]
+2026-10-16T08:52:03.569Z  INFO 2395 --- [shop-ops] [           main] o.s.batch.core.step.AbstractStep         : Step: [importStep] executed in 21ms
+2026-10-16T08:52:03.570Z  INFO 2395 --- [shop-ops] [           main] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=importPrices]] completed with the following parameters: [{JobParameter{name='batch.random', value=5701021248534574102, type=class java.lang.Long, identifying=true}}] and the following status: [COMPLETED] in 24ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.539 s -- in shop.batch.ImportPricesJobIT
+[INFO] Running shop.cache.PriceCacheIT
+2026-10-16T08:52:03.585Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.cache.PriceCacheIT]: PriceCacheIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:03.600Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.cache.PriceCacheIT
+2026-10-16T08:52:03.601Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.cache.PriceCacheIT]: PriceCacheIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:03.605Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.cache.PriceCacheIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:52:03.634Z  INFO 2395 --- [shop-ops] [           main] shop.cache.PriceCacheIT                  : Starting PriceCacheIT using Java 21.0.12.1 with PID 2395 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-ops)
+2026-10-16T08:52:03.634Z  INFO 2395 --- [shop-ops] [           main] shop.cache.PriceCacheIT                  : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:52:03.807Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T08:52:03.807Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T08:52:03.812Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2026-10-16T08:52:03.863Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Creating container for image: redis:8-alpine
+2026-10-16T08:52:03.887Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Container redis:8-alpine is starting: 9ddd3101ed2e898d226ebdb6b6b555f6b202cecb10e2d861c748a8b547c57d95
+2026-10-16T08:52:04.069Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Container redis:8-alpine started in PT0.205860632S
+2026-10-16T08:52:04.685Z  INFO 2395 --- [shop-ops] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-10-16T08:52:04.717Z  INFO 2395 --- [shop-ops] [           main] shop.cache.PriceCacheIT                  : Started PriceCacheIT in 1.107 seconds (process running for 13.055)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.253 s -- in shop.cache.PriceCacheIT
+[INFO] Running shop.cache.AsyncCacheWritesIT
+2026-10-16T08:52:04.841Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.cache.AsyncCacheWritesIT]: AsyncCacheWritesIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:04.847Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.cache.AsyncCacheWritesIT
+2026-10-16T08:52:04.849Z  INFO 2395 --- [shop-ops] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.cache.AsyncCacheWritesIT]: AsyncCacheWritesIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-16T08:52:04.852Z  INFO 2395 --- [shop-ops] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.OpsApplication for test class shop.cache.AsyncCacheWritesIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-16T08:52:04.890Z  INFO 2395 --- [shop-ops] [           main] shop.cache.AsyncCacheWritesIT            : Starting AsyncCacheWritesIT using Java 21.0.12.1 with PID 2395 (started by runner in /home/runner/work/testing-field-guide/testing-field-guide/spring-ops)
+2026-10-16T08:52:04.890Z  INFO 2395 --- [shop-ops] [           main] shop.cache.AsyncCacheWritesIT            : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T08:52:05.100Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-16T08:52:05.100Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-16T08:52:05.105Z  INFO 2395 --- [shop-ops] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2026-10-16T08:52:05.163Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Creating container for image: redis:8-alpine
+2026-10-16T08:52:05.185Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Container redis:8-alpine is starting: f155eee0dcfd62eebe1878d9bf6cd034405482f9909e9ae847705ce0e35034d9
+2026-10-16T08:52:05.393Z  INFO 2395 --- [shop-ops] [           main] tc.redis:8-alpine                        : Container redis:8-alpine started in PT0.230179801S
+2026-10-16T08:52:05.671Z  INFO 2395 --- [shop-ops] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-10-16T08:52:05.718Z  INFO 2395 --- [shop-ops] [           main] shop.cache.AsyncCacheWritesIT            : Started AsyncCacheWritesIT in 0.855 seconds (process running for 14.056)
+[async writes] 303 of 1000 entries were not in Redis when price() returned
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.234 s -- in shop.cache.AsyncCacheWritesIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.5.6:verify (default) @ shop-ops ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  27.824 s
+[INFO] Finished at: 2026-10-16T08:52:07Z
+[INFO] ------------------------------------------------------------------------
