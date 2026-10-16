@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd xmlns="https://pmd-code.org/schema/cpd-report"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         pmdVersion="7.17.0"
+         timestamp="2026-10-16T08:52:15.478627385Z"
+         version="1.0.0"
+         xsi:schemaLocation="https://pmd-code.org/schema/cpd-report https://pmd.github.io/schema/cpd-report_1_0_0.xsd">
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderErrorsIT.java"
+         totalNumberOfTokens="97"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderHeadersIT.java"
+         totalNumberOfTokens="104"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderKeyIT.java"
+         totalNumberOfTokens="103"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderLookupIT.java"
+         totalNumberOfTokens="147"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderMethodsIT.java"
+         totalNumberOfTokens="103"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderSearchIT.java"
+         totalNumberOfTokens="152"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderTableIT.java"
+         totalNumberOfTokens="183"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/SharedApi.java"
+         totalNumberOfTokens="183"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/SharedPostgres.java"
+         totalNumberOfTokens="262"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/DiscountPolicy.java"
+         totalNumberOfTokens="53"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/EmailSender.java"
+         totalNumberOfTokens="17"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/InMemoryOrderRepository.java"
+         totalNumberOfTokens="74"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/Item.java"
+         totalNumberOfTokens="45"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/Money.java"
+         totalNumberOfTokens="184"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/Order.java"
+         totalNumberOfTokens="24"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/OrderApi.java"
+         totalNumberOfTokens="302"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/OrderRepository.java"
+         totalNumberOfTokens="20"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/OrderService.java"
+         totalNumberOfTokens="202"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/PasswordPolicy.java"
+         totalNumberOfTokens="89"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/PaymentDeclinedException.java"
+         totalNumberOfTokens="26"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/main/java/shop/PaymentGateway.java"
+         totalNumberOfTokens="14"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/DiscountPolicyTest.java"
+         totalNumberOfTokens="70"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/ItemTest.java"
+         totalNumberOfTokens="203"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/LifecycleTest.java"
+         totalNumberOfTokens="104"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/MockitoFeaturesTest.java"
+         totalNumberOfTokens="314"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/MoneyTest.java"
+         totalNumberOfTokens="158"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiLifecycleTest.java"
+         totalNumberOfTokens="62"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java"
+         totalNumberOfTokens="388"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceBddTest.java"
+         totalNumberOfTokens="171"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java"
+         totalNumberOfTokens="470"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/PasswordPolicyTest.java"
+         totalNumberOfTokens="100"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/TestDoublesTest.java"
+         totalNumberOfTokens="258"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/TrickyThingsTest.java"
+         totalNumberOfTokens="427"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/tools/shop/LoadSmoke.java"
+         totalNumberOfTokens="516"/>
+   <file path="/home/runner/work/testing-field-guide/testing-field-guide/src/tools/shop/RedundantTests.java"
+         totalNumberOfTokens="607"/>
+   <duplication lines="11" tokens="49">
+      <file begintoken="979"
+            column="37"
+            endcolumn="35"
+            endline="37"
+            endtoken="1027"
+            line="27"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/SharedApi.java"/>
+      <file begintoken="1215"
+            column="60"
+            endcolumn="35"
+            endline="44"
+            endtoken="1263"
+            line="34"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/SharedPostgres.java"/>
+      <codefragment><![CDATA[    log("API started on " + BASE_URL);
+  }                              // no stop(): JVM exit frees it
+
+  static void log(String msg) {
+    System.out.printf("[fork %s pid %d] %s%n",
+        FORK, ProcessHandle.current().pid(), msg);
+  }
+
+  /** Unique per fork and test: forks never share rows. */
+  static String uniqueId(String test) {
+    return "f" + FORK + "-" + test;
+]]></codefragment>
+   </duplication>
+   <duplication lines="3" tokens="35">
+      <file begintoken="351"
+            column="27"
+            endcolumn="42"
+            endline="18"
+            endtoken="385"
+            line="16"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderLookupIT.java"/>
+      <file begintoken="3384"
+            column="32"
+            endcolumn="42"
+            endline="22"
+            endtoken="3418"
+            line="20"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java"/>
+      <codefragment><![CDATA[    REPO.save(new Order(id, "asha@example.com",
+        List.of(new Item("BOOK", Money.of("600"), 2)),
+        Money.of("1140"), Instant.EPOCH));
+]]></codefragment>
+   </duplication>
+   <duplication lines="4" tokens="33">
+      <file begintoken="524"
+            column="66"
+            endcolumn="4"
+            endline="20"
+            endtoken="556"
+            line="17"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderMethodsIT.java"/>
+      <file begintoken="3606"
+            column="45"
+            endcolumn="4"
+            endline="51"
+            endtoken="3638"
+            line="48"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java"/>
+      <codefragment><![CDATA[    var res = HTTP.send(req, HttpResponse.BodyHandlers.ofString());
+    assertThat(res.statusCode()).isEqualTo(405);
+    assertThat(res.headers().firstValue("Allow")).hasValue("GET");
+  }
+]]></codefragment>
+   </duplication>
+   <duplication lines="4" tokens="33">
+      <file begintoken="660"
+            column="30"
+            endcolumn="47"
+            endline="23"
+            endtoken="692"
+            line="20"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderSearchIT.java"/>
+      <file begintoken="790"
+            column="27"
+            endcolumn="47"
+            endline="22"
+            endtoken="822"
+            line="19"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderTableIT.java"/>
+      <codefragment><![CDATA[        ps.setString(2, small);
+        var rs = ps.executeQuery();
+        assertThat(rs.next()).isTrue();
+        assertThat(rs.getString(1)).isEqualTo(big);
+]]></codefragment>
+   </duplication>
+   <duplication lines="4" tokens="28">
+      <file begintoken="35"
+            column="51"
+            endcolumn="4"
+            endline="16"
+            endtoken="62"
+            line="13"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderErrorsIT.java"/>
+      <file begintoken="3680"
+            column="33"
+            endcolumn="6"
+            endline="61"
+            endtoken="3707"
+            line="57"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java"/>
+      <codefragment><![CDATA[    var res = get("/orders/..%2f..%2fetc%2fpasswd");
+    assertThat(res.statusCode()).isEqualTo(404);
+    assertThat(res.body()).isEqualTo("{\"error\":\"order not found\"}");
+  }
+]]></codefragment>
+   </duplication>
+   <duplication lines="4" tokens="28">
+      <file begintoken="273"
+            column="50"
+            endcolumn="22"
+            endline="20"
+            endtoken="300"
+            line="17"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderKeyIT.java"/>
+      <file begintoken="862"
+            column="63"
+            endcolumn="22"
+            endline="32"
+            endtoken="889"
+            line="29"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderTableIT.java"/>
+      <codefragment><![CDATA[      assertThatThrownBy(() -> insert(c, id, "20"))
+          .isInstanceOf(SQLException.class)
+          .extracting(e -> ((SQLException) e).getSQLState())
+          .isEqualTo("23505");          // unique_violation
+]]></codefragment>
+   </duplication>
+   <duplication lines="2" tokens="26">
+      <file begintoken="3962"
+            column="44"
+            endcolumn="67"
+            endline="34"
+            endtoken="3987"
+            line="33"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java"/>
+      <file begintoken="4194"
+            column="27"
+            endcolumn="67"
+            endline="63"
+            endtoken="4219"
+            line="62"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java"/>
+      <codefragment><![CDATA[  void chargesDiscountedTotalSavesAndEmails() {
+    when(repository.save(any())).thenAnswer(c -> c.getArgument(0));
+]]></codefragment>
+   </duplication>
+   <duplication lines="2" tokens="26">
+      <file begintoken="4144"
+            column="30"
+            endcolumn="53"
+            endline="54"
+            endtoken="4169"
+            line="53"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java"/>
+      <file begintoken="4220"
+            column="5"
+            endcolumn="53"
+            endline="66"
+            endtoken="4245"
+            line="65"
+            path="/home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java"/>
+      <codefragment><![CDATA[    assertThatThrownBy(() -> service.placeOrder("asha@example.com",
+        List.of(new Item("PEN", Money.of("50"), 1))))
+]]></codefragment>
+   </duplication>
+</pmd-cpd>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.MoneyTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:51:55.911Z" hostname="runnervm8k3b6" time="0.028">
+  <properties/>
+  <testcase name="rejectsNegativeAmounts()" classname="shop.MoneyTest" time="0.003"/>
+  <testcase name="addsAndMultiplies()" classname="shop.MoneyTest" time="0.011"/>
+  <testcase name="10% off ₹999.99 rounds half-up to ₹899.99" classname="shop.MoneyTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

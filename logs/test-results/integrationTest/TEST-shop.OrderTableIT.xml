@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.OrderTableIT" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:52:12.599Z" hostname="runnervm8k3b6" time="0.152">
+  <properties/>
+  <testcase name="negativeTotalIsRejectedByTheDatabase()" classname="shop.OrderTableIT" time="0.057"/>
+  <testcase name="totalKeepsTwoDecimals()" classname="shop.OrderTableIT" time="0.086"/>
+  <system-out><![CDATA[[fork 2 pid 2692] OrderTableIT uses jdbc:postgresql://localhost:32770/test?loggerLevel=OFF
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

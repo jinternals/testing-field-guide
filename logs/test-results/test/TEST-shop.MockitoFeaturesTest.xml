@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.MockitoFeaturesTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:51:55.752Z" hostname="runnervm8k3b6" time="1.808">
+  <properties/>
+  <testcase name="spyWrapsARealObject()" classname="shop.MockitoFeaturesTest" time="1.706"/>
+  <testcase name="finalClassesCanBeMockedByDefault()" classname="shop.MockitoFeaturesTest" time="0.05"/>
+  <testcase name="consecutiveAnswersForRetries()" classname="shop.MockitoFeaturesTest" time="0.124"/>
+  <testcase name="mockStaticIsScopedToTheTryBlock()" classname="shop.MockitoFeaturesTest" time="0.097"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

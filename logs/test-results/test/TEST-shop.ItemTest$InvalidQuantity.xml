@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="when quantity is invalid" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:51:56.041Z" hostname="runnervm8k3b6" time="0.019">
+  <properties/>
+  <testcase name="quantity -2147483648 is rejected" classname="shop.ItemTest$InvalidQuantity" time="0.004"/>
+  <testcase name="quantity -1 is rejected" classname="shop.ItemTest$InvalidQuantity" time="0.001"/>
+  <testcase name="quantity 0 is rejected" classname="shop.ItemTest$InvalidQuantity" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

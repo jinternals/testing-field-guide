@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.OrderSearchIT" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:52:02.203Z" hostname="runnervm8k3b6" time="10.51">
+  <properties/>
+  <testcase name="bigOrdersQueryFindsOnlyBigOnes()" classname="shop.OrderSearchIT" time="0.197"/>
+  <system-out><![CDATA[[fork 3 pid 2696] Postgres 34095bd808f3 on port 32771
+[fork 3 pid 2696] OrderSearchIT uses jdbc:postgresql://localhost:32771/test?loggerLevel=OFF
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

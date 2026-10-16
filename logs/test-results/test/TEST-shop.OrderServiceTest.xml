@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.OrderServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:51:56.160Z" hostname="runnervm8k3b6" time="1.49">
+  <properties/>
+  <testcase name="emptyOrderIsRejectedEarly()" classname="shop.OrderServiceTest" time="1.477"/>
+  <testcase name="chargesBeforeSaving()" classname="shop.OrderServiceTest" time="0.084"/>
+  <testcase name="chargesDiscountedTotalSavesAndEmails()" classname="shop.OrderServiceTest" time="0.077"/>
+  <testcase name="declinedPaymentSavesNothingAndSendsNoEmail()" classname="shop.OrderServiceTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.OrderKeyIT" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:52:02.388Z" hostname="runnervm8k3b6" time="10.187">
+  <properties/>
+  <testcase name="duplicateIdIsRejected()" classname="shop.OrderKeyIT" time="0.126"/>
+  <system-out><![CDATA[[fork 2 pid 2692] Postgres 80d43d2655ba on port 32770
+[fork 2 pid 2692] OrderKeyIT uses jdbc:postgresql://localhost:32770/test?loggerLevel=OFF
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

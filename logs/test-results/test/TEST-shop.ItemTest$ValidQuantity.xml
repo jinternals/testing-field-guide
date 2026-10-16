@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="when quantity is valid" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:51:55.681Z" hostname="runnervm8k3b6" time="0.359">
+  <properties/>
+  <testcase name="1 × ₹10 = ₹10" classname="shop.ItemTest$ValidQuantity" time="0.203"/>
+  <testcase name="3 × ₹19.99 = ₹59.97" classname="shop.ItemTest$ValidQuantity" time="0.003"/>
+  <testcase name="1000 × ₹0.01 = ₹10" classname="shop.ItemTest$ValidQuantity" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

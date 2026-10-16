@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.OrderErrorsIT" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:52:01.030Z" hostname="runnervm8k3b6" time="1.322">
+  <properties/>
+  <testcase name="hugeIdIsJust404()" classname="shop.OrderErrorsIT" time="0.651"/>
+  <testcase name="errorBodyHasNoInternals()" classname="shop.OrderErrorsIT" time="0.049"/>
+  <system-out><![CDATA[[fork 2 pid 2692] API started on http://127.0.0.1:41983
+[fork 2 pid 2692] OrderErrorsIT uses http://127.0.0.1:41983
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

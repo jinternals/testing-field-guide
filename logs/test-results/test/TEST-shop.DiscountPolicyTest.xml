@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="shop.DiscountPolicyTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-16T08:51:55.672Z" hostname="runnervm8k3b6" time="0.237">
+  <properties/>
+  <testcase name="₹4999.99 → 5% off" classname="shop.DiscountPolicyTest" time="0.063"/>
+  <testcase name="₹5000 → 10% off" classname="shop.DiscountPolicyTest" time="0.001"/>
+  <testcase name="₹250000 → 10% off" classname="shop.DiscountPolicyTest" time="0.003"/>
+  <testcase name="₹1000 → 5% off" classname="shop.DiscountPolicyTest" time="0.001"/>
+  <testcase name="₹1000.01 → 5% off" classname="shop.DiscountPolicyTest" time="0.001"/>
+  <testcase name="₹0 → 0% off" classname="shop.DiscountPolicyTest" time="0.001"/>
+  <testcase name="₹999.99 → 0% off" classname="shop.DiscountPolicyTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

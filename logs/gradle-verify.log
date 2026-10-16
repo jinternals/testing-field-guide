@@ -1,0 +1,61 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+> Configure project :
+The Configuration.setVisible(boolean) method has been deprecated. This is scheduled to be removed in Gradle 11. Consult the upgrading guide for further information: https://docs.gradle.org/9.8.1/userguide/upgrading_version_9.html#deprecate-visible-property
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :compileIntegrationTestJava
+> Task :processIntegrationTestResources NO-SOURCE
+> Task :integrationTestClasses
+
+> Task :integrationTest
+
+OrderHeadersIT STANDARD_OUT
+    [fork 3 pid 2696] API started on http://127.0.0.1:40985
+    [fork 3 pid 2696] OrderHeadersIT uses http://127.0.0.1:40985
+
+OrderErrorsIT STANDARD_OUT
+    [fork 2 pid 2692] API started on http://127.0.0.1:41983
+    [fork 2 pid 2692] OrderErrorsIT uses http://127.0.0.1:41983
+
+OrderLookupIT STANDARD_OUT
+    [fork 3 pid 2696] OrderLookupIT uses http://127.0.0.1:40985
+
+OrderSearchIT STANDARD_ERROR
+    SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+    SLF4J: Defaulting to no-operation (NOP) logger implementation
+    SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+OrderKeyIT STANDARD_ERROR
+    SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+    SLF4J: Defaulting to no-operation (NOP) logger implementation
+    SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+OrderKeyIT STANDARD_OUT
+    [fork 2 pid 2692] Postgres 80d43d2655ba on port 32770
+    [fork 2 pid 2692] OrderKeyIT uses jdbc:postgresql://localhost:32770/test?loggerLevel=OFF
+
+OrderSearchIT STANDARD_OUT
+    [fork 3 pid 2696] Postgres 34095bd808f3 on port 32771
+    [fork 3 pid 2696] OrderSearchIT uses jdbc:postgresql://localhost:32771/test?loggerLevel=OFF
+
+OrderMethodsIT STANDARD_OUT
+    [fork 2 pid 2692] OrderMethodsIT uses http://127.0.0.1:41983
+
+OrderTableIT STANDARD_OUT
+    [fork 2 pid 2692] OrderTableIT uses jdbc:postgresql://localhost:32770/test?loggerLevel=OFF
+
+> Task :jacocoTestReport
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1792140701313.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/testing-field-guide/testing-field-guide/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 37s
+6 actionable tasks: 6 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.8.1/userguide/configuration_cache_enabling.html

@@ -1,0 +1,148 @@
+
+> Configure project :
+The Configuration.setVisible(boolean) method has been deprecated. This is scheduled to be removed in Gradle 11. Consult the upgrading guide for further information: https://docs.gradle.org/9.8.1/userguide/upgrading_version_9.html#deprecate-visible-property
+
+> Task :compileJava UP-TO-DATE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+
+> Task :pitest
+8:52:17 AM PIT >> INFO : Verbose logging is disabled. If you encounter a problem, please enable it before reporting an issue.
+8:52:17 AM PIT >> INFO : Created 8 mutation test units in pre scan
+8:52:17 AM PIT >> INFO : Sending 12 test classes to minion
+8:52:17 AM PIT >> INFO : Sent tests to minion
+8:52:18 AM PIT >> INFO : MINION : OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+8:52:20 AM PIT >> INFO : Calculated coverage in 2 seconds.
+8:52:20 AM PIT >> INFO : 0 tests took longer than 2000 ms
+8:52:20 AM PIT >> INFO : Slowest test ([engine:junit-jupiter]/[class:shop.MockitoFeaturesTest]/[method:finalClassesCanBeMockedByDefault()]) took 772 ms
+8:52:20 AM PIT >> INFO : Largest test ([engine:junit-jupiter]/[class:shop.OrderServiceBddTest]/[method:bigOrderGetsTenPercentOff()]) covered 118 blocks
+8:52:20 AM PIT >> INFO : Created 7 mutation test units
+8:52:26 AM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+8:52:32 AM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+8:52:39 AM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+8:52:45 AM PIT >> WARNING : Minion exited abnormally due to TIMED_OUT
+8:53:00 AM PIT >> INFO : Completed in 42 seconds
+================================================================================
+- Mutators
+================================================================================
+> org.pitest.mutationtest.engine.gregor.mutators.returns.PrimitiveReturnsMutator
+>> Generated 4 Killed 4 (100%)
+> KILLED 4 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator
+>> Generated 5 Killed 5 (100%)
+> KILLED 5 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator
+>> Generated 10 Killed 10 (100%)
+> KILLED 6 SURVIVED 0 TIMED_OUT 4 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.returns.NullReturnValsMutator
+>> Generated 7 Killed 7 (100%)
+> KILLED 7 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.MathMutator
+>> Generated 1 Killed 1 (100%)
+> KILLED 1 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.returns.EmptyObjectReturnValsMutator
+>> Generated 3 Killed 3 (100%)
+> KILLED 3 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator
+>> Generated 10 Killed 10 (100%)
+> KILLED 10 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 0 EQUIVALENT 0 
+--------------------------------------------------------------------------------
+================================================================================
+- Timings
+================================================================================
+> pre-scan for mutations : < 1 second
+> scan classpath : < 1 second
+> coverage and dependency analysis : 2 seconds
+> build mutation tests : < 1 second
+> run mutation analysis : 39 seconds
+--------------------------------------------------------------------------------
+> Total  : 42 seconds
+--------------------------------------------------------------------------------
+> 0 tests took longer than 2000 ms
+> Slowest test ([engine:junit-jupiter]/[class:shop.MockitoFeaturesTest]/[method:finalClassesCanBeMockedByDefault()]) took 772 ms
+> Largest test ([engine:junit-jupiter]/[class:shop.OrderServiceBddTest]/[method:bigOrderGetsTenPercentOff()]) covered 118 blocks
+================================================================================
+- Statistics
+================================================================================
+>> Line Coverage (for mutated classes only): 76/77 (99%)
+>> 12 tests examined
+>> Generated 40 mutations Killed 40 (100%)
+>> Mutations with no coverage 0. Test strength 100%
+>> Ran 317 tests (7.93 tests per mutation)
+Enhanced functionality available at https://www.arcmutate.com/
+
+> Task :compileToolsJava
+> Task :processToolsResources NO-SOURCE
+> Task :toolsClasses
+
+> Task :findRedundantTests
+39 tests kill at least one mutant
+
+Same mutants killed as another test (candidates for merging):
+  DiscountPolicyTest.percentForSubtotal#4  ≡  DiscountPolicyTest.percentForSubtotal#5   (6 mutants)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#2  ≡  ItemTest.ValidQuantity.totalIsPriceTimesQty#3   (5 mutants)
+  PasswordPolicyTest.passwordWithoutDigitIsReported  ≡  PasswordPolicyTest.passwordWithoutUpperCaseIsReported   (5 mutants)
+  OrderApiTest.pathTricksAreJustNotFound  ≡  OrderApiTest.unknownOrderReturns404   (4 mutants)
+  ItemTest.InvalidQuantity.rejected#1  ≡  ItemTest.InvalidQuantity.rejected#2  ≡  ItemTest.InvalidQuantity.rejected#3  ≡  OrderApiTest   (2 mutants)
+  MockitoFeaturesTest.consecutiveAnswersForRetries  ≡  MockitoFeaturesTest.finalClassesCanBeMockedByDefault  ≡  MoneyTest.rejectsNegativeAmounts   (1 mutants)
+
+Strict subset of another test (adds no extra mutant kills):
+  OrderServiceTest.chargesBeforeSaving (10) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  OrderServiceTest.declinedPaymentSavesNothingAndSendsNoEmail (9) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  TestDoublesTest.spyLetsUsCheckBehaviour (9) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#1 (6) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#4 (6) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#5 (6) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#1 (6) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  DiscountPolicyTest.percentForSubtotal#2 (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#6 (5) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#2 (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.ValidQuantity.totalIsPriceTimesQty#3 (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MoneyTest.addsAndMultiplies (5) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  DiscountPolicyTest.percentForSubtotal#7 (4) ⊂ OrderServiceBddTest.bigOrderGetsTenPercentOff (16)
+  MoneyTest.percentOffRoundsHalfUp (4) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  OrderApiTest.pathTricksAreJustNotFound (4) ⊂ OrderApiTest.existingOrderReturns200WithJson (6)
+  OrderApiTest.unknownOrderReturns404 (4) ⊂ OrderApiTest.existingOrderReturns200WithJson (6)
+  PasswordPolicyTest.shortPasswordIsReported (4) ⊂ PasswordPolicyTest.passwordWithoutDigitIsReported (5)
+  PasswordPolicyTest.strongPasswordHasNoProblems (3) ⊂ PasswordPolicyTest.passwordWithoutDigitIsReported (5)
+  TestDoublesTest.dummyIsNeverTouchedWhenValidationFails (3) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  TrickyThingsTest.concurrentSavesAreAllKept (3) ⊂ TestDoublesTest.stubAndFakeLetUsCheckState (11)
+  ItemTest.InvalidQuantity.rejected#1 (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.InvalidQuantity.rejected#2 (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  ItemTest.InvalidQuantity.rejected#3 (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  OrderApiTest (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  TrickyThingsTest.slowCodeFailsFastInsteadOfHangingTheBuild (2) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MockitoFeaturesTest.consecutiveAnswersForRetries (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MockitoFeaturesTest.finalClassesCanBeMockedByDefault (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  MoneyTest.rejectsNegativeAmounts (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+  OrderServiceTest.emptyOrderIsRejectedEarly (1) ⊂ OrderServiceTest.chargesDiscountedTotalSavesAndEmails (17)
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_4-1792140736596.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/testing-field-guide/testing-field-guide/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 44s
+5 actionable tasks: 3 executed, 2 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.8.1/userguide/configuration_cache_enabling.html

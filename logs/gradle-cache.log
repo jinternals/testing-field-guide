@@ -1,0 +1,14 @@
+### gradle clean test --no-build-cache
+> Task :compileJava
+> Task :compileTestJava
+> Task :testClasses
+> Task :test
+BUILD SUCCESSFUL in 5s
+4 actionable tasks: 4 executed
+### gradle clean test --build-cache
+> Task :compileJava FROM-CACHE
+> Task :compileTestJava FROM-CACHE
+> Task :testClasses UP-TO-DATE
+> Task :test FROM-CACHE
+BUILD SUCCESSFUL in 858ms
+4 actionable tasks: 1 executed, 3 from cache

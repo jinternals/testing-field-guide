@@ -1,0 +1,81 @@
+Found a 11 line (49 tokens) duplication in the following files: 
+Starting at line 27 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/SharedApi.java
+Starting at line 34 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/SharedPostgres.java
+
+    log("API started on " + BASE_URL);
+  }                              // no stop(): JVM exit frees it
+
+  static void log(String msg) {
+    System.out.printf("[fork %s pid %d] %s%n",
+        FORK, ProcessHandle.current().pid(), msg);
+  }
+
+  /** Unique per fork and test: forks never share rows. */
+  static String uniqueId(String test) {
+    return "f" + FORK + "-" + test;
+
+=====================================================================
+Found a 3 line (35 tokens) duplication in the following files: 
+Starting at line 16 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderLookupIT.java
+Starting at line 20 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java
+
+    REPO.save(new Order(id, "asha@example.com",
+        List.of(new Item("BOOK", Money.of("600"), 2)),
+        Money.of("1140"), Instant.EPOCH));
+
+=====================================================================
+Found a 4 line (33 tokens) duplication in the following files: 
+Starting at line 17 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderMethodsIT.java
+Starting at line 48 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java
+
+    var res = HTTP.send(req, HttpResponse.BodyHandlers.ofString());
+    assertThat(res.statusCode()).isEqualTo(405);
+    assertThat(res.headers().firstValue("Allow")).hasValue("GET");
+  }
+
+=====================================================================
+Found a 4 line (33 tokens) duplication in the following files: 
+Starting at line 20 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderSearchIT.java
+Starting at line 19 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderTableIT.java
+
+        ps.setString(2, small);
+        var rs = ps.executeQuery();
+        assertThat(rs.next()).isTrue();
+        assertThat(rs.getString(1)).isEqualTo(big);
+
+=====================================================================
+Found a 4 line (28 tokens) duplication in the following files: 
+Starting at line 13 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderErrorsIT.java
+Starting at line 57 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderApiTest.java
+
+    var res = get("/orders/..%2f..%2fetc%2fpasswd");
+    assertThat(res.statusCode()).isEqualTo(404);
+    assertThat(res.body()).isEqualTo("{\"error\":\"order not found\"}");
+  }
+
+=====================================================================
+Found a 4 line (28 tokens) duplication in the following files: 
+Starting at line 17 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderKeyIT.java
+Starting at line 29 of /home/runner/work/testing-field-guide/testing-field-guide/src/it/java/shop/OrderTableIT.java
+
+      assertThatThrownBy(() -> insert(c, id, "20"))
+          .isInstanceOf(SQLException.class)
+          .extracting(e -> ((SQLException) e).getSQLState())
+          .isEqualTo("23505");          // unique_violation
+
+=====================================================================
+Found a 2 line (26 tokens) duplication in the following files: 
+Starting at line 33 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java
+Starting at line 62 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java
+
+  void chargesDiscountedTotalSavesAndEmails() {
+    when(repository.save(any())).thenAnswer(c -> c.getArgument(0));
+
+=====================================================================
+Found a 2 line (26 tokens) duplication in the following files: 
+Starting at line 53 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java
+Starting at line 65 of /home/runner/work/testing-field-guide/testing-field-guide/src/test/java/shop/OrderServiceTest.java
+
+    assertThatThrownBy(() -> service.placeOrder("asha@example.com",
+        List.of(new Item("PEN", Money.of("50"), 1))))
+

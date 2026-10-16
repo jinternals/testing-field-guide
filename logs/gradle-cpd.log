@@ -1,0 +1,25 @@
+
+> Configure project :
+The Configuration.setVisible(boolean) method has been deprecated. This is scheduled to be removed in Gradle 11. Consult the upgrading guide for further information: https://docs.gradle.org/9.8.1/userguide/upgrading_version_9.html#deprecate-visible-property
+The ReportingExtension.file(String) method has been deprecated. This is scheduled to be removed in Gradle 10. Please use the getBaseDirectory().file(String) or getBaseDirectory().dir(String) method instead. Consult the upgrading guide for further information: https://docs.gradle.org/9.8.1/userguide/upgrading_version_9.html#reporting_extension_file
+
+> Task :cpdCheck FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1792140734985.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/testing-field-guide/testing-field-guide/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':cpdCheck' (registered by plugin 'de.aaschmid.cpd').
+> A failure occurred while executing de.aaschmid.gradle.plugins.cpd.internal.worker.CpdAction
+   > CPD found duplicate code. See the report at file:///home/runner/work/testing-field-guide/testing-field-guide/build/reports/cpd/cpdCheck.text
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1s
+1 actionable task: 1 executed
