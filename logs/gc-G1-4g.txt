@@ -1,0 +1,2 @@
+measuring from uptime 0.161 s
+300000 operations  p50 0.001  p99 0.002  p99.9 5.144  max 10.987 ms

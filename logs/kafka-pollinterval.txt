@@ -1,0 +1,2 @@
+max.poll.interval.ms 3000: polled 1 record, processing for 6 s
+commitSync: CommitFailedException: Offset commit cannot be completed since the consumer is not part of an active group for auto partition assignment; it is likely that the consumer was kicked out of the group.

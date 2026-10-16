@@ -1,0 +1,14 @@
+platform threads: 10,000 blocked, 20 frames deep
+heap used after GC  4,380 KB
+VmRSS: 322612 kB
+-                    Thread (reserved=10295301KB, committed=384529KB)
+(threads #10022)
+(stack: reserved=10261640KB, committed=350868KB, peak=350868KB)
+StackChunk: not listed
+virtual threads: 10,000 blocked, 20 frames deep
+heap used after GC  31,917 KB
+VmRSS: 93856 kB
+-                    Thread (reserved=26840KB, committed=3424KB)
+(threads #27)
+(stack: reserved=26760KB, committed=3344KB, peak=3344KB)
+1:         10000       27966248  jdk.internal.vm.StackChunk (java.base@21.0.12.1)

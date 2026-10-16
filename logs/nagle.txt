@@ -1,0 +1,7 @@
+client 2 writes, Nagle on           p50   41.00  p90   41.04  p99   41.10  max   41.19 ms  over 30 ms: 199 of 200
+client 2 writes, TCP_NODELAY        p50    0.07  p90    0.08  p99    0.12  max    0.15 ms  over 30 ms: 0 of 200
+client 1 write,  Nagle on           p50    0.05  p90    0.06  p99    0.08  max    0.23 ms  over 30 ms: 0 of 200
+server 2 writes, Nagle on           p50   41.00  p90   41.02  p99   41.15  max   41.98 ms  over 30 ms: 199 of 200
+server 2 writes, TCP_NODELAY        p50    0.05  p90    0.08  p99    0.09  max    0.18 ms  over 30 ms: 0 of 200
+client 2 writes, QUICKACK once      p50   41.00  p90   41.03  p99   41.08  max   41.18 ms  over 30 ms: 199 of 200
+client 2 writes, QUICKACK per read  p50    0.06  p90    0.08  p99    0.11  max    0.15 ms  over 30 ms: 0 of 200

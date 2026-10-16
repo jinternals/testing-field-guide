@@ -1,0 +1,6 @@
+docker run                                       cgroup cpu.max max/100000     memory.max max         | CPUs 4  max heap 3998 MB  commonPool 3  GC G1 Young Generation, G1 Concurrent GC, G1 Old Generation
+docker run --cpus=2 --memory=2g                  cgroup cpu.max 200000/100000  memory.max 2147483648  | CPUs 2  max heap  512 MB  commonPool 1  GC G1 Young Generation, G1 Concurrent GC, G1 Old Generation
+docker run --cpus=1 --memory=1g                  cgroup cpu.max 100000/100000  memory.max 1073741824  | CPUs 1  max heap  247 MB  commonPool 1  GC Copy, MarkSweepCompact
+docker run --cpus=0.5 --memory=512m              cgroup cpu.max 50000/100000   memory.max 536870912   | CPUs 1  max heap  123 MB  commonPool 1  GC Copy, MarkSweepCompact
+docker run --cpus=1 --memory=1g … java -XX:ActiveProcessorCount=4 cgroup cpu.max 100000/100000  memory.max 1073741824  | CPUs 4  max heap  247 MB  commonPool 3  GC Copy, MarkSweepCompact
+docker run --cpus=1 --memory=1g … java -XX:MaxRAMPercentage=75 cgroup cpu.max 100000/100000  memory.max 1073741824  | CPUs 1  max heap  742 MB  commonPool 1  GC Copy, MarkSweepCompact

@@ -1,0 +1,15 @@
+## -XX:+UseParallelGC
+Benchmark               Mode  Cnt  Score   Error  Units
+BarrierBench.loadRefs   avgt    5  1.779 ± 0.002  us/op
+BarrierBench.storeInts  avgt    5  2.850 ± 0.003  us/op
+BarrierBench.storeRefs  avgt    5  6.697 ± 0.013  us/op
+## -XX:+UseG1GC
+Benchmark               Mode  Cnt  Score   Error  Units
+BarrierBench.loadRefs   avgt    5  1.785 ± 0.006  us/op
+BarrierBench.storeInts  avgt    5  2.928 ± 0.003  us/op
+BarrierBench.storeRefs  avgt    5  9.075 ± 0.029  us/op
+## -XX:+UseZGC -XX:+ZGenerational
+Benchmark               Mode  Cnt  Score   Error  Units
+BarrierBench.loadRefs   avgt    5  1.955 ± 0.003  us/op
+BarrierBench.storeInts  avgt    5  2.507 ± 0.007  us/op
+BarrierBench.storeRefs  avgt    5  4.253 ± 0.016  us/op

@@ -1,0 +1,7 @@
+records of 100 bytes, one partition, acks=all (default), latency from due time to ack
+rate   20/s  linger.ms  0  p50    2.33  p90    3.55  p99    6.92  max   10.99 ms  | requests   106  records/request    1.0
+rate   20/s  linger.ms  5  p50    7.01  p90    7.93  p99    8.97  max    9.90 ms  | requests   105  records/request    1.0
+rate   20/s  linger.ms 50  p50    8.30  p90   52.39  p99   53.13  max   58.30 ms  | requests    55  records/request    2.0
+rate 2000/s  linger.ms  0  p50    1.71  p90    6.61  p99   32.82  max   50.51 ms  | requests  7273  records/request    1.4
+rate 2000/s  linger.ms  5  p50    3.06  p90    5.46  p99    6.95  max   12.24 ms  | requests   915  records/request   11.0
+rate 2000/s  linger.ms 50  p50   25.71  p90   45.71  p99   50.22  max   51.53 ms  | requests   105  records/request   99.0

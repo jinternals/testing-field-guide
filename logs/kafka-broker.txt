@@ -1,0 +1,2 @@
+[2026-10-16 08:59:21,846] INFO Kafka version: 4.3.1 (org.apache.kafka.common.utils.AppInfoParser)
+[2026-10-16 08:59:21,848] INFO [KafkaRaftServer nodeId=1] Kafka Server started (kafka.server.KafkaRaftServer)

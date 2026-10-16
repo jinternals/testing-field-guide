@@ -1,0 +1,3 @@
+one record every 100 ms, 50 records; latency from send to the consumer's poll()
+fetch.min.bytes 1 (default)              p50    3.03  p90    3.74  p99   52.27  max   52.27 ms
+fetch.min.bytes 1000000, max.wait 500    p50  212.92  p90  414.59  p99  417.98  max  417.98 ms

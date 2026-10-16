@@ -1,0 +1,325 @@
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.baseline
+
+# Run progress: 0.00% complete, ETA 00:01:20
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.373 ns/op
+# Warmup Iteration   2: 0.383 ns/op
+# Warmup Iteration   3: 0.379 ns/op
+Iteration   1: 0.371 ns/op
+Iteration   2: 0.370 ns/op
+Iteration   3: 0.371 ns/op
+Iteration   4: 0.371 ns/op
+Iteration   5: 0.373 ns/op
+
+
+Result "deep.jit.DeadCodeBench.baseline":
+  0.371 ±(99.9%) 0.003 ns/op [Average]
+  (min, avg, max) = (0.370, 0.371, 0.373), stdev = 0.001
+  CI (99.9%): [0.368, 0.375] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.blackhole
+
+# Run progress: 10.00% complete, ETA 00:01:15
+# Fork: 1 of 1
+# Warmup Iteration   1: 7.154 ns/op
+# Warmup Iteration   2: 7.157 ns/op
+# Warmup Iteration   3: 7.110 ns/op
+Iteration   1: 7.090 ns/op
+Iteration   2: 7.104 ns/op
+Iteration   3: 7.100 ns/op
+Iteration   4: 7.083 ns/op
+Iteration   5: 7.081 ns/op
+
+
+Result "deep.jit.DeadCodeBench.blackhole":
+  7.092 ±(99.9%) 0.039 ns/op [Average]
+  (min, avg, max) = (7.081, 7.092, 7.104), stdev = 0.010
+  CI (99.9%): [7.052, 7.131] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.constant
+
+# Run progress: 20.00% complete, ETA 00:01:06
+# Fork: 1 of 1
+# Warmup Iteration   1: 7.231 ns/op
+# Warmup Iteration   2: 7.079 ns/op
+# Warmup Iteration   3: 7.124 ns/op
+Iteration   1: 7.008 ns/op
+Iteration   2: 7.001 ns/op
+Iteration   3: 6.998 ns/op
+Iteration   4: 7.003 ns/op
+Iteration   5: 6.993 ns/op
+
+
+Result "deep.jit.DeadCodeBench.constant":
+  7.001 ±(99.9%) 0.022 ns/op [Average]
+  (min, avg, max) = (6.993, 7.001, 7.008), stdev = 0.006
+  CI (99.9%): [6.979, 7.022] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.discarded
+
+# Run progress: 30.00% complete, ETA 00:00:58
+# Fork: 1 of 1
+# Warmup Iteration   1: 7.131 ns/op
+# Warmup Iteration   2: 7.197 ns/op
+# Warmup Iteration   3: 7.177 ns/op
+Iteration   1: 7.111 ns/op
+Iteration   2: 7.099 ns/op
+Iteration   3: 7.097 ns/op
+Iteration   4: 7.110 ns/op
+Iteration   5: 7.096 ns/op
+
+
+Result "deep.jit.DeadCodeBench.discarded":
+  7.102 ±(99.9%) 0.029 ns/op [Average]
+  (min, avg, max) = (7.096, 7.102, 7.111), stdev = 0.007
+  CI (99.9%): [7.074, 7.131] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.mulConstant
+
+# Run progress: 40.00% complete, ETA 00:00:49
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.628 ns/op
+# Warmup Iteration   2: 0.631 ns/op
+# Warmup Iteration   3: 0.624 ns/op
+Iteration   1: 0.624 ns/op
+Iteration   2: 0.626 ns/op
+Iteration   3: 0.624 ns/op
+Iteration   4: 0.624 ns/op
+Iteration   5: 0.624 ns/op
+
+
+Result "deep.jit.DeadCodeBench.mulConstant":
+  0.625 ±(99.9%) 0.003 ns/op [Average]
+  (min, avg, max) = (0.624, 0.625, 0.626), stdev = 0.001
+  CI (99.9%): [0.621, 0.628] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.mulDiscarded
+
+# Run progress: 50.00% complete, ETA 00:00:41
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.371 ns/op
+# Warmup Iteration   2: 0.373 ns/op
+# Warmup Iteration   3: 0.371 ns/op
+Iteration   1: 0.371 ns/op
+Iteration   2: 0.371 ns/op
+Iteration   3: 0.381 ns/op
+Iteration   4: 0.371 ns/op
+Iteration   5: 0.381 ns/op
+
+
+Result "deep.jit.DeadCodeBench.mulDiscarded":
+  0.375 ±(99.9%) 0.022 ns/op [Average]
+  (min, avg, max) = (0.371, 0.375, 0.381), stdev = 0.006
+  CI (99.9%): [0.353, 0.397] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.mulReturned
+
+# Run progress: 60.00% complete, ETA 00:00:33
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.630 ns/op
+# Warmup Iteration   2: 0.637 ns/op
+# Warmup Iteration   3: 0.628 ns/op
+Iteration   1: 0.629 ns/op
+Iteration   2: 0.625 ns/op
+Iteration   3: 0.625 ns/op
+Iteration   4: 0.629 ns/op
+Iteration   5: 0.626 ns/op
+
+
+Result "deep.jit.DeadCodeBench.mulReturned":
+  0.627 ±(99.9%) 0.007 ns/op [Average]
+  (min, avg, max) = (0.625, 0.627, 0.629), stdev = 0.002
+  CI (99.9%): [0.620, 0.634] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.returned
+
+# Run progress: 70.00% complete, ETA 00:00:24
+# Fork: 1 of 1
+# Warmup Iteration   1: 7.168 ns/op
+# Warmup Iteration   2: 7.200 ns/op
+# Warmup Iteration   3: 7.188 ns/op
+Iteration   1: 7.084 ns/op
+Iteration   2: 7.088 ns/op
+Iteration   3: 7.084 ns/op
+Iteration   4: 7.084 ns/op
+Iteration   5: 7.081 ns/op
+
+
+Result "deep.jit.DeadCodeBench.returned":
+  7.084 ±(99.9%) 0.009 ns/op [Average]
+  (min, avg, max) = (7.081, 7.084, 7.088), stdev = 0.002
+  CI (99.9%): [7.075, 7.094] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.sumDiscarded
+
+# Run progress: 80.00% complete, ETA 00:00:16
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.721 ns/op
+# Warmup Iteration   2: 0.720 ns/op
+# Warmup Iteration   3: 0.716 ns/op
+Iteration   1: 0.709 ns/op
+Iteration   2: 0.708 ns/op
+Iteration   3: 0.708 ns/op
+Iteration   4: 0.714 ns/op
+Iteration   5: 0.708 ns/op
+
+
+Result "deep.jit.DeadCodeBench.sumDiscarded":
+  0.710 ±(99.9%) 0.011 ns/op [Average]
+  (min, avg, max) = (0.708, 0.710, 0.714), stdev = 0.003
+  CI (99.9%): [0.699, 0.720] (assumes normal distribution)
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.12.1, OpenJDK 64-Bit Server VM, 21.0.12.1+1-LTS
+# VM invoker: /usr/lib/jvm/temurin-21-jdk-amd64/bin/java
+# VM options: -Dstdout.encoding=UTF-8
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: deep.jit.DeadCodeBench.sumReturned
+
+# Run progress: 90.00% complete, ETA 00:00:08
+# Fork: 1 of 1
+# Warmup Iteration   1: 112.217 ns/op
+# Warmup Iteration   2: 106.741 ns/op
+# Warmup Iteration   3: 106.181 ns/op
+Iteration   1: 105.890 ns/op
+Iteration   2: 105.914 ns/op
+Iteration   3: 105.753 ns/op
+Iteration   4: 106.308 ns/op
+Iteration   5: 105.931 ns/op
+
+
+Result "deep.jit.DeadCodeBench.sumReturned":
+  105.959 ±(99.9%) 0.797 ns/op [Average]
+  (min, avg, max) = (105.753, 105.959, 106.308), stdev = 0.207
+  CI (99.9%): [105.162, 106.756] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:01:22
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                   Mode  Cnt    Score   Error  Units
+DeadCodeBench.baseline      avgt    5    0.371 ± 0.003  ns/op
+DeadCodeBench.blackhole     avgt    5    7.092 ± 0.039  ns/op
+DeadCodeBench.constant      avgt    5    7.001 ± 0.022  ns/op
+DeadCodeBench.discarded     avgt    5    7.102 ± 0.029  ns/op
+DeadCodeBench.mulConstant   avgt    5    0.625 ± 0.003  ns/op
+DeadCodeBench.mulDiscarded  avgt    5    0.375 ± 0.022  ns/op
+DeadCodeBench.mulReturned   avgt    5    0.627 ± 0.007  ns/op
+DeadCodeBench.returned      avgt    5    7.084 ± 0.009  ns/op
+DeadCodeBench.sumDiscarded  avgt    5    0.710 ± 0.011  ns/op
+DeadCodeBench.sumReturned   avgt    5  105.959 ± 0.797  ns/op

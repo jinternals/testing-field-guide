@@ -1,0 +1,10 @@
+plain field:    still spinning 3 s after the flag was set
+volatile field: stopped
+plain field:    still spinning 3 s after the flag was set
+volatile field: stopped
+plain field:    still spinning 3 s after the flag was set
+volatile field: stopped
+plain field:    still spinning 3 s after the flag was set
+volatile field: stopped
+plain field:    still spinning 3 s after the flag was set
+volatile field: stopped

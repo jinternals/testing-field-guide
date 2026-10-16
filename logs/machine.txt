@@ -1,0 +1,10 @@
+kernel 6.17.0-1022-azure
+cpus 4
+Model name: AMD EPYC 7763 64-Core Processor
+openjdk version "21.0.12.1" 2026-08-18 LTS
+ip_local_port_range    32768 60999
+tcp_tw_reuse           2
+tcp_syn_retries        6
+tcp_pingpong_thresh    1
+tcp_fin_timeout        60
+CONFIG_HZ=1000

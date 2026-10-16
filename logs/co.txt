@@ -1,0 +1,3 @@
+closed loop (naive)          4501 samples  p50    1.07  p90    1.07  p99    1.08  p99.9    1.13  p99.99 1000.14  max 1000.14 ms
+closed loop, corrected       5000 samples  p50    1.07  p90    2.02  p99  900.14  p99.9  992.14  p99.99 1000.14  max 1000.14 ms
+open loop, from due time     5000 samples  p50    1.07  p90  534.72  p99  954.10  p99.9  996.53  p99.99 1000.14  max 1000.14 ms

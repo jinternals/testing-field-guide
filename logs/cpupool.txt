@@ -1,0 +1,6 @@
+availableProcessors: 4
+ threads   total ms    tasks/s      task p50 ms      task p99 ms
+       1       2032        197              5.0              5.2
+       4        620        645              6.1              7.9
+      16        619        646             24.0             37.8
+      64        624        641             54.0             89.1

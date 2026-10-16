@@ -1,0 +1,17 @@
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     bool DoEscapeAnalysis                         = true                                   {C2 product} {default}
+     bool EliminateAllocations                     = true                                   {C2 product} {default}
+     intx FreqInlineSize                           = 325                                 {C2 pd product} {default}
+     intx InlineSmallCode                          = 2500                                {C2 pd product} {default}
+      int LockingMode                              = 1                                    {experimental} {default}
+     intx MaxInlineLevel                           = 15                                     {C2 product} {default}
+     intx MaxInlineSize                            = 35                                     {C2 product} {default}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     intx ThreadStackSize                          = 1024                                   {pd product} {default}
+     intx Tier3BackEdgeThreshold                   = 60000                                     {product} {default}
+     intx Tier3InvocationThreshold                 = 200                                       {product} {default}
+     intx Tier4BackEdgeThreshold                   = 40000                                     {product} {default}
+     intx Tier4InvocationThreshold                 = 5000                                      {product} {default}
+     intx TieredStopAtLevel                        = 4                                         {product} {default}
+     intx TypeProfileMajorReceiverPercent          = 90                                     {C2 product} {default}
+     intx TypeProfileWidth                         = 2                                         {product} {default}

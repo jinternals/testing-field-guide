@@ -1,0 +1,73 @@
+[0.002s][info][gc] Using G1
+[0.097s][info][gc,phases] GC(0)   Pre Evacuate Collection Set: 0.25ms
+[0.097s][info][gc,phases] GC(0)   Merge Heap Roots: 0.11ms
+[0.097s][info][gc,phases] GC(0)   Evacuate Collection Set: 34.99ms
+[0.097s][info][gc,phases] GC(0)   Post Evacuate Collection Set: 0.26ms
+[0.097s][info][gc,phases] GC(0)   Other: 0.45ms
+[0.097s][info][gc       ] GC(0) Pause Young (Normal) (G1 Evacuation Pause) 207M->202M(4096M) 36.206ms
+[0.138s][info][gc,phases] GC(1)   Pre Evacuate Collection Set: 0.22ms
+[0.138s][info][gc,phases] GC(1)   Merge Heap Roots: 0.08ms
+[0.138s][info][gc,phases] GC(1)   Evacuate Collection Set: 30.34ms
+[0.138s][info][gc,phases] GC(1)   Post Evacuate Collection Set: 0.24ms
+[0.138s][info][gc,phases] GC(1)   Other: 0.07ms
+[0.138s][info][gc       ] GC(1) Pause Young (Normal) (G1 Evacuation Pause) 380M->380M(4096M) 31.026ms
+[1.076s][info][gc,phases] GC(2)   Pre Evacuate Collection Set: 0.20ms
+[1.076s][info][gc,phases] GC(2)   Merge Heap Roots: 0.08ms
+[1.076s][info][gc,phases] GC(2)   Evacuate Collection Set: 8.44ms
+[1.076s][info][gc,phases] GC(2)   Post Evacuate Collection Set: 0.28ms
+[1.076s][info][gc,phases] GC(2)   Other: 0.05ms
+[1.076s][info][gc       ] GC(2) Pause Young (Normal) (G1 Evacuation Pause) 562M->419M(4096M) 9.169ms
+[2.079s][info][gc,phases] GC(3)   Pre Evacuate Collection Set: 0.21ms
+[2.079s][info][gc,phases] GC(3)   Merge Heap Roots: 0.08ms
+[2.079s][info][gc,phases] GC(3)   Evacuate Collection Set: 5.91ms
+[2.079s][info][gc,phases] GC(3)   Post Evacuate Collection Set: 0.27ms
+[2.079s][info][gc,phases] GC(3)   Other: 0.05ms
+[2.079s][info][gc       ] GC(3) Pause Young (Normal) (G1 Evacuation Pause) 597M->440M(4096M) 6.609ms
+[3.106s][info][gc,phases] GC(4)   Pre Evacuate Collection Set: 0.22ms
+[3.106s][info][gc,phases] GC(4)   Merge Heap Roots: 0.07ms
+[3.106s][info][gc,phases] GC(4)   Evacuate Collection Set: 4.22ms
+[3.106s][info][gc,phases] GC(4)   Post Evacuate Collection Set: 0.27ms
+[3.106s][info][gc,phases] GC(4)   Other: 0.05ms
+[3.106s][info][gc       ] GC(4) Pause Young (Normal) (G1 Evacuation Pause) 622M->460M(4096M) 4.912ms
+[4.134s][info][gc,phases] GC(5)   Pre Evacuate Collection Set: 0.17ms
+[4.134s][info][gc,phases] GC(5)   Merge Heap Roots: 0.07ms
+[4.134s][info][gc,phases] GC(5)   Evacuate Collection Set: 3.94ms
+[4.134s][info][gc,phases] GC(5)   Post Evacuate Collection Set: 0.26ms
+[4.134s][info][gc,phases] GC(5)   Other: 0.04ms
+[4.134s][info][gc       ] GC(5) Pause Young (Normal) (G1 Evacuation Pause) 642M->481M(4096M) 4.578ms
+[5.163s][info][gc,phases] GC(6)   Pre Evacuate Collection Set: 0.20ms
+[5.163s][info][gc,phases] GC(6)   Merge Heap Roots: 0.08ms
+[5.163s][info][gc,phases] GC(6)   Evacuate Collection Set: 4.27ms
+[5.163s][info][gc,phases] GC(6)   Post Evacuate Collection Set: 0.25ms
+[5.163s][info][gc,phases] GC(6)   Other: 0.06ms
+[5.163s][info][gc       ] GC(6) Pause Young (Normal) (G1 Evacuation Pause) 663M->502M(4096M) 4.952ms
+[6.191s][info][gc,phases] GC(7)   Pre Evacuate Collection Set: 0.17ms
+[6.191s][info][gc,phases] GC(7)   Merge Heap Roots: 0.10ms
+[6.191s][info][gc,phases] GC(7)   Evacuate Collection Set: 4.32ms
+[6.191s][info][gc,phases] GC(7)   Post Evacuate Collection Set: 0.25ms
+[6.191s][info][gc,phases] GC(7)   Other: 0.05ms
+[6.191s][info][gc       ] GC(7) Pause Young (Normal) (G1 Evacuation Pause) 684M->521M(4096M) 4.994ms
+[7.219s][info][gc,phases] GC(8)   Pre Evacuate Collection Set: 0.16ms
+[7.219s][info][gc,phases] GC(8)   Merge Heap Roots: 0.09ms
+[7.219s][info][gc,phases] GC(8)   Evacuate Collection Set: 4.27ms
+[7.219s][info][gc,phases] GC(8)   Post Evacuate Collection Set: 0.29ms
+[7.219s][info][gc,phases] GC(8)   Other: 0.05ms
+[7.219s][info][gc       ] GC(8) Pause Young (Normal) (G1 Evacuation Pause) 703M->543M(4096M) 4.977ms
+[8.384s][info][gc,phases] GC(9)   Pre Evacuate Collection Set: 0.21ms
+[8.384s][info][gc,phases] GC(9)   Merge Heap Roots: 0.10ms
+[8.384s][info][gc,phases] GC(9)   Evacuate Collection Set: 5.19ms
+[8.384s][info][gc,phases] GC(9)   Post Evacuate Collection Set: 0.27ms
+[8.384s][info][gc,phases] GC(9)   Other: 0.05ms
+[8.384s][info][gc       ] GC(9) Pause Young (Normal) (G1 Evacuation Pause) 749M->564M(4096M) 5.928ms
+[10.261s][info][gc,phases] GC(10)   Pre Evacuate Collection Set: 0.23ms
+[10.261s][info][gc,phases] GC(10)   Merge Heap Roots: 0.07ms
+[10.261s][info][gc,phases] GC(10)   Evacuate Collection Set: 6.41ms
+[10.261s][info][gc,phases] GC(10)   Post Evacuate Collection Set: 0.30ms
+[10.261s][info][gc,phases] GC(10)   Other: 0.07ms
+[10.261s][info][gc       ] GC(10) Pause Young (Normal) (G1 Evacuation Pause) 896M->598M(4096M) 7.193ms
+[12.966s][info][gc,phases] GC(11)   Pre Evacuate Collection Set: 0.23ms
+[12.966s][info][gc,phases] GC(11)   Merge Heap Roots: 0.09ms
+[12.966s][info][gc,phases] GC(11)   Evacuate Collection Set: 10.04ms
+[12.966s][info][gc,phases] GC(11)   Post Evacuate Collection Set: 0.32ms
+[12.966s][info][gc,phases] GC(11)   Other: 0.08ms
+[12.966s][info][gc       ] GC(11) Pause Young (Normal) (G1 Evacuation Pause) 1076M->645M(4096M) 10.853ms

@@ -1,0 +1,23 @@
+ 00:00:00.000000 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [S], seq 1025647318, win 65495, options [mss 65495,sackOK,TS val 1907478665 ecr 0,nop,wscale 10], length 0
+ 00:00:00.000042 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [S.], seq 1883878872, ack 1025647319, win 65483, options [mss 65495,sackOK,TS val 1907478666 ecr 1907478665,nop,wscale 10], length 0
+ 00:00:00.000061 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [.], ack 1, win 64, options [nop,nop,TS val 1907478666 ecr 1907478666], length 0
+ 00:00:00.001983 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [P.], seq 1:51, ack 1, win 64, options [nop,nop,TS val 1907478667 ecr 1907478666], length 50
+ 00:00:00.001998 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [.], ack 51, win 64, options [nop,nop,TS val 1907478667 ecr 1907478667], length 0
+ 00:00:00.002067 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [P.], seq 51:101, ack 1, win 64, options [nop,nop,TS val 1907478668 ecr 1907478667], length 50
+ 00:00:00.002078 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [.], ack 101, win 64, options [nop,nop,TS val 1907478668 ecr 1907478668], length 0
+ 00:00:00.002117 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [P.], seq 1:101, ack 101, win 64, options [nop,nop,TS val 1907478668 ecr 1907478668], length 100
+ 00:00:00.002125 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [.], ack 101, win 64, options [nop,nop,TS val 1907478668 ecr 1907478668], length 0
+ 00:00:00.002152 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [P.], seq 101:151, ack 101, win 64, options [nop,nop,TS val 1907478668 ecr 1907478668], length 50
+ 00:00:00.043034 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [.], ack 151, win 64, options [nop,nop,TS val 1907478709 ecr 1907478668], length 0
+ 00:00:00.043047 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [P.], seq 151:201, ack 101, win 64, options [nop,nop,TS val 1907478709 ecr 1907478709], length 50
+ 00:00:00.043072 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [.], ack 201, win 64, options [nop,nop,TS val 1907478709 ecr 1907478709], length 0
+ 00:00:00.043146 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [P.], seq 101:201, ack 201, win 64, options [nop,nop,TS val 1907478709 ecr 1907478709], length 100
+ 00:00:00.043207 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [P.], seq 201:251, ack 201, win 64, options [nop,nop,TS val 1907478709 ecr 1907478709], length 50
+ 00:00:00.084029 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [.], ack 251, win 64, options [nop,nop,TS val 1907478750 ecr 1907478709], length 0
+ 00:00:00.084038 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [P.], seq 251:301, ack 201, win 64, options [nop,nop,TS val 1907478750 ecr 1907478750], length 50
+ 00:00:00.084048 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [.], ack 301, win 64, options [nop,nop,TS val 1907478750 ecr 1907478750], length 0
+ 00:00:00.084093 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [P.], seq 201:301, ack 301, win 64, options [nop,nop,TS val 1907478750 ecr 1907478750], length 100
+ 00:00:00.084248 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [F.], seq 301, ack 301, win 64, options [nop,nop,TS val 1907478750 ecr 1907478750], length 0
+ 00:00:00.084305 IP 127.0.0.1.18080 > 127.0.0.1.37140: Flags [F.], seq 301, ack 302, win 64, options [nop,nop,TS val 1907478750 ecr 1907478750], length 0
+ 00:00:00.084323 IP 127.0.0.1.37140 > 127.0.0.1.18080: Flags [.], ack 302, win 64, options [nop,nop,TS val 1907478750 ecr 1907478750], length 0
+

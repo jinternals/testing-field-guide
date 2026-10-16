@@ -1,0 +1,7 @@
+ip_local_port_range: 32768 60999
+tcp_tw_reuse:        2
+one kept-alive connection          59.3 µs per request
+new connection, client first      266.4 µs per request   TIME_WAIT 2000/0  CLOSE_WAIT 0/0  FIN_WAIT2 0/0 (client/server)
+new connection, server first      252.3 µs per request   TIME_WAIT 0/2000  CLOSE_WAIT 0/0  FIN_WAIT2 0/0 (client/server)
+new connection, client reset      246.2 µs per request   TIME_WAIT 0/0  CLOSE_WAIT 0/0  FIN_WAIT2 0/0 (client/server)
+new connection, server never      232.2 µs per request   TIME_WAIT 0/0  CLOSE_WAIT 0/2000  FIN_WAIT2 2000/0 (client/server)

@@ -1,0 +1,20 @@
+29    4    b        deep.jit.CallSites$A::area (2 bytes)
+29    5    b        deep.jit.CallSites$B::area (2 bytes)
+29    6    b        deep.jit.CallSites$C::area (2 bytes)
+30    7    b        deep.jit.CallSites$D::area (2 bytes)
+31    8 %  b        deep.jit.CallSites::oneType @ 10 (40 bytes)
+                            @ 25   deep.jit.CallSites$A::area (2 bytes)   inline (hot)
+35    9    b        deep.jit.CallSites::oneType (40 bytes)
+                            @ 25   deep.jit.CallSites$A::area (2 bytes)   inline (hot)
+37   10 %  b        deep.jit.CallSites::fourTypes @ 10 (40 bytes)
+                            @ 25   deep.jit.CallSites$Shape::area (0 bytes)   virtual call
+39   11    b        deep.jit.CallSites::fourTypes (40 bytes)
+                            @ 25   deep.jit.CallSites$Shape::area (0 bytes)   virtual call
+                            @ 109   deep.jit.CallSites::oneType (40 bytes)   inline (hot)
+                              @ 25   deep.jit.CallSites$A::area (2 bytes)   inline (hot)
+                            @ 113   deep.jit.CallSites::fourTypes (40 bytes)   inline (hot)
+                              @ 25   deep.jit.CallSites$Shape::area (0 bytes)   virtual call
+                            @ 109   deep.jit.CallSites::oneType (40 bytes)   inline (hot)
+                              @ 25   deep.jit.CallSites$A::area (2 bytes)   inline (hot)
+                            @ 113   deep.jit.CallSites::fourTypes (40 bytes)   inline (hot)
+                              @ 25   deep.jit.CallSites$Shape::area (0 bytes)   virtual call

@@ -1,0 +1,11 @@
+Benchmark                   Mode  Cnt    Score   Error  Units
+DeadCodeBench.baseline      avgt    5    0.371 ± 0.003  ns/op
+DeadCodeBench.blackhole     avgt    5    7.092 ± 0.039  ns/op
+DeadCodeBench.constant      avgt    5    7.001 ± 0.022  ns/op
+DeadCodeBench.discarded     avgt    5    7.102 ± 0.029  ns/op
+DeadCodeBench.mulConstant   avgt    5    0.625 ± 0.003  ns/op
+DeadCodeBench.mulDiscarded  avgt    5    0.375 ± 0.022  ns/op
+DeadCodeBench.mulReturned   avgt    5    0.627 ± 0.007  ns/op
+DeadCodeBench.returned      avgt    5    7.084 ± 0.009  ns/op
+DeadCodeBench.sumDiscarded  avgt    5    0.710 ± 0.011  ns/op
+DeadCodeBench.sumReturned   avgt    5  105.959 ± 0.797  ns/op

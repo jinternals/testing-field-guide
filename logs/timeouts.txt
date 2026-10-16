@@ -1,0 +1,8 @@
+silent  | no timeouts                5.3 s  still waiting after 5 s
+silent  | connectTimeout 1 s         5.0 s  still waiting after 5 s
+silent  | request timeout 2 s        2.0 s  HttpTimeoutException
+trickle | request timeout 2 s        5.0 s  still waiting after 5 s
+dropped | no timeouts                5.0 s  still waiting after 5 s
+dropped | request timeout 2 s        2.0 s  HttpConnectTimeoutException
+dropped | connectTimeout 1 s         1.0 s  HttpConnectTimeoutException
+trickle | Socket soTimeout 1 s       6.0 s  returned 70 bytes, no error

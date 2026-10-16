@@ -1,0 +1,3 @@
+-Xmx1g Heap Region Size: 1M
+-Xmx4g Heap Region Size: 2M
+-Xmx16g Heap Region Size: 8M

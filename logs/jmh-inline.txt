@@ -1,0 +1,30 @@
+Benchmark                                                    Mode  Cnt      Score      Error   Units
+InliningBench.allocation                                     avgt    5      0.588 ±    0.010   ns/op
+InliningBench.allocation:gc.alloc.rate                       avgt    5      0.007 ±    0.001  MB/sec
+InliningBench.allocation:gc.alloc.rate.norm                  avgt    5     ≈ 10⁻⁵               B/op
+InliningBench.allocation:gc.count                            avgt    5        ≈ 0             counts
+InliningBench.allocationNoEscapeAnalysis                     avgt    5      2.484 ±    0.008   ns/op
+InliningBench.allocationNoEscapeAnalysis:gc.alloc.rate       avgt    5   9212.017 ±   29.613  MB/sec
+InliningBench.allocationNoEscapeAnalysis:gc.alloc.rate.norm  avgt    5     24.000 ±    0.001    B/op
+InliningBench.allocationNoEscapeAnalysis:gc.count            avgt    5    126.000             counts
+InliningBench.allocationNoEscapeAnalysis:gc.time             avgt    5     92.000                 ms
+InliningBench.callInlined                                    avgt    5      0.598 ±    0.011   ns/op
+InliningBench.callInlined:gc.alloc.rate                      avgt    5      0.007 ±    0.001  MB/sec
+InliningBench.callInlined:gc.alloc.rate.norm                 avgt    5     ≈ 10⁻⁵               B/op
+InliningBench.callInlined:gc.count                           avgt    5        ≈ 0             counts
+InliningBench.callNotInlined                                 avgt    5      1.872 ±    0.024   ns/op
+InliningBench.callNotInlined:gc.alloc.rate                   avgt    5      0.007 ±    0.001  MB/sec
+InliningBench.callNotInlined:gc.alloc.rate.norm              avgt    5     ≈ 10⁻⁵               B/op
+InliningBench.callNotInlined:gc.count                        avgt    5        ≈ 0             counts
+InliningBench.types1                                         avgt    5    297.269 ±    0.963   ns/op
+InliningBench.types1:gc.alloc.rate                           avgt    5      0.007 ±    0.001  MB/sec
+InliningBench.types1:gc.alloc.rate.norm                      avgt    5      0.002 ±    0.001    B/op
+InliningBench.types1:gc.count                                avgt    5        ≈ 0             counts
+InliningBench.types2                                         avgt    5    568.492 ±    3.845   ns/op
+InliningBench.types2:gc.alloc.rate                           avgt    5      0.007 ±    0.001  MB/sec
+InliningBench.types2:gc.alloc.rate.norm                      avgt    5      0.004 ±    0.001    B/op
+InliningBench.types2:gc.count                                avgt    5        ≈ 0             counts
+InliningBench.types4                                         avgt    5  17021.088 ± 2759.912   ns/op
+InliningBench.types4:gc.alloc.rate                           avgt    5      0.007 ±    0.001  MB/sec
+InliningBench.types4:gc.alloc.rate.norm                      avgt    5      0.117 ±    0.019    B/op
+InliningBench.types4:gc.count                                avgt    5        ≈ 0             counts

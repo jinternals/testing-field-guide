@@ -1,0 +1,6 @@
+33   11 %     3       deep.jit.WarmUp::sumOfSquares @ 11 (42 bytes)
+33   12       3       deep.jit.WarmUp::sumOfSquares (42 bytes)
+33   13 %     4       deep.jit.WarmUp::sumOfSquares @ 11 (42 bytes)
+38   11 %     3       deep.jit.WarmUp::sumOfSquares @ 11 (42 bytes)   made not entrant
+72  122       4       deep.jit.WarmUp::sumOfSquares (42 bytes)
+75   12       3       deep.jit.WarmUp::sumOfSquares (42 bytes)   made not entrant

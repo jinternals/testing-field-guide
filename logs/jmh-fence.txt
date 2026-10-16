@@ -1,0 +1,8 @@
+Benchmark                         Mode  Cnt  Score   Error  Units
+FenceBench.atomicIncrement        avgt    5  2.377 ± 0.026  ns/op
+FenceBench.plainLoad              avgt    5  0.492 ± 0.009  ns/op
+FenceBench.plainStore             avgt    5  0.550 ± 0.011  ns/op
+FenceBench.releaseStore           avgt    5  0.740 ± 0.004  ns/op
+FenceBench.synchronizedIncrement  avgt    5  6.200 ± 0.021  ns/op
+FenceBench.volatileLoad           avgt    5  0.504 ± 0.011  ns/op
+FenceBench.volatileStore          avgt    5  4.329 ± 0.124  ns/op
