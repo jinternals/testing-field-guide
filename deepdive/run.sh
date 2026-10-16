@@ -43,17 +43,39 @@ $J deep.latency.CoordinatedOmission | tee $L/co.txt
 
 echo "== 6 JIT"
 $J deep.jit.WarmUp | tee $L/warmup.txt
-java -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E " (Tier3InvocationThreshold|Tier4InvocationThreshold|Tier3BackEdgeThreshold|Tier4BackEdgeThreshold|TieredStopAtLevel|CICompilerCount|ReservedCodeCacheSize) " | tee $L/jit-flags.txt
+java -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E " (Tier3InvocationThreshold|Tier4InvocationThreshold|Tier3BackEdgeThreshold|Tier4BackEdgeThreshold|TieredStopAtLevel|CICompilerCount|ReservedCodeCacheSize|MaxInlineSize|FreqInlineSize|InlineSmallCode|MaxInlineLevel|TypeProfileWidth|TypeProfileMajorReceiverPercent|DoEscapeAnalysis|EliminateAllocations|ThreadStackSize|LockingMode) " | tee $L/jit-flags.txt
 java -Xint -Dstdout.encoding=UTF-8 -cp $CP deep.jit.WarmUp | tee $L/warmup-xint.txt
 java -XX:+PrintCompilation -cp $CP deep.jit.WarmUp | grep "sumOfSquares" | tee $L/warmup-compilation.txt
 $J org.openjdk.jmh.Main DeadCodeBench -f 1 -wi 3 -w 1 -i 5 -r 1 2>&1 | tee $L/jmh-full.txt | tail -12
 sed -n '/^Benchmark/,$p' $L/jmh-full.txt > $L/jmh.txt
+# what C2 does to calls and allocations: inlining, receiver types, escape analysis (-prof gc: bytes allocated per op)
+$J org.openjdk.jmh.Main InliningBench -f 1 -wi 3 -w 1 -i 5 -r 1 -prof gc 2>&1 | tee $L/jmh-inline-full.txt | tail -30
+sed -n '/^Benchmark/,$p' $L/jmh-inline-full.txt > $L/jmh-inline.txt
+java -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining -XX:-BackgroundCompilation -cp $CP deep.jit.CallSites \
+  | grep -E "CallSites[$](Shape|A|B|C|D)::area" | awk '!seen[$0]++' | tee $L/jit-inlining.txt || true
 
 echo "== 7 GC"
 for gc in G1 ZGC; do
   flags=$([ $gc = G1 ] && echo "-XX:+UseG1GC" || echo "-XX:+UseZGC -XX:+ZGenerational")
   java $flags -Xms1g -Xmx1g -Xlog:gc,gc+phases:file=$L/gc-$gc.log -Dstdout.encoding=UTF-8 -cp $CP \
     deep.gc.GcLatency 15 | tee $L/gc-$gc.txt
+done
+
+# heap size: the G1 region size it chooses, and pauses at 4 GB against 1 GB
+for h in 1g 4g 16g; do
+  printf "%-6s " "-Xmx$h"; java -XX:+UseG1GC -Xmx$h -Xlog:gc+init -version 2>&1 | grep -o "Heap Region Size: .*"
+done | tee $L/gc-init.txt
+for gc in G1 ZGC; do
+  flags=$([ $gc = G1 ] && echo "-XX:+UseG1GC" || echo "-XX:+UseZGC -XX:+ZGenerational")
+  java $flags -Xms4g -Xmx4g -Xlog:gc,gc+phases:file=$L/gc-$gc-4g.log -Dstdout.encoding=UTF-8 -cp $CP \
+    deep.gc.GcLatency 15 | tee $L/gc-$gc-4g.txt
+done
+# the same reference loads and stores under three collectors' barriers
+: > $L/jmh-barrier.txt
+for gc in "-XX:+UseParallelGC" "-XX:+UseG1GC" "-XX:+UseZGC -XX:+ZGenerational"; do
+  echo "## $gc" | tee -a $L/jmh-barrier.txt
+  $J org.openjdk.jmh.Main BarrierBench -f 1 -wi 3 -w 1 -i 5 -r 1 -jvmArgs "-Xms1g -Xmx1g $gc" 2>&1 \
+    | sed -n '/^Benchmark/,$p' | tee -a $L/jmh-barrier.txt
 done
 
 echo "== 8 virtual threads"
@@ -89,9 +111,24 @@ done
 docker logs kafka 2>&1 | grep -E "Kafka version|Kafka Server started" | head -3 > $L/kafka-broker.txt
 docker stop kafka > /dev/null
 
+echo "== 8 (cont.) where 10,000 blocked threads keep their stacks"
+: > $L/vt-memory.txt
+for m in platform virtual; do
+  java -XX:NativeMemoryTracking=summary -cp $CP deep.vt.ThreadMemory $m | tee -a $L/vt-memory.txt
+done
+
+echo "== 1 (cont.) many small writes: Nagle, TCP_NODELAY, autocorking"
+echo "tcp_autocorking $(cat /proc/sys/net/ipv4/tcp_autocorking)" | tee $L/smallwrites.txt
+$J deep.tcp.SmallWrites | tee -a $L/smallwrites.txt
+sudo sysctl -q -w net.ipv4.tcp_autocorking=0
+echo "tcp_autocorking $(cat /proc/sys/net/ipv4/tcp_autocorking)" | tee -a $L/smallwrites.txt
+$J deep.tcp.SmallWrites | tee -a $L/smallwrites.txt
+sudo sysctl -q -w net.ipv4.tcp_autocorking=1
+
 echo "== 10 memory model"
 : > $L/staleflag.txt
 for i in 1 2 3 4 5; do $J deep.jmm.StaleFlag | tee -a $L/staleflag.txt; done
+$J org.openjdk.jmh.Main FenceBench -f 1 -wi 3 -w 1 -i 5 -r 1 2>&1 | sed -n '/^Benchmark/,$p' | tee $L/jmh-fence.txt
 echo "== 3 (cont.) the background connect without a timeout"
 wait $SYN || true; sleep 1
 cat $L/syn.txt; awk '{print $3}' $L/syn-ss.txt | uniq -c | head -20
