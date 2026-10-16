@@ -1,0 +1,5 @@
+shard 2/2: 6 classes
+BUILD SUCCESSFUL in 16s
+3 actionable tasks: 3 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.8.1/userguide/configuration_cache_enabling.html
+tests run in this shard: 21
