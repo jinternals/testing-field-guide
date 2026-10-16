@@ -813,7 +813,7 @@ but there were differences at these indexes:
 [timing] repetition 1 of 3 took 2 ms
 [timing] repetition 2 of 3 took 0 ms
 [timing] repetition 3 of 3 took 0 ms
-[timing] tuesdayOrderArrivesThursday(Clock, TestInfo) took 0 ms
+[timing] tuesdayOrderArrivesThursday(Clock, TestInfo) took 1 ms
 Tests run: 5, Failures: 0</pre></div>
   </div>
 </div>
@@ -853,7 +853,7 @@ Tests run: 5, Failures: 0</pre></div>
   }
 }</pre></div>
   <div>
-    <div class="code xs" role="figure" aria-label="PaymentServiceTest — Logback ListAppender + Micrometer"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>PaymentServiceTest — Logback ListAppender + Micrometer<span class="ct-r">2 ✔ · 0.044 s</span></div><pre><span class="t-kw">class</span> PaymentServiceTest {
+    <div class="code xs" role="figure" aria-label="PaymentServiceTest — Logback ListAppender + Micrometer"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>PaymentServiceTest — Logback ListAppender + Micrometer<span class="ct-r">2 ✔ · 0.056 s</span></div><pre><span class="t-kw">class</span> PaymentServiceTest {
   SimpleMeterRegistry registry = <span class="t-kw">new</span> SimpleMeterRegistry();
   ListAppender&lt;ILoggingEvent&gt; logs = <span class="t-kw">new</span> ListAppender&lt;&gt;();
   Logger logger =
@@ -1249,7 +1249,7 @@ Please remove unnecessary stubbings or use 'lenient' strictness. More info: java
   }
 }</pre></div>
   <div>
-    <div class="code xs" role="figure" aria-label="characterization test — a “golden master”"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>characterization test — a “golden master”<span class="ct-r">5 ✔ · 0.050 s</span></div><pre>  <span class="t-ann">@Test</span>
+    <div class="code xs" role="figure" aria-label="characterization test — a “golden master”"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>characterization test — a “golden master”<span class="ct-r">5 ✔ · 0.060 s</span></div><pre>  <span class="t-ann">@Test</span>
   <span class="t-kw">void</span> <span class="t-fn">outputMatchesTheApprovedFile</span>() <span class="t-kw">throws</span> Exception {
     String actual = <span class="t-kw">new</span> InvoiceReport(FIXED).<span class="t-fn">render</span>(List.<span class="t-fn">of</span>(
         <span class="t-kw">new</span> String[] {<span class="t-str">"BOOK"</span>, <span class="t-str">"2"</span>, <span class="t-str">"600.00"</span>},
@@ -1398,11 +1398,11 @@ TOTAL 1768.74</pre></div>
   }
 }</pre></div>
     <div style="height:1.6mm"></div>
-    <div class="code xs out" role="figure" aria-label="real run · Spring Boot 4.1.1 on GitHub Actions"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real run · Spring Boot 4.1.1 on GitHub Actions</div><pre>✔ OrderControllerTest  2 tests  2.376 s
-✔ ArchitectureRulesCatchViolationsTest 1 tests  1.196 s
-✔ ArchitectureTest     3 tests  0.408 s
-✔ OrderRepositoryIT    2 tests  10.17 s
-✔ OrderFlowIT          3 tests  2.945 s</pre></div>
+    <div class="code xs out" role="figure" aria-label="real run · Spring Boot 4.1.1 on GitHub Actions"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real run · Spring Boot 4.1.1 on GitHub Actions</div><pre>✔ OrderControllerTest  2 tests  1.943 s
+✔ ArchitectureRulesCatchViolationsTest 1 tests  0.877 s
+✔ ArchitectureTest     3 tests  0.354 s
+✔ OrderRepositoryIT    2 tests  11.51 s
+✔ OrderFlowIT          3 tests  2.471 s</pre></div>
   </div>
 </div>
 <p class="small muted" style="margin-top:1.2mm">Versions managed by Boot 4.1.1: Spring Framework 7.0.9, JUnit 6.0.3, Mockito 5.23.0, Hibernate 7.4.5.Final, Testcontainers 2.0.5. Project: <code>spring/</code> in the example code. Our first version used <code>static @Container</code> fields per class; that run’s test JVM took 30 s to exit and Failsafe had to kill it. With the container as a Spring bean it closes with the context, and the JVM exited at once.</p>
@@ -1492,8 +1492,8 @@ TOTAL 1768.74</pre></div>
   <ul class="ticks tight" style="--tick:#B45309"><li><b>No <code>@Transactional</code> on <code>@SpringBootTest</code> tests.</b> Let each call commit as it would in production; clean up in <code>@BeforeEach</code>.</li><li><b>In <code>@DataJpaTest</code>, flush.</b> Testing a constraint or a mapping? Call <code>flush()</code> or <code>saveAndFlush()</code> so the SQL actually runs.</li><li><b>Turn off open-in-view</b> (<code>spring.jpa.open-in-view=false</code>) so lazy loading can’t silently happen while JSON is written.</li><li><b>Return DTOs, not entities,</b> from transactional services — then no lazy proxy can escape.</li><li>Keep the fast rolled-back tests; add <b>one committed-path test</b> per repository or flow.</li></ul>
 </div>
 <div class="two top" style="grid-template-columns:1.12fr 1fr;gap:3mm;margin-top:2mm">
-  <div class="code xs out wrap" role="figure" aria-label="real run · Spring Boot 4.1.1 · GitHub Actions"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real run · Spring Boot 4.1.1 · GitHub Actions</div><pre>✔ OrderRepositoryIT  2 tests  10.17 s  (starts PostgreSQL)
-✔ OrderFlowIT        3 tests  2.945 s
+  <div class="code xs out wrap" role="figure" aria-label="real run · Spring Boot 4.1.1 · GitHub Actions"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real run · Spring Boot 4.1.1 · GitHub Actions</div><pre>✔ OrderRepositoryIT  2 tests  11.51 s  (starts PostgreSQL)
+✔ OrderFlowIT        3 tests  2.471 s
 
 WARN  org.hibernate.orm.jdbc.error : ERROR: duplicate key value violates unique constraint "orders_reference_key"</pre></div>
   <div class="note info"><b class="nl">Good to know</b>Rolled-back tests are still the right default for queries, mappings and repository methods — they are fast and leave nothing behind. Call <code>flush()</code> and <code>clear()</code> on the <code>EntityManager</code> (or <code>TestEntityManager</code>) before reading back, so the data really comes from the database.</div>
@@ -1524,7 +1524,7 @@ ALTER TABLE orders ALTER COLUMN status SET NOT NULL;</pre></div>
     <div class="code xs" role="figure" aria-label="the draft someone wrote first — no backfill"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>the draft someone wrote first — no backfill</div><pre>-- V3__status_required.sql (first draft)
 ALTER TABLE orders ALTER COLUMN status SET NOT NULL;</pre></div>
   </div>
-  <div class="code xs" role="figure" aria-label="MigrationsIT — real PostgreSQL 17"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>MigrationsIT — real PostgreSQL 17<span class="ct-r">3 ✔ · 6.214 s</span></div><pre>  <span class="t-ann">@Test</span>
+  <div class="code xs" role="figure" aria-label="MigrationsIT — real PostgreSQL 17"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>MigrationsIT — real PostgreSQL 17<span class="ct-r">3 ✔ · 5.866 s</span></div><pre>  <span class="t-ann">@Test</span>
   <span class="t-kw">void</span> <span class="t-fn">allMigrationsApplyToAnEmptyDatabase</span>() {
     <span class="t-kw">var</span> result = <span class="t-fn">flyway</span>(<span class="t-str">"fresh"</span>).<span class="t-fn">load</span>().<span class="t-fn">migrate</span>();
 
@@ -1616,7 +1616,7 @@ ALTER TABLE orders ALTER COLUMN status SET NOT NULL;</pre></div>
     <h2 style="margin-top:1mm">Five cache bugs the tests catch</h2>
     <table class="tbl xs"><thead><tr><th>Bug</th><th>What the test showed</th></tr></thead><tbody><tr><td class="nm">Cache never used</td><td>two calls, <code>fetch()</code> ran once; the key <code>prices::book-1</code> is in Redis</td></tr><tr><td class="nm">Stale after a change</td><td>after <code>@CacheEvict</code> the next call fetches again</td></tr><tr><td class="nm">Self-invocation</td><td><code>priceWithTax()</code> calls <code>price()</code> on <code>this</code>, not on the proxy: fetched twice, nothing in Redis</td></tr><tr><td class="nm">Value can’t be stored</td><td><code>Quote</code> isn’t <code>Serializable</code>: <code>IllegalStateException: Cannot serialize value of type shop.cache.Quote without a serializer</code> — on the first put, at runtime</td></tr><tr><td class="nm">Never expires</td><td><code>getExpire()</code> is between 1 and 600 s: <code>time-to-live=10m</code> reached Redis</td></tr></tbody></table>
   </div>
-  <div class="code xs" role="figure" aria-label="PriceCacheIT — real Redis"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>PriceCacheIT — real Redis<span class="ct-r">4 ✔ · 0.974 s</span></div><pre><span class="t-ann">@SpringBootTest</span>
+  <div class="code xs" role="figure" aria-label="PriceCacheIT — real Redis"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>PriceCacheIT — real Redis<span class="ct-r">4 ✔ · 1.253 s</span></div><pre><span class="t-ann">@SpringBootTest</span>
 <span class="t-ann">@Import</span>(RedisContainer.<span class="t-kw">class</span>)
 <span class="t-kw">class</span> PriceCacheIT {
   <span class="t-ann">@Autowired</span> PriceService prices;
@@ -1678,7 +1678,7 @@ ALTER TABLE orders ALTER COLUMN status SET NOT NULL;</pre></div>
 <div class="sec-head" style="--accent:#B45309"><div class="kicker">04 · Integration &amp; API testing</div><h1 class="h-sub">A flaky cache test: Redis writes are asynchronous</h1></div>
 <p class="lede-s">Our first <code>PriceCacheIT</code> failed now and then. Repeated in CI it failed <b>6 times in 30 runs</b>: sometimes the value was not in Redis right after <code>price()</code> returned; sometimes the call after <code>@CacheEvict</code> still got the old value. It was not a test bug. Since Spring Data Redis 4.0, with Lettuce, <code>put</code>, <code>evict</code> and <code>clear</code> are <b>asynchronous</b>: they “may complete after the calling method returns”.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
-  <div class="code xs" role="figure" aria-label="AsyncCacheWritesIT — the default, measured"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>AsyncCacheWritesIT — the default, measured<span class="ct-r">1 ✔ · 1.874 s</span></div><pre><span class="t-com">/** The library default, no immediate writes: count the lag. */</span>
+  <div class="code xs" role="figure" aria-label="AsyncCacheWritesIT — the default, measured"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>AsyncCacheWritesIT — the default, measured<span class="ct-r">1 ✔ · 2.234 s</span></div><pre><span class="t-com">/** The library default, no immediate writes: count the lag. */</span>
 <span class="t-ann">@SpringBootTest</span>(properties =
     <span class="t-str">"shop.cache.immediate-writes=false"</span>)
 <span class="t-ann">@Import</span>(RedisContainer.<span class="t-kw">class</span>)
@@ -1703,7 +1703,7 @@ ALTER TABLE orders ALTER COLUMN status SET NOT NULL;</pre></div>
   }
 }</pre></div>
   <div>
-    <div class="code xs out wrap out" role="figure" aria-label="real output · CI"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · CI</div><pre>[async writes] 367 of 1000 entries were not in Redis when price() returned</pre></div>
+    <div class="code xs out wrap out" role="figure" aria-label="real output · CI"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · CI</div><pre>[async writes] 303 of 1000 entries were not in Redis when price() returned</pre></div>
     <div class="code xs" role="figure" aria-label="CacheConfig.java — the fix: wait for writes"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CacheConfig.java — the fix: wait for writes</div><pre><span class="t-com">/**
  * Spring Data Redis 4 with Lettuce: put() and evict() are
  * asynchronous by default and can finish after the call
@@ -1738,7 +1738,7 @@ ALTER TABLE orders ALTER COLUMN status SET NOT NULL;</pre></div>
 done</pre></div>
     <p class="small muted" style="margin-top:1mm">Three machines, ten runs each: 3, 2 and 1 failures before the fix; 0, 0 and 0 after it.</p>
   </div>
-  <ul class="ticks tight" style="--tick:#B45309"><li><b>A flaky test is a bug report</b> — about the test or about the code. Find out which before you add a retry.</li><li><b>Measure the window:</b> 367 of 1000 writes had not landed when the method returned. The same race exists in production: an evicted price can be served once more.</li><li><b>Decide on purpose.</b> Need read-your-writes (evict on change, then read)? Use <code>immediateWrites()</code>. Prefer throughput? Keep the default and let tests wait with Awaitility, as <code>AsyncCacheWritesIT</code> does.</li><li><code>Cache.evictIfPresent(…)</code> and <code>invalidate(…)</code> always wait, whatever the setting.</li><li><b>A retry would have hidden it.</b> Surefire’s <code>rerunFailingTestsCount</code> turns this into a “flaky pass” — and the production race stays.</li><li>With the fix, the strict test stayed green in 30 of 30 repeated runs.</li></ul>
+  <ul class="ticks tight" style="--tick:#B45309"><li><b>A flaky test is a bug report</b> — about the test or about the code. Find out which before you add a retry.</li><li><b>Measure the window:</b> 303 of 1000 writes had not landed when the method returned. The same race exists in production: an evicted price can be served once more.</li><li><b>Decide on purpose.</b> Need read-your-writes (evict on change, then read)? Use <code>immediateWrites()</code>. Prefer throughput? Keep the default and let tests wait with Awaitility, as <code>AsyncCacheWritesIT</code> does.</li><li><code>Cache.evictIfPresent(…)</code> and <code>invalidate(…)</code> always wait, whatever the setting.</li><li><b>A retry would have hidden it.</b> Surefire’s <code>rerunFailingTestsCount</code> turns this into a “flaky pass” — and the production race stays.</li><li>With the fix, the strict test stayed green in 30 of 30 repeated runs.</li></ul>
 </div>
 </div></section><section class="page " id="p-scheduled"><div class="run-head" aria-hidden="true"><span class="rh-l" style="--accent:#B45309">04 · Integration &amp; API testing</span><span class="rh-r">Testing · Field Guide</span></div>
             <div class="run-foot-l"><a href="#p-toc">↑ Contents</a> · <a href="#p-cheat">Cheat sheet</a> · <a href="#p-index">Index</a></div>
@@ -1768,7 +1768,7 @@ done</pre></div>
     <span class="t-kw">return</span> carts.<span class="t-fn">removeTouchedBefore</span>(cutoff);
   }
 }</pre></div>
-  <div class="code xs" role="figure" aria-label="CartCleanupTest — unit, fixed clock"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CartCleanupTest — unit, fixed clock<span class="ct-r">2 ✔ · 0.016 s</span></div><pre><span class="t-com">/** The rule, without Spring or a scheduler: plain and fast. */</span>
+  <div class="code xs" role="figure" aria-label="CartCleanupTest — unit, fixed clock"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CartCleanupTest — unit, fixed clock<span class="ct-r">2 ✔ · 0.018 s</span></div><pre><span class="t-com">/** The rule, without Spring or a scheduler: plain and fast. */</span>
 <span class="t-kw">class</span> CartCleanupTest {
   Instant now = Instant.<span class="t-fn">parse</span>(<span class="t-str">"2026-10-13T10:00:00Z"</span>);
   CartStore carts = <span class="t-kw">new</span> CartStore();
@@ -1793,7 +1793,7 @@ done</pre></div>
 }</pre></div>
 </div>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
-  <div class="code xs" role="figure" aria-label="CartCleanupScheduleIT — real scheduler"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CartCleanupScheduleIT — real scheduler<span class="ct-r">1 ✔ · 0.728 s</span></div><pre><span class="t-com">/** The wiring: the schedule really fires (here every 0.2 s). */</span>
+  <div class="code xs" role="figure" aria-label="CartCleanupScheduleIT — real scheduler"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CartCleanupScheduleIT — real scheduler<span class="ct-r">1 ✔ · 0.942 s</span></div><pre><span class="t-com">/** The wiring: the schedule really fires (here every 0.2 s). */</span>
 <span class="t-ann">@SpringBootTest</span>(properties = {<span class="t-str">"shop.cleanup.every=PT0.2S"</span>,
     <span class="t-str">"spring.cache.type=none"</span>})
 <span class="t-kw">class</span> CartCleanupScheduleIT {
@@ -1871,7 +1871,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
   }
 }</pre></div>
   </div>
-  <div class="code xs" role="figure" aria-label="ImportPricesJobIT — the whole job"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ImportPricesJobIT — the whole job<span class="ct-r">1 ✔ · 0.386 s</span></div><pre><span class="t-com">/** prices.csv: 3 good lines, 1 negative, 1 broken. */</span>
+  <div class="code xs" role="figure" aria-label="ImportPricesJobIT — the whole job"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ImportPricesJobIT — the whole job<span class="ct-r">1 ✔ · 0.539 s</span></div><pre><span class="t-com">/** prices.csv: 3 good lines, 1 negative, 1 broken. */</span>
 <span class="t-ann">@SpringBootTest</span>(properties = <span class="t-str">"spring.cache.type=none"</span>)
 <span class="t-ann">@SpringBatchTest</span>
 <span class="t-kw">class</span> ImportPricesJobIT {
@@ -1898,7 +1898,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
 <h2>prices.csv: five lines, five cases <span class="muted small" style="font-weight:400">(line 1 is the header, skipped by <code>linesToSkip(1)</code>)</span></h2>
 <table class="tbl xs"><thead><tr><th>Line</th><th>Content</th><th>What the job did</th><th>Counted in</th></tr></thead><tbody><tr><td class="nm">2</td><td>book-1,499.00</td><td>read, processed, <b>written</b>: 49,900 paise</td><td>write count</td></tr><tr><td class="nm">3</td><td>book-2,1299.50</td><td>read, processed, <b>written</b>: 129,950 paise</td><td>write count</td></tr><tr><td class="nm">4</td><td>pen-1,-5.00</td><td>read; the processor returns <code>null</code>: <b>filtered</b></td><td>filter count</td></tr><tr><td class="nm">5</td><td>book-4</td><td>one field instead of two: <code>FlatFileParseException</code>, <b>skipped</b></td><td>read skip count</td></tr><tr><td class="nm">6</td><td>book-5,250</td><td>read, processed, <b>written</b>: 25,000 paise</td><td>write count</td></tr></tbody></table>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2mm">
-  <div class="code xs" role="figure" aria-label="ToPaiseTest — no Batch needed"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ToPaiseTest — no Batch needed<span class="ct-r">2 ✔ · 0.011 s</span></div><pre><span class="t-com">/** The processor is plain Java: test it without Batch. */</span>
+  <div class="code xs" role="figure" aria-label="ToPaiseTest — no Batch needed"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ToPaiseTest — no Batch needed<span class="ct-r">2 ✔ · 0.006 s</span></div><pre><span class="t-com">/** The processor is plain Java: test it without Batch. */</span>
 <span class="t-kw">class</span> ToPaiseTest {
   ToPaise toPaise = <span class="t-kw">new</span> ToPaise();
 
@@ -1916,7 +1916,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
     <span class="t-fn">assertThat</span>(toPaise.<span class="t-fn">process</span>(line)).<span class="t-fn">isNull</span>();
   }
 }</pre></div>
-  <ul class="ticks tight" style="--tick:#B45309"><li>The job <b>completed</b>: read 4, filtered 1, skipped 1, wrote 3 — the step ran in 14 ms in CI.</li><li><code>JobOperatorTestUtils</code> (Batch 6; formerly <code>JobLauncherTestUtils</code>) starts the job with unique parameters, so it can run again.</li><li><code>spring.batch.job.enabled=false</code>: Boot otherwise runs the job when the application starts.</li><li>No database needed: with <code>spring-boot-starter-batch</code> the job repository is in memory; <code>spring-boot-starter-batch-jdbc</code> stores it in tables.</li><li>Batch 6 builds a step with <code>chunk(100)</code>; the transaction manager is optional (the <code>chunk(int, PlatformTransactionManager)</code> form is deprecated).</li><li>Also test the <b>skip limit</b>: one more bad line than allowed must fail the job, not import half a file.</li></ul>
+  <ul class="ticks tight" style="--tick:#B45309"><li>The job <b>completed</b>: read 4, filtered 1, skipped 1, wrote 3 — the step ran in 21 ms in CI.</li><li><code>JobOperatorTestUtils</code> (Batch 6; formerly <code>JobLauncherTestUtils</code>) starts the job with unique parameters, so it can run again.</li><li><code>spring.batch.job.enabled=false</code>: Boot otherwise runs the job when the application starts.</li><li>No database needed: with <code>spring-boot-starter-batch</code> the job repository is in memory; <code>spring-boot-starter-batch-jdbc</code> stores it in tables.</li><li>Batch 6 builds a step with <code>chunk(100)</code>; the transaction manager is optional (the <code>chunk(int, PlatformTransactionManager)</code> form is deprecated).</li><li>Also test the <b>skip limit</b>: one more bad line than allowed must fail the job, not import half a file.</li></ul>
 </div>
 </div></section><section class="page " id="p-messaging"><div class="run-head" aria-hidden="true"><span class="rh-l" style="--accent:#B45309">04 · Integration &amp; API testing</span><span class="rh-r">Testing · Field Guide</span></div>
             <div class="run-foot-l"><a href="#p-toc">↑ Contents</a> · <a href="#p-cheat">Cheat sheet</a> · <a href="#p-index">Index</a></div>
@@ -1973,7 +1973,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
   }
 }</pre></div>
   <div>
-    <div class="code xs" role="figure" aria-label="OrderEventsIT — real Kafka 4.3.1 broker"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>OrderEventsIT — real Kafka 4.3.1 broker<span class="ct-r">1 ✔ · 4.688 s</span></div><pre><span class="t-kw">class</span> OrderEventsIT {
+    <div class="code xs" role="figure" aria-label="OrderEventsIT — real Kafka 4.3.1 broker"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>OrderEventsIT — real Kafka 4.3.1 broker<span class="ct-r">1 ✔ · 3.961 s</span></div><pre><span class="t-kw">class</span> OrderEventsIT {
   <span class="t-kw">static</span> <span class="t-kw">final</span> KafkaContainer KAFKA =
       <span class="t-kw">new</span> KafkaContainer(<span class="t-str">"apache/kafka-native:4.3.1"</span>);
   <span class="t-kw">static</span> { KAFKA.<span class="t-fn">start</span>(); }      <span class="t-com">// singleton per test JVM</span>
@@ -2042,7 +2042,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
   }
 }</pre></div>
   <div>
-    <div class="code xs" role="figure" aria-label="OrderMailerTest — GreenMail JUnit 5 extension"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>OrderMailerTest — GreenMail JUnit 5 extension<span class="ct-r">2 ✔ · 0.165 s</span></div><pre><span class="t-com">/** GreenMail: a real SMTP server inside the test JVM. */</span>
+    <div class="code xs" role="figure" aria-label="OrderMailerTest — GreenMail JUnit 5 extension"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>OrderMailerTest — GreenMail JUnit 5 extension<span class="ct-r">2 ✔ · 0.158 s</span></div><pre><span class="t-com">/** GreenMail: a real SMTP server inside the test JVM. */</span>
 <span class="t-kw">class</span> OrderMailerTest {
   <span class="t-ann">@RegisterExtension</span>                  <span class="t-com">// fresh mailbox per test</span>
   <span class="t-kw">static</span> GreenMailExtension smtp = <span class="t-kw">new</span> GreenMailExtension(
@@ -2124,7 +2124,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
   <span class="t-com">// queuesAndReceivesAMessage(): SQS create / send / receive</span>
 }</pre></div>
   <div>
-    <div class="code xs" role="figure" aria-label="MotoAwsIT — free, open source"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>MotoAwsIT — free, open source<span class="ct-r">2 ✔ · 10.46 s</span></div><pre><span class="t-kw">class</span> MotoAwsIT <span class="t-kw">extends</span> AwsStorageContract {
+    <div class="code xs" role="figure" aria-label="MotoAwsIT — free, open source"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>MotoAwsIT — free, open source<span class="ct-r">2 ✔ · 10.44 s</span></div><pre><span class="t-kw">class</span> MotoAwsIT <span class="t-kw">extends</span> AwsStorageContract {
   <span class="t-kw">static</span> <span class="t-kw">final</span> GenericContainer&lt;?&gt; MOTO =
       <span class="t-kw">new</span> GenericContainer&lt;&gt;(<span class="t-str">"motoserver/moto:5.2.4"</span>)
           .<span class="t-fn">withExposedPorts</span>(<span class="t-num">5000</span>);
@@ -2144,7 +2144,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
   </div>
 </div>
 <div class="two top" style="grid-template-columns:1.12fr 1fr;gap:3mm;margin-top:2mm">
-  <div class="code xs" role="figure" aria-label="AzureStorageIT — Azure SDK + Azurite"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>AzureStorageIT — Azure SDK + Azurite<span class="ct-r">2 ✔ · 19.59 s</span></div><pre><span class="t-kw">class</span> AzureStorageIT {
+  <div class="code xs" role="figure" aria-label="AzureStorageIT — Azure SDK + Azurite"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>AzureStorageIT — Azure SDK + Azurite<span class="ct-r">2 ✔ · 19.55 s</span></div><pre><span class="t-kw">class</span> AzureStorageIT {
   <span class="t-kw">static</span> <span class="t-kw">final</span> AzuriteContainer AZURITE =
       <span class="t-kw">new</span> AzuriteContainer(
           <span class="t-str">"mcr.microsoft.com/azure-storage/azurite:3.37.0"</span>);
@@ -2176,7 +2176,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
 <p class="lede-s">An OAuth2 resource server checks every token’s <b>signature, issuer, audience and scope</b>. Tests need tokens that pass — and tokens that must fail. Pick the lightest level that exercises what you are checking:</p>
 <table class="tbl xs"><thead><tr><th>Level</th><th>How</th><th>Tests</th><th>Speed</th></tr></thead><tbody><tr><td class="nm">1 · No server</td><td><code>jwt()</code> from spring-security-test builds the token in memory</td><td>controller tests: 401, 403, 200</td><td>milliseconds</td></tr><tr><td class="nm">2 · In-process server</td><td><code>MockOAuth2Server</code> as a library: real signed tokens, real JWKS, no Docker</td><td>full-app tests of issuer, audience, signature</td><td>milliseconds</td></tr><tr><td class="nm">3 · Server in a container</td><td>the same server as an image; tokens fetched over HTTP (client_credentials)</td><td>the real token flow end to end</td><td>seconds</td></tr><tr><td class="nm">4 · Keycloak</td><td>a full identity provider via Testcontainers (community module)</td><td>login flows, realms, roles as configured in prod</td><td>slowest</td></tr></tbody></table>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:2.4mm">
-  <div class="code xs" role="figure" aria-label="1 · @WebMvcTest + jwt()"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>1 · @WebMvcTest + jwt()<span class="ct-r">3 ✔ · 2.530 s</span></div><pre>  <span class="t-ann">@Test</span>
+  <div class="code xs" role="figure" aria-label="1 · @WebMvcTest + jwt()"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>1 · @WebMvcTest + jwt()<span class="ct-r">3 ✔ · 2.665 s</span></div><pre>  <span class="t-ann">@Test</span>
   <span class="t-kw">void</span> <span class="t-fn">tokenWithoutTheScopeIs403</span>() {
     <span class="t-fn">assertThat</span>(mvc.<span class="t-fn">get</span>().<span class="t-fn">uri</span>(<span class="t-str">"/reports/daily"</span>).<span class="t-fn">with</span>(<span class="t-fn">jwt</span>()))
         .<span class="t-fn">hasStatus</span>(HttpStatus.FORBIDDEN);
@@ -2192,7 +2192,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
             {<span class="t-str">"orders"</span>:<span class="t-num">42</span>,<span class="t-str">"requestedBy"</span>:<span class="t-str">"asha"</span>}<span class="t-str">""</span>");
   }
 }</pre></div>
-  <div class="code xs" role="figure" aria-label="2 · in-process server (lightweight)"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>2 · in-process server (lightweight)<span class="ct-r">2 ✔ · 1.067 s</span></div><pre><span class="t-kw">class</span> InProcessAuthServerIT {
+  <div class="code xs" role="figure" aria-label="2 · in-process server (lightweight)"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>2 · in-process server (lightweight)<span class="ct-r">2 ✔ · 1.149 s</span></div><pre><span class="t-kw">class</span> InProcessAuthServerIT {
   <span class="t-kw">static</span> <span class="t-kw">final</span> MockOAuth2Server AUTH = <span class="t-kw">new</span> MockOAuth2Server();
   <span class="t-kw">static</span> { AUTH.<span class="t-fn">start</span>(); }
 
@@ -2217,7 +2217,7 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
   }</pre></div>
 </div>
 <div class="two top" style="grid-template-columns:1.12fr 1fr;gap:3mm;margin-top:2mm">
-  <div class="code xs" role="figure" aria-label="3 · server in a container"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>3 · server in a container<span class="ct-r">3 ✔ · 11.66 s</span></div><pre>  <span class="t-kw">static</span> <span class="t-kw">final</span> GenericContainer&lt;?&gt; AUTH =
+  <div class="code xs" role="figure" aria-label="3 · server in a container"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>3 · server in a container<span class="ct-r">3 ✔ · 10.36 s</span></div><pre>  <span class="t-kw">static</span> <span class="t-kw">final</span> GenericContainer&lt;?&gt; AUTH =
       <span class="t-kw">new</span> GenericContainer&lt;&gt;(
           <span class="t-str">"ghcr.io/navikt/mock-oauth2-server:6.0.7"</span>)
           .<span class="t-fn">withExposedPorts</span>(<span class="t-num">8080</span>)
@@ -2246,13 +2246,13 @@ Step <span class="t-fn">importStep</span>(JobRepository repo, PriceCatalog catal
         .<span class="t-fn">body</span>(form).<span class="t-fn">retrieve</span>().<span class="t-fn">body</span>(Map.<span class="t-kw">class</span>);
     <span class="t-kw">return</span> (String) body.<span class="t-fn">get</span>(<span class="t-str">"access_token"</span>);
   }</pre></div>
-  <div class="code xs out wrap" role="figure" aria-label="real run · Spring Boot 4.1.1 · GitHub Actions"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real run · Spring Boot 4.1.1 · GitHub Actions</div><pre>✔ ReportControllerTest   3 tests  2.530 s
-✔ InProcessAuthServerIT  2 tests  1.067 s
-✔ MockAuthServerIT       3 tests  11.66 s
+  <div class="code xs out wrap" role="figure" aria-label="real run · Spring Boot 4.1.1 · GitHub Actions"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real run · Spring Boot 4.1.1 · GitHub Actions</div><pre>✔ ReportControllerTest   3 tests  2.665 s
+✔ InProcessAuthServerIT  2 tests  1.149 s
+✔ MockAuthServerIT       3 tests  10.36 s
 
-mock-oauth2-server container started in 1.6 s
-Spring context for MockAuthServerIT: 1.55 s
-Spring context for InProcessAuthServerIT: 0.353 s</pre></div>
+mock-oauth2-server container started in 1.7 s
+Spring context for MockAuthServerIT: 1.598 s
+Spring context for InProcessAuthServerIT: 0.361 s</pre></div>
 </div>
 </div></section><section class="page " id="p-wiremock"><div class="run-head" aria-hidden="true"><span class="rh-l" style="--accent:#B45309">04 · Integration &amp; API testing</span><span class="rh-r">Testing · Field Guide</span></div>
             <div class="run-foot-l"><a href="#p-toc">↑ Contents</a> · <a href="#p-cheat">Cheat sheet</a> · <a href="#p-index">Index</a></div>
@@ -2303,7 +2303,7 @@ Spring context for InProcessAuthServerIT: 0.353 s</pre></div>
         .<span class="t-fn">build</span>());
   }</pre></div>
   </div>
-  <div class="code xs" role="figure" aria-label="PriceClientTest — WireMock 3.13.2"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>PriceClientTest — WireMock 3.13.2<span class="ct-r">5 ✔ · 3.280 s</span></div><pre><span class="t-com">/** WireMock: a real HTTP server that answers as told. */</span>
+  <div class="code xs" role="figure" aria-label="PriceClientTest — WireMock 3.13.2"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>PriceClientTest — WireMock 3.13.2<span class="ct-r">5 ✔ · 3.421 s</span></div><pre><span class="t-com">/** WireMock: a real HTTP server that answers as told. */</span>
 <span class="t-kw">class</span> PriceClientTest {
   <span class="t-ann">@RegisterExtension</span>
   <span class="t-kw">static</span> WireMockExtension wm = WireMockExtension.<span class="t-fn">newInstance</span>()
@@ -2364,7 +2364,7 @@ Spring context for InProcessAuthServerIT: 0.353 s</pre></div>
 <div class="sec-head" style="--accent:#B45309"><div class="kicker">04 · Integration &amp; API testing</div><h1 class="h-sub">Contract testing with Pact</h1></div>
 <p class="lede-s">A WireMock stub says what <i>you think</i> the other service returns. A <b>consumer-driven contract</b> makes that belief checkable: the consumer’s test records what it needs, and the provider’s build replays it against the real API. Break the contract and the <b>provider’s</b> build goes red — before anything ships.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
-  <div class="code xs" role="figure" aria-label="consumer test"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>consumer test<span class="ct-r">1 ✔ · 0.866 s</span></div><pre><span class="t-ann">@ExtendWith</span>(PactConsumerTestExt.<span class="t-kw">class</span>)
+  <div class="code xs" role="figure" aria-label="consumer test"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>consumer test<span class="ct-r">1 ✔ · 0.882 s</span></div><pre><span class="t-ann">@ExtendWith</span>(PactConsumerTestExt.<span class="t-kw">class</span>)
 <span class="t-ann">@PactTestFor</span>(providerName = <span class="t-str">"orders"</span>)
 <span class="t-kw">class</span> OrderStatusConsumerPactTest {
 
@@ -2390,7 +2390,7 @@ Spring context for InProcessAuthServerIT: 0.353 s</pre></div>
     <span class="t-fn">assertThat</span>(client.<span class="t-fn">statusOf</span>(<span class="t-str">"ord-1"</span>)).<span class="t-fn">isEqualTo</span>(<span class="t-str">"PAID"</span>);
   }
 }</pre></div>
-  <div class="code xs" role="figure" aria-label="provider test"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>provider test<span class="ct-r">1 ✔ · 0.635 s</span></div><pre><span class="t-ann">@Provider</span>(<span class="t-str">"orders"</span>)
+  <div class="code xs" role="figure" aria-label="provider test"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>provider test<span class="ct-r">1 ✔ · 0.702 s</span></div><pre><span class="t-ann">@Provider</span>(<span class="t-str">"orders"</span>)
 <span class="t-ann">@PactFolder</span>(<span class="t-str">"target/pacts"</span>)      <span class="t-com">// in real life: a Pact Broker</span>
 <span class="t-kw">class</span> OrderStatusProviderPactIT {
   <span class="t-kw">static</span> OrderStatusApi api;
@@ -2579,22 +2579,22 @@ Spring context for InProcessAuthServerIT: 0.353 s</pre></div>
 }</pre></div>
 </div>
 <div style="margin-top:2mm">
-  <div class="code xs out" role="figure" aria-label="real output · jcstress 0.16 · mvn compile exec:exec (-m quick) · GitHub Actions, 4 CPUs · whole run 159 s"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · jcstress 0.16 · mvn compile exec:exec (-m quick) · GitHub Actions, 4 CPUs · whole run 159 s</div><pre>RacyCounterTest — results across all configurations
+  <div class="code xs out" role="figure" aria-label="real output · jcstress 0.16 · mvn compile exec:exec (-m quick) · GitHub Actions, 4 CPUs · whole run 162 s"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · jcstress 0.16 · mvn compile exec:exec (-m quick) · GitHub Actions, 4 CPUs · whole run 162 s</div><pre>RacyCounterTest — results across all configurations
   RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION
-       1    333,157,369   18.66%  Interesting  lost update: count++ is read, add, write
-       2  1,452,611,099   81.34%   Acceptable  both counted
+       1  200,651,963   18.00%  Interesting  lost update: count++ is read, add, write
+       2  914,222,425   82.00%   Acceptable  both counted
 
 AtomicCounterTest — results across all configurations
   RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION
        1            0    0.00%   Forbidden  lost update
-       2  842,674,708  100.00%  Acceptable  both counted</pre></div>
+       2  608,342,548  100.00%  Acceptable  both counted</pre></div>
 </div>
 <div class="two top" style="grid-template-columns:1fr 1.1fr;gap:3mm;margin-top:2mm">
   <div>
     <h2 style="margin-top:0">Lost updates, by JIT mode</h2>
-    <table class="tbl xs"><thead><tr><th>Actor 1</th><th>Actor 2</th><th>Forks</th><th>Lost</th></tr></thead><tbody><tr><td class="nm">Interpreter</td><td>Interpreter</td><td>2</td><td>1.65–89.14%</td></tr><tr><td class="nm">Interpreter</td><td>C1</td><td>2</td><td>0.20–2.08%</td></tr><tr><td class="nm">Interpreter</td><td>C2</td><td>4</td><td>0.13–1.78%</td></tr><tr><td class="nm">C1</td><td>Interpreter</td><td>2</td><td>0.19–2.06%</td></tr><tr><td class="nm">C1</td><td>C1</td><td>2</td><td>22.31–28.94%</td></tr><tr><td class="nm">C1</td><td>C2</td><td>4</td><td>20.09–28.73%</td></tr><tr><td class="nm">C2</td><td>Interpreter</td><td>4</td><td>0.13–2.10%</td></tr><tr><td class="nm">C2</td><td>C1</td><td>4</td><td>22.22–27.76%</td></tr><tr><td class="nm">C2</td><td>C2</td><td>4</td><td>12.45–28.22%</td></tr></tbody></table>
+    <table class="tbl xs"><thead><tr><th>Actor 1</th><th>Actor 2</th><th>Forks</th><th>Lost</th></tr></thead><tbody><tr><td class="nm">Interpreter</td><td>Interpreter</td><td>2</td><td>0.99–11.67%</td></tr><tr><td class="nm">Interpreter</td><td>C1</td><td>2</td><td>0.24–2.80%</td></tr><tr><td class="nm">Interpreter</td><td>C2</td><td>4</td><td>0.14–2.84%</td></tr><tr><td class="nm">C1</td><td>Interpreter</td><td>2</td><td>0.22–2.83%</td></tr><tr><td class="nm">C1</td><td>C1</td><td>2</td><td>10.67–67.08%</td></tr><tr><td class="nm">C1</td><td>C2</td><td>4</td><td>6.81–11.44%</td></tr><tr><td class="nm">C2</td><td>Interpreter</td><td>4</td><td>0.19–3.80%</td></tr><tr><td class="nm">C2</td><td>C1</td><td>4</td><td>6.79–12.43%</td></tr><tr><td class="nm">C2</td><td>C2</td><td>4</td><td>4.94–60.70%</td></tr></tbody></table>
   </div>
-  <ul class="ticks tight" style="--tick:#B45309"><li><b>333,157,369 lost updates</b> in 1,785,768,468 runs (18.66%). The rate depended on how each actor was compiled: from 0.13% to 89.14%.</li><li><code>ACCEPTABLE_INTERESTING</code> reports an outcome but passes; <code>FORBIDDEN</code> fails the run — so the atomic version guards the fix.</li><li>Use it for code that shares memory without locks: custom counters and caches, lazy initialisation, publishing objects to other threads.</li><li>Ordinary code: avoid shared mutable state, use <code>java.util.concurrent</code>.</li><li>Run <code>-m quick</code> in CI; <code>default</code> or <code>tough</code> before a release. Tests live in <code>src/main</code>, by jcstress convention.</li></ul>
+  <ul class="ticks tight" style="--tick:#B45309"><li><b>200,651,963 lost updates</b> in 1,114,874,388 runs (18.00%). The rate depended on how each actor was compiled: from 0.14% to 67.08%.</li><li><code>ACCEPTABLE_INTERESTING</code> reports an outcome but passes; <code>FORBIDDEN</code> fails the run — so the atomic version guards the fix.</li><li>Use it for code that shares memory without locks: custom counters and caches, lazy initialisation, publishing objects to other threads.</li><li>Ordinary code: avoid shared mutable state, use <code>java.util.concurrent</code>.</li><li>Run <code>-m quick</code> in CI; <code>default</code> or <code>tough</code> before a release. Tests live in <code>src/main</code>, by jcstress convention.</li></ul>
 </div>
 </div></section><section class="page " id="p-e2e"><div class="run-head" aria-hidden="true"><span class="rh-l" style="--accent:#B91C1C">05 · Beyond correctness</span><span class="rh-r">Testing · Field Guide</span></div>
             <div class="run-foot-l"><a href="#p-toc">↑ Contents</a> · <a href="#p-cheat">Cheat sheet</a> · <a href="#p-index">Index</a></div>
@@ -2608,7 +2608,7 @@ AtomicCounterTest — results across all configurations
 <table class="tbl xs"><thead><tr><th>Tool</th><th>Browsers</th><th>Notes</th><th>Latest</th></tr></thead><tbody><tr><td class="nm">Playwright for Java</td><td>Chromium, Firefox, WebKit</td><td>Auto-waits for elements; traces with screenshots; one API for browsers and HTTP</td><td class="hn">Microsoft · 1.63</td></tr><tr><td class="nm">Selenium WebDriver</td><td>Every major browser</td><td>W3C WebDriver standard; Selenium Grid runs tests in parallel across machines</td><td class="hn">4.51</td></tr><tr><td class="nm">Cypress</td><td>Chromium-family, Firefox, WebKit (exp.)</td><td>Runs inside the browser; tests are JavaScript/TypeScript only — not Java</td><td class="hn">JS/TS</td></tr><tr><td class="nm">REST Assured</td><td>— (HTTP)</td><td>Java DSL for end-to-end API checks: <code>given().when().get().then()</code></td><td class="hn">6.1</td></tr></tbody></table>
 <div class="two top" style="grid-template-columns:1.45fr 1fr;gap:3.5mm;margin-top:2.6mm">
   <div>
-    <div class="code xs" role="figure" aria-label="CheckoutE2EIT — real Chromium, headless"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CheckoutE2EIT — real Chromium, headless<span class="ct-r">2 ✔ · 11.40 s</span></div><pre>  <span class="t-ann">@Test</span>
+    <div class="code xs" role="figure" aria-label="CheckoutE2EIT — real Chromium, headless"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CheckoutE2EIT — real Chromium, headless<span class="ct-r">2 ✔ · 10.68 s</span></div><pre>  <span class="t-ann">@Test</span>
   <span class="t-kw">void</span> <span class="t-fn">twoBooksGetTheBulkDiscount</span>() {
     <span class="t-kw">var</span> checkout = <span class="t-kw">new</span> CheckoutPage(page);
     checkout.<span class="t-fn">addToCart</span>(<span class="t-str">"Book"</span>);
@@ -2666,19 +2666,19 @@ AtomicCounterTest — results across all configurations
     });
   }
 }</pre></div>
-  <div class="code xs out wrap" role="figure" aria-label="real output · 50 users · 2 CPUs"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · 50 users · 2 CPUs</div><pre>users=50  requests=12,113  errors=0  throughput=1,211 req/s
-p50     41.01 ms
-p90     41.98 ms
-p95     42.12 ms
-p99     43.84 ms
-p99.9   55.26 ms
-max     60.03 ms
-mean    41.26 ms</pre></div>
+  <div class="code xs out wrap" role="figure" aria-label="real output · 50 users · 2 CPUs"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · 50 users · 2 CPUs</div><pre>users=50  requests=12,150  errors=0  throughput=1,215 req/s
+p50     41.00 ms
+p90     41.24 ms
+p95     42.00 ms
+p99     43.04 ms
+p99.9   56.14 ms
+max     58.44 ms
+mean    41.15 ms</pre></div>
 </div>
-<table class="tbl xs" style="margin-top:2.4mm"><thead><tr><th>Run (10 s measured, after 3 s warm-up)</th><th class="c">req/s</th><th class="c">p50 ms</th><th class="c">p95 ms</th><th class="c">p99 ms</th><th class="c">max ms</th><th class="c">mean ms</th></tr></thead><tbody><tr><td class="nm">1 user</td><td class="c">24</td><td class="c">42.00</td><td class="c">42.23</td><td class="c">42.96</td><td class="c">44.96</td><td class="c">42.03</td></tr><tr><td class="nm">10 users</td><td class="c">243</td><td class="c">41.00</td><td class="c">42.00</td><td class="c">43.38</td><td class="c">46.84</td><td class="c">41.13</td></tr><tr><td class="nm">50 users</td><td class="c">1,211</td><td class="c">41.01</td><td class="c">42.12</td><td class="c">43.84</td><td class="c">60.03</td><td class="c">41.26</td></tr><tr><td class="nm">1 user · TCP_NODELAY</td><td class="c">3,834</td><td class="c">0.23</td><td class="c">0.35</td><td class="c">0.40</td><td class="c">10.28</td><td class="c">0.26</td></tr><tr><td class="nm">50 users · TCP_NODELAY</td><td class="c">11,085</td><td class="c">3.82</td><td class="c">10.00</td><td class="c">13.45</td><td class="c">22.93</td><td class="c">4.51</td></tr></tbody></table>
+<table class="tbl xs" style="margin-top:2.4mm"><thead><tr><th>Run (10 s measured, after 3 s warm-up)</th><th class="c">req/s</th><th class="c">p50 ms</th><th class="c">p95 ms</th><th class="c">p99 ms</th><th class="c">max ms</th><th class="c">mean ms</th></tr></thead><tbody><tr><td class="nm">1 user</td><td class="c">24</td><td class="c">41.99</td><td class="c">42.09</td><td class="c">42.26</td><td class="c">43.96</td><td class="c">42.01</td></tr><tr><td class="nm">10 users</td><td class="c">244</td><td class="c">41.00</td><td class="c">41.12</td><td class="c">42.02</td><td class="c">44.13</td><td class="c">41.04</td></tr><tr><td class="nm">50 users</td><td class="c">1,215</td><td class="c">41.00</td><td class="c">42.00</td><td class="c">43.04</td><td class="c">58.44</td><td class="c">41.15</td></tr><tr><td class="nm">1 user · TCP_NODELAY</td><td class="c">4,721</td><td class="c">0.19</td><td class="c">0.31</td><td class="c">0.35</td><td class="c">7.56</td><td class="c">0.21</td></tr><tr><td class="nm">50 users · TCP_NODELAY</td><td class="c">13,997</td><td class="c">3.09</td><td class="c">7.66</td><td class="c">10.71</td><td class="c">21.38</td><td class="c">3.57</td></tr></tbody></table>
 <div class="two top" style="margin-top:2mm">
-  <p class="small"><b>The finding.</b> Every request took about 42 ms — even with a single user, so it wasn’t load. Our handler sends the headers and the body as two separate small writes; with Nagle’s algorithm on, the second waits for the client’s delayed ACK — the Nagle/delayed-ACK stall (the companion book’s chapter 1 measures it packet by packet). Starting the JVM with <code>-Dsun.net.httpserver.nodelay=true</code> (sets <code>TCP_NODELAY</code>) cut the single-user p50 from 42 ms to 0.23 ms. No unit test could have found this. The companion book, <i>Java Performance Deep Dives</i>, takes this stall apart packet by packet.</p>
-  <p class="small"><b>Little’s Law checks your numbers:</b> users in flight = throughput × time in system. 50 users ÷ 1,211 req/s = 41.3 ms (measured mean 41.3 ms), and 50 ÷ 11,085 = 4.5 ms (measured 4.5 ms). If your tool’s numbers don’t satisfy it, the load generator itself is the bottleneck. These figures come from this guide’s 2-CPU sandbox: compare runs, not absolute numbers.</p>
+  <p class="small"><b>The finding.</b> Every request took about 42 ms — even with a single user, so it wasn’t load. Our handler sends the headers and the body as two separate small writes; with Nagle’s algorithm on, the second waits for the client’s delayed ACK — the Nagle/delayed-ACK stall (the companion book’s chapter 1 measures it packet by packet). Starting the JVM with <code>-Dsun.net.httpserver.nodelay=true</code> (sets <code>TCP_NODELAY</code>) cut the single-user p50 from 42 ms to 0.19 ms. No unit test could have found this. The companion book, <i>Java Performance Deep Dives</i>, takes this stall apart packet by packet.</p>
+  <p class="small"><b>Little’s Law checks your numbers:</b> users in flight = throughput × time in system. 50 users ÷ 1,215 req/s = 41.2 ms (measured mean 41.1 ms), and 50 ÷ 13,997 = 3.6 ms (measured 3.6 ms). If your tool’s numbers don’t satisfy it, the load generator itself is the bottleneck. These figures come from this guide’s 2-CPU sandbox: compare runs, not absolute numbers.</p>
 </div>
 <div class="note warn"><b class="nl">Watch out</b><b>Coordinated omission:</b> a closed-loop tool like this one stops sending while the server stalls, so slow periods produce fewer samples and percentiles look better than reality. Open-model tools (Gatling’s <code>constantUsersPerSec</code>, k6 arrival-rate executors) keep sending at a fixed rate.</div>
 </div></section><section class="page " id="p-sec"><div class="run-head" aria-hidden="true"><span class="rh-l" style="--accent:#B91C1C">05 · Beyond correctness</span><span class="rh-r">Testing · Field Guide</span></div>
@@ -2715,7 +2715,7 @@ mean    41.26 ms</pre></div>
 <div class="sec-head" style="--accent:#B91C1C"><div class="kicker">05 · Beyond correctness</div><h1 class="h-sub">Testing in production: flags and synthetic checks</h1></div>
 <p class="lede-s">Tests before release can’t see the real network, data and load. Two habits make what happens after a deploy safer: every <b>feature flag</b> is tested both ways before it ships, and a <b>synthetic check</b> — the same code in a test and after every deploy — keeps asking “does it still work?”.</p>
 <div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm">
-  <div class="code xs" role="figure" aria-label="CheckoutPricingTest — both sides of the flag"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CheckoutPricingTest — both sides of the flag<span class="ct-r">3 ✔ · 0.087 s</span></div><pre><span class="t-com">/** Every flag is two code paths: test both, every build. */</span>
+  <div class="code xs" role="figure" aria-label="CheckoutPricingTest — both sides of the flag"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>CheckoutPricingTest — both sides of the flag<span class="ct-r">3 ✔ · 0.116 s</span></div><pre><span class="t-com">/** Every flag is two code paths: test both, every build. */</span>
 <span class="t-kw">class</span> CheckoutPricingTest {
   <span class="t-ann">@ParameterizedTest</span>(name = <span class="t-str">"flag={0}, {1} items → {2}"</span>)
   <span class="t-ann">@CsvSource</span>({
@@ -2728,7 +2728,7 @@ mean    41.26 ms</pre></div>
     <span class="t-fn">assertThat</span>(pricing.<span class="t-fn">total</span>(<span class="t-num">100_000</span>, items)).<span class="t-fn">isEqualTo</span>(total);
   }
 }</pre></div>
-  <div class="code xs" role="figure" aria-label="FeatureWiringTest — the property reaches the bean"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>FeatureWiringTest — the property reaches the bean<span class="ct-r">2 ✔ · 0.478 s</span></div><pre><span class="t-com">/** The property really reaches the bean; no web server, ~ms. */</span>
+  <div class="code xs" role="figure" aria-label="FeatureWiringTest — the property reaches the bean"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>FeatureWiringTest — the property reaches the bean<span class="ct-r">2 ✔ · 0.609 s</span></div><pre><span class="t-com">/** The property really reaches the bean; no web server, ~ms. */</span>
 <span class="t-kw">class</span> FeatureWiringTest {
   ApplicationContextRunner ctx = <span class="t-kw">new</span> ApplicationContextRunner()
       .<span class="t-fn">withUserConfiguration</span>(FeatureConfig.<span class="t-kw">class</span>);
@@ -2779,7 +2779,7 @@ mean    41.26 ms</pre></div>
   }
 }</pre></div>
   <div>
-    <div class="code xs" role="figure" aria-label="SyntheticCheckIT — before it ships"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>SyntheticCheckIT — before it ships<span class="ct-r">1 ✔ · 10.71 s</span></div><pre><span class="t-com">/** The production check, run before the app ships. */</span>
+    <div class="code xs" role="figure" aria-label="SyntheticCheckIT — before it ships"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>SyntheticCheckIT — before it ships<span class="ct-r">1 ✔ · 9.730 s</span></div><pre><span class="t-com">/** The production check, run before the app ships. */</span>
 <span class="t-ann">@SpringBootTest</span>(webEnvironment = WebEnvironment.RANDOM_PORT)
 <span class="t-ann">@Import</span>(RedisContainer.<span class="t-kw">class</span>)
 <span class="t-kw">class</span> SyntheticCheckIT {
@@ -2792,13 +2792,13 @@ mean    41.26 ms</pre></div>
   }
 }</pre></div>
     <div class="code xs out wrap out" role="figure" aria-label="real output · CI · against the running jar"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · CI · against the running jar</div><pre>$ java -cp target/classes shop.synthetic.SyntheticCheck http://localhost:8080
-<span class="t-ok">✔</span> /actuator/health  200  64 ms
-<span class="t-ok">✔</span> /prices/book-1  200  56 ms
+<span class="t-ok">✔</span> /actuator/health  200  88 ms
+<span class="t-ok">✔</span> /prices/book-1  200  55 ms
 synthetic check passed
 exit code 0</pre></div>
     <div class="code xs out wrap out" role="figure" aria-label="real output · same app, Redis stopped"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>real output · same app, Redis stopped</div><pre>$ docker stop redis; java -cp … SyntheticCheck http://localhost:8080
-<span class="t-bad">✘</span> /actuator/health  503  2085 ms
-<span class="t-bad">✘</span> /prices/book-1  500  2018 ms
+<span class="t-bad">✘</span> /actuator/health  503  2096 ms
+<span class="t-bad">✘</span> /prices/book-1  500  2039 ms
 synthetic check FAILED: 2
 exit code 1</pre></div>
   </div>
@@ -2974,7 +2974,7 @@ Mutations with no coverage 0. Test strength 98%</pre></div>
   </div>
 </div>
 <h2>Results by mutator</h2>
-<table class="tbl xs"><thead><tr><th>Mutator</th><th class="c">made</th><th class="c">killed</th><th class="c">timed out</th><th class="c">survived · run 1</th><th class="c">survived · run 2</th></tr></thead><tbody><tr><td class="hn" style="color:#047857">NEGATE_CONDITIONALS</td><td class="c">10</td><td class="c">10</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">VOID_METHOD_CALLS</td><td class="c">10</td><td class="c">5</td><td class="c">4</td><td class="c"><b class=part>1</b></td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">NULL_RETURNS</td><td class="c">7</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">CONDITIONALS_BOUNDARY</td><td class="c">5</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">PRIMITIVE_RETURNS</td><td class="c">4</td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">EMPTY_RETURNS</td><td class="c">3</td><td class="c">3</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">MATH</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr></tbody></table>
+<table class="tbl xs"><thead><tr><th>Mutator</th><th class="c">made</th><th class="c">killed</th><th class="c">timed out</th><th class="c">survived · run 1</th><th class="c">survived · run 2</th></tr></thead><tbody><tr><td class="hn" style="color:#047857">VOID_METHOD_CALLS</td><td class="c">10</td><td class="c">5</td><td class="c">4</td><td class="c"><b class=part>1</b></td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">NEGATE_CONDITIONALS</td><td class="c">10</td><td class="c">10</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">NULL_RETURNS</td><td class="c">7</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">CONDITIONALS_BOUNDARY</td><td class="c">5</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">PRIMITIVE_RETURNS</td><td class="c">4</td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">EMPTY_RETURNS</td><td class="c">3</td><td class="c">3</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr><tr><td class="hn" style="color:#047857">MATH</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr></tbody></table>
 <h2>What PIT actually changed — a sample of the 40 mutants</h2>
 <table class="tbl xs"><thead><tr><th>Class · line</th><th>PIT’s description</th><th>Tests run</th><th>Result</th></tr></thead><tbody><tr><td class="nm">DiscountPolicy · 7</td><td>changed conditional boundary</td><td>12</td><td><b class='yes'>KILLED</b></td></tr><tr><td class="nm">Money · 19</td><td>Replaced integer subtraction with addition</td><td>8</td><td><b class='yes'>KILLED</b></td></tr><tr><td class="nm">OrderService · 32</td><td>removed call to EmailSender::send</td><td>6</td><td><b class='yes'>KILLED</b></td></tr><tr><td class="nm">PasswordPolicy · 16</td><td>replaced return value with Collections.emptyList</td><td>4</td><td><b class='yes'>KILLED</b></td></tr><tr><td class="nm">InMemoryOrderRepository · 15</td><td>replaced return value with Optional.empty</td><td>5</td><td><b class='yes'>KILLED</b></td></tr><tr><td class="nm">OrderApi · 20</td><td>removed call to HttpServer::start</td><td>0</td><td><b class='yes'>TIMED_OUT</b></td></tr><tr><td class="nm">OrderApi · 24</td><td>removed call to HttpServer::stop</td><td>2</td><td><b class='yes'>KILLED (run 2)</b></td></tr></tbody></table>
 <p class="small muted" style="margin-top:1.2mm">Note what is <em>not</em> there: <code>payments.charge(…)</code> returns a value, so the DEFAULTS group never removes it — only void calls are removed. Larger groups (STRONGER, ALL) add mutators for those cases.</p>
@@ -3009,7 +3009,7 @@ Mutations with no coverage 0. Test strength 98%</pre></div>
     <h2 style="margin-top:0">Run it</h2>
     <table class="tbl xs"><thead><tr><th>Command</th><th>Does</th></tr></thead><tbody><tr><td class="nm"><code>mvn test-compile pitest:mutationCoverage</code></td><td>full analysis; HTML report in <code>target/pit-reports</code></td></tr><tr><td class="nm"><code>-DtargetClasses=shop.pricing.*</code></td><td>narrow the run to one package</td></tr><tr><td class="nm"><code>-DwithHistory</code></td><td>reuse the last run’s results (incremental)</td></tr><tr><td class="nm"><code>-Dmutators=STRONGER</code></td><td>more mutators; slower, finds more gaps</td></tr></tbody></table>
     <h2>Making it fast enough for CI</h2>
-    <ul class="ticks tight" style="--tick:#047857"><li><b>Incremental:</b> with history on, only changed code and tests are re-analysed.</li><li><b>Pull requests:</b> PIT 1.30 has no git-diff goal. Narrow <code>targetClasses</code> to the changed module (or use Arcmutate’s commercial add-ons); run everything nightly.</li><li><b>Target it:</b> modules with money, permissions and business rules first.</li><li>Our run: 33 s for 40 mutants on 2 CPUs, because PIT re-runs only the tests covering each mutant.</li></ul>
+    <ul class="ticks tight" style="--tick:#047857"><li><b>Incremental:</b> with history on, only changed code and tests are re-analysed.</li><li><b>Pull requests:</b> PIT 1.30 has no git-diff goal. Narrow <code>targetClasses</code> to the changed module (or use Arcmutate’s commercial add-ons); run everything nightly.</li><li><b>Target it:</b> modules with money, permissions and business rules first.</li><li>Our run: 31 s for 40 mutants on 2 CPUs, because PIT re-runs only the tests covering each mutant.</li></ul>
   </div>
 </div>
 <h2>Reading a mutant’s status</h2>
@@ -3204,7 +3204,7 @@ Starting at line 34 of src/it/java/shop/SharedPostgres.java
 <div class="sec-head" style="--accent:#047857"><div class="kicker">06 · Quality &amp; process</div><h1 class="h-sub">Architecture tests with ArchUnit</h1></div>
 <p class="lede-s">Design rules written on a wiki erode one shortcut at a time. <b>ArchUnit</b> (Apache-2.0) turns them into JUnit tests over your compiled classes: a controller that reaches into a repository fails the build, with the exact line that broke the rule.</p>
 <div class="two top" style="grid-template-columns:1.1fr 1fr;gap:3mm">
-  <div class="code xs" role="figure" aria-label="ArchitectureTest — ArchUnit 1.5.1, on the Spring project"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ArchitectureTest — ArchUnit 1.5.1, on the Spring project<span class="ct-r">3 ✔ · 0.408 s</span></div><pre><span class="t-com">/** Design rules, checked on every build like any other test. */</span>
+  <div class="code xs" role="figure" aria-label="ArchitectureTest — ArchUnit 1.5.1, on the Spring project"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ArchitectureTest — ArchUnit 1.5.1, on the Spring project<span class="ct-r">3 ✔ · 0.354 s</span></div><pre><span class="t-com">/** Design rules, checked on every build like any other test. */</span>
 <span class="t-ann">@AnalyzeClasses</span>(packages = <span class="t-str">"shop"</span>,
     importOptions = ImportOption.DoNotIncludeTests.<span class="t-kw">class</span>)
 <span class="t-kw">class</span> ArchitectureTest {
@@ -3241,7 +3241,7 @@ Starting at line 34 of src/it/java/shop/SharedPostgres.java
   <span class="t-kw">long</span> <span class="t-fn">count</span>() { <span class="t-kw">return</span> repository.<span class="t-fn">count</span>(); }
 }</pre></div>
     <div style="height:1.6mm"></div>
-    <div class="code xs" role="figure" aria-label="proving the rule bites"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>proving the rule bites<span class="ct-r">1 ✔ · 1.196 s</span></div><pre>  <span class="t-ann">@Test</span>
+    <div class="code xs" role="figure" aria-label="proving the rule bites"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>proving the rule bites<span class="ct-r">1 ✔ · 0.877 s</span></div><pre>  <span class="t-ann">@Test</span>
   <span class="t-kw">void</span> <span class="t-fn">controllerCallingARepositoryIsReported</span>() {
     <span class="t-kw">var</span> classes = <span class="t-kw">new</span> ClassFileImporter()
         .<span class="t-fn">importPackages</span>(<span class="t-str">"shop.archdemo"</span>);
@@ -3365,15 +3365,15 @@ tasks.check { dependsOn(integrationTest) }</pre></div>
 </div>
 <h2>Real run: Failsafe, <code>forkCount=2</code>, Docker on GitHub Actions</h2>
 <div class="two top" style="grid-template-columns:1.2fr 1fr;gap:3mm">
-  <div class="code xs out wrap" role="figure" aria-label="Apache Maven 3.10.0 · Failsafe 3.6.0 · 2 containers for 4 database IT classes"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>Apache Maven 3.10.0 · Failsafe 3.6.0 · 2 containers for 4 database IT classes<span class="ct-r">10 tests ✔</span></div><pre>[fork 2 pid 2661] Postgres d97cf8136fe8 on port 32770
-[fork 2 pid 2661] OrderKeyIT uses port 32770
-[fork 1 pid 2663] Postgres 4321aeb2f103 on port 32771
-[fork 1 pid 2663] OrderTableIT uses port 32771
-  ✔ OrderKeyIT — 6.913 s
-[fork 2 pid 2661] OrderSearchIT uses port 32770
-  ✔ OrderTableIT — 7.194 s
-  ✔ OrderSearchIT — 0.082 s</pre></div>
-  <ul class="ticks tight" style="--tick:#047857"><li><b>One container per JVM.</b> Fork 1 started a container for <code>OrderKeyIT</code> (6.9 s, mostly start-up); <code>OrderSearchIT</code> reused it and took 0.08 s. Fork 2 started its own for <code>OrderTableIT</code>.</li><li><b>Measure it.</b> Same build, warm Docker, two runs each on a 4-CPU runner: one IT JVM <b>14.0–14.7 s</b>, two JVMs <b>18.3–18.4 s</b> for the whole <code>mvn verify</code>. Two forks were slower here: two containers start at once on a small machine and our tests are short. Forks pay off when IT classes run for minutes.</li><li><b>Spring:</b> the context cache is per JVM too, so each fork builds its own context; wire the container in with <code>@DynamicPropertySource</code>.</li><li>Gradle with <code>maxParallelForks = 2</code>: the same, one container per worker.</li></ul>
+  <div class="code xs out wrap" role="figure" aria-label="Apache Maven 3.10.0 · Failsafe 3.6.0 · 2 containers for 4 database IT classes"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>Apache Maven 3.10.0 · Failsafe 3.6.0 · 2 containers for 4 database IT classes<span class="ct-r">10 tests ✔</span></div><pre>[fork 1 pid 2665] Postgres 2d7f090afddf on port 32771
+[fork 1 pid 2665] OrderTableIT uses port 32771
+[fork 2 pid 2666] Postgres f761dd55aa56 on port 32770
+[fork 2 pid 2666] OrderKeyIT uses port 32770
+  ✔ OrderKeyIT — 6.480 s
+[fork 2 pid 2666] OrderSearchIT uses port 32770
+  ✔ OrderTableIT — 7.083 s
+  ✔ OrderSearchIT — 0.074 s</pre></div>
+  <ul class="ticks tight" style="--tick:#047857"><li><b>One container per JVM.</b> Fork 1 started a container for <code>OrderKeyIT</code> (6.5 s, mostly start-up); <code>OrderSearchIT</code> reused it and took 0.07 s. Fork 2 started its own for <code>OrderTableIT</code>.</li><li><b>Measure it.</b> Same build, warm Docker, two runs each on a 4-CPU runner: one IT JVM <b>15.2–15.3 s</b>, two JVMs <b>19.1–19.6 s</b> for the whole <code>mvn verify</code>. Two forks were slower here: two containers start at once on a small machine and our tests are short. Forks pay off when IT classes run for minutes.</li><li><b>Spring:</b> the context cache is per JVM too, so each fork builds its own context; wire the container in with <code>@DynamicPropertySource</code>.</li><li>Gradle with <code>maxParallelForks = 2</code>: the same, one container per worker.</li></ul>
 </div>
 <h2>Four ways to share a database</h2>
 <table class="tbl xs"><thead><tr><th>Strategy</th><th>How</th><th>Trade-off</th><th>Use for</th></tr></thead><tbody><tr><td class="nm">Singleton per JVM</td><td>one container per fork, shared by its classes</td><td>isolation for free; N forks = N containers</td><td><b class='yes'>Default choice</b></td></tr><tr><td class="nm">One shared database</td><td>one DB; schema <code>shop_${surefire.forkNumber}</code> per fork</td><td>fewer containers; isolate the data yourself</td><td>large suites, heavy images</td></tr><tr><td class="nm"><code>@Container</code> per class</td><td>a new container for every test class</td><td>simplest, slowest</td><td>a few classes only</td></tr><tr><td class="nm">Reusable containers</td><td><code>withReuse(true)</code> + <code>testcontainers.reuse.enable=true</code></td><td>survives across runs; experimental</td><td><b class='part'>local only</b>, not CI</td></tr></tbody></table>
@@ -3390,17 +3390,17 @@ tasks.check { dependsOn(integrationTest) }</pre></div>
 &gt; Task :compileTestJava
 &gt; Task :testClasses
 &gt; Task :test
-BUILD SUCCESSFUL in 3s
+BUILD SUCCESSFUL in 5s
 4 actionable tasks: 4 executed
 ### gradle clean test --build-cache
 &gt; Task :compileJava FROM-CACHE
 &gt; Task :compileTestJava FROM-CACHE
 &gt; Task :testClasses UP-TO-DATE
 &gt; Task :test FROM-CACHE
-BUILD SUCCESSFUL in 547ms
+BUILD SUCCESSFUL in 858ms
 4 actionable tasks: 1 executed, 3 from cache</pre></div>
   </div>
-  <ul class="ticks tight" style="--tick:#047857"><li>Gradle hashes every task’s inputs — sources, dependencies, JVM arguments. With <code>--build-cache</code> (or <code>org.gradle.caching=true</code>), a task whose inputs were seen before is restored <b>FROM-CACHE</b> instead of run — tests included.</li><li><b>Real run:</b> 3s with the cache off, every task executed; 547ms with it on — compiled classes and test results came from the cache that <code>gradle/actions/setup-gradle</code> keeps between CI runs.</li><li>Share a <b>remote cache</b> between CI and laptops so a branch built once is cheap everywhere.</li><li>Maven has no built-in build cache; the Apache Maven Build Cache Extension adds one.</li></ul>
+  <ul class="ticks tight" style="--tick:#047857"><li>Gradle hashes every task’s inputs — sources, dependencies, JVM arguments. With <code>--build-cache</code> (or <code>org.gradle.caching=true</code>), a task whose inputs were seen before is restored <b>FROM-CACHE</b> instead of run — tests included.</li><li><b>Real run:</b> 5s with the cache off, every task executed; 858ms with it on — compiled classes and test results came from the cache that <code>gradle/actions/setup-gradle</code> keeps between CI runs.</li><li>Share a <b>remote cache</b> between CI and laptops so a branch built once is cheap everywhere.</li><li>Maven has no built-in build cache; the Apache Maven Build Cache Extension adds one.</li></ul>
 </div>
 <h2>2 · Shards: split test classes across machines</h2>
 <div class="code xs" role="figure" aria-label=".github/workflows/build.yml — two shards"><div class="code-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>.github/workflows/build.yml — two shards</div><pre>  shard:
@@ -3445,7 +3445,7 @@ BUILD SUCCESSFUL in 547ms
 <span class="t-hdr">junit.jupiter.execution.parallel.mode.default</span><span class="t-dim">=</span><span class="t-str">concurrent</span>
 <span class="t-hdr">junit.jupiter.execution.parallel.mode.classes.default</span><span class="t-dim">=</span><span class="t-str">concurrent</span>
 <span class="t-hdr">junit.jupiter.execution.parallel.config.strategy</span><span class="t-dim">=</span><span class="t-str">dynamic</span></pre></div>
-    <p class="small" style="margin-top:1.4mm">Our 44 tests on 4 CPUs, three runs each: sequential <b>2,195–2,220 ms</b>, parallel <b>1,549–1,591 ms</b>, all passing. Parallel runs only work if tests share no state — a good test of your tests.</p>
+    <p class="small" style="margin-top:1.4mm">Our 44 tests on 4 CPUs, three runs each: sequential <b>1,979–2,032 ms</b>, parallel <b>1,444–1,475 ms</b>, all passing. Parallel runs only work if tests share no state — a good test of your tests.</p>
   </div>
 </div>
 <h2>Where should this test live? A Spring Boot service</h2>
