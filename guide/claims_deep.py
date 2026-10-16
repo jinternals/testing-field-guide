@@ -3,7 +3,7 @@ If a fresh run tells a different story, this fails and the PDF is not published.
 import os, sys
 
 import lib
-import dd1, dd2, dd3, dd4, dd5, dd6
+import dd1, dd2, dd3, dd4, dd5, dd6, dd7
 
 CI = bool(os.environ.get("GITHUB_ACTIONS"))
 problems = []
@@ -119,6 +119,30 @@ if needed(dd6.PROD and dd6.FETCH and dd6.PARTS and dd6.POLL, "kafka-*.txt"):
     claim(dd6.FETCH[1][1] > 10 * dd6.FETCH[0][1] and dd6.FETCH[1][4] <= 550, "fetch.min.bytes 1e6 waits up to fetch.max.wait.ms")
     claim(sorted(n for _, n in dd6.PARTS) == [0, 0, 1, 1], "2 partitions, 4 consumers: two idle")
     claim("CommitFailedException" in dd6.POLL, "exceeding max.poll.interval.ms fails the commit")
+
+# detail pages
+if needed(dd7.SW, "smallwrites.txt"):
+    g = lambda c, n: dd7.SW[(c, n)][1]
+    claim(g(1, "Nagle on (default)") < g(1, "TCP_NODELAY") < 10_000, "Nagle sends fewer segments than TCP_NODELAY; autocorking keeps NODELAY under one per write")
+    claim(g(0, "TCP_NODELAY") > 10_000, "with autocorking off, TCP_NODELAY sends more segments than writes")
+    claim(g(1, "BufferedOutputStream, one flush") < 100, "one buffered write: a handful of segments")
+if needed(dd7.IN and dd7.INL, "jmh-inline.txt, jit-inlining.txt"):
+    claim(dd7.IN["callNotInlined"][0] > dd7.IN["callInlined"][0], "a call that is not inlined costs more")
+    claim(dd7.IN["types4"][0] > 3 * dd7.IN["types1"][0], "4 receiver types much slower than 1")
+    claim(dd7.ALLOC["allocation"] < 1 and dd7.ALLOC["allocationNoEscapeAnalysis"] >= 16, "escape analysis removes the allocation")
+    claim(dd7.INL_OK, "PrintInlining: inline in oneType, virtual call in fourTypes")
+if needed(dd7.REG and dd7.BIG and dd7.BAR, "gc-init.txt, gc-*-4g.*, jmh-barrier.txt"):
+    claim([r for _, r in dd7.REG] == ["1M", "2M", "8M"], "G1 region size 1M/2M/8M for 1g/4g/16g")
+    claim(max(dd7.BIG["ZGC"]["pauses"]) < 1, "ZGC pauses stay under 1 ms at 4 GB")
+    claim(dd7.BAR["ZGC"]["loadRefs"] > dd7.BAR["G1"]["loadRefs"], "reference loads slower under ZGC (load barrier)")
+if needed(dd7.VM, "vt-memory.txt"):
+    claim(dd7.VM["platform"]["threads"] >= 10_000 and dd7.VM["virtual"]["threads"] < 100, "platform: an OS thread each; virtual: a few carriers")
+    claim(dd7.VM["virtual"]["chunks"] >= 10_000 and dd7.VM["platform"]["chunks"] == 0, "virtual threads' stacks are StackChunk objects")
+    claim(dd7.VM["platform"]["nmt_res"] > 100 * dd7.VM["virtual"]["nmt_res"], "platform stacks reserve far more native memory")
+if needed(dd7.FB, "jmh-fence.txt"):
+    f = dd7.FB
+    claim(f["volatileStore"][0] > 5 * f["plainStore"][0], "volatile store much costlier than plain store")
+    claim(abs(f["volatileLoad"][0] - f["plainLoad"][0]) < 0.2, "volatile load costs the same as a plain load on x86-64")
 
 print(f"\n{len(problems)} problem(s)")
 sys.exit(1 if problems else 0)

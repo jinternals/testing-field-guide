@@ -32,7 +32,7 @@ SOURCES = [
         "java.base: " + ", ".join(a(J21 + "java.base/share/classes/" + p, n) for p, n in [
             ("java/net/StandardSocketOptions.java", "StandardSocketOptions"), ("java/net/Socket.java", "Socket"), ("java/net/URLConnection.java", "URLConnection"),
             ("java/lang/VirtualThread.java", "VirtualThread"), ("java/lang/Object.java", "Object"), ("java/io/FileInputStream.java", "FileInputStream"),
-            ("jdk/internal/misc/Blocker.java", "Blocker"), ("java/util/concurrent/ForkJoinPool.java", "ForkJoinPool"), ("java/util/concurrent/package-info.java", "java.util.concurrent package-info"), ("jdk/internal/vm/Continuation.java", "Continuation"), ("sun/nio/ch/NioSocketImpl.java", "NioSocketImpl")]),
+            ("jdk/internal/misc/Blocker.java", "Blocker"), ("java/util/concurrent/ForkJoinPool.java", "ForkJoinPool"), ("java/util/concurrent/package-info.java", "java.util.concurrent package-info"), ("jdk/internal/vm/Continuation.java", "Continuation"), ("sun/nio/ch/NioSocketImpl.java", "NioSocketImpl"), ("jdk/internal/vm/StackChunk.java", "StackChunk")]),
         "jdk.httpserver " + a(J21 + "jdk.httpserver/share/classes/sun/net/httpserver/ServerConfig.java", "ServerConfig") + " · jdk.net "
         + a(J21 + "jdk.net/share/classes/jdk/net/ExtendedSocketOptions.java", "ExtendedSocketOptions") + " · jdk.jfr "
         + a(J21 + "jdk.jfr/share/conf/jfr/default.jfc", "default.jfc"),
@@ -40,7 +40,10 @@ SOURCES = [
             ("share/compiler/compilationPolicy.hpp", "compilationPolicy.hpp"), ("share/compiler/compileTask.cpp", "compileTask.cpp"),
             ("share/runtime/os.cpp", "os.cpp"), ("share/gc/shared/gcConfig.cpp", "gcConfig.cpp"), ("share/gc/shared/gc_globals.hpp", "gc_globals.hpp"),
             ("share/runtime/arguments.cpp", "arguments.cpp"), ("share/gc/shared/workerPolicy.cpp", "workerPolicy.cpp"),
-            ("os/linux/cgroupUtil_linux.cpp", "cgroupUtil_linux.cpp"), ("os/linux/globals_linux.hpp", "globals_linux.hpp"), ("share/code/nmethod.cpp", "nmethod.cpp"), ("share/gc/z/zDriver.cpp", "zDriver.cpp"), ("share/memory/allocation.hpp", "allocation.hpp"), ("share/services/nmtDCmd.hpp", "nmtDCmd.hpp")]),
+            ("os/linux/cgroupUtil_linux.cpp", "cgroupUtil_linux.cpp"), ("os/linux/globals_linux.hpp", "globals_linux.hpp"), ("share/code/nmethod.cpp", "nmethod.cpp"), ("share/gc/z/zDriver.cpp", "zDriver.cpp"), ("share/memory/allocation.hpp", "allocation.hpp"), ("share/services/nmtDCmd.hpp", "nmtDCmd.hpp"), ("share/opto/c2_globals.hpp", "c2_globals.hpp"), ("share/opto/doCall.cpp", "doCall.cpp"),
+            ("share/gc/g1/heapRegion.cpp", "heapRegion.cpp"), ("share/gc/g1/g1RemSet.hpp", "g1RemSet.hpp"), ("share/gc/g1/g1BarrierSet.hpp", "g1BarrierSet.hpp"),
+            ("share/gc/z/zAddress.hpp", "zAddress.hpp"), ("share/gc/z/zBarrier.hpp", "zBarrier.hpp"), ("share/gc/shared/c2/barrierSetC2.cpp", "barrierSetC2.cpp"),
+            ("cpu/x86/x86_64.ad", "x86_64.ad"), ("os_cpu/linux_x86/globals_linux_x86.hpp", "globals_linux_x86.hpp")]),
     ]),
     ("Documentation", [
         a("https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector1.html", "Java SE 21 HotSpot GC Tuning Guide") + " — the G1 cycle, evacuation failure, full GC; “Available Collectors”",
@@ -95,6 +98,11 @@ IDX = {
     "Kafka producer batching": ["kafka"], "linger.ms": ["kafka"], "batch.size": ["kafka"], "acks": ["kafka"], "enable.idempotence": ["kafka"],
     "fetch.min.bytes / fetch.max.wait.ms": ["kafka2"], "Consumer groups and partitions": ["kafka2"], "max.poll.interval.ms": ["kafka2"],
     "CommitFailedException": ["kafka2"], "Rebalance (Kafka)": ["kafka2"],
+    "Minshall’s modification": ["nagle3"], "TCP_CORK": ["nagle3"], "tcp_autocorking": ["nagle3"], "Inlining": ["jit3"], "MaxInlineSize / FreqInlineSize": ["jit3"],
+    "Megamorphic call site": ["jit3"], "Bimorphic inlining": ["jit3"], "Uncommon trap": ["jit3"], "Escape analysis": ["jit3"], "PrintInlining": ["jit3"],
+    "G1 regions": ["gc3"], "Humongous objects": ["gc3"], "Remembered set": ["gc3"], "Card table": ["gc3"], "Load barrier (ZGC)": ["gc3"], "Coloured pointers": ["gc3"],
+    "Write barrier": ["gc3"], "StackChunk": ["vt2"], "ThreadStackSize": ["vt2"], "Native Memory Tracking": ["vt2", "box2"], "Memory barriers (fences)": ["jmm3"],
+    "lock addl": ["jmm3"], "VarHandle setRelease": ["jmm3"], "AtomicInteger cost": ["jmm3"],
 }
 HAS = {p[0] for p in PAGES} | {"dsources", "dindex"}
 

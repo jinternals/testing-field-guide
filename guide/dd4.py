@@ -272,7 +272,8 @@ K8 = chap(8, "Virtual threads")
 VT = dlog("vt.txt")
 vt = dict((m.group(1).strip(), float(m.group(2))) for m in re.finditer(r"^(\d[\d,]* tasks, .+?)\s{2,}([\d.]+) s$", VT, re.M))
 carriers = int(re.search(r"availableProcessors\): (\d+)", VT).group(1))
-pin_trace = "\n".join(l for l in VT.splitlines() if "VirtualThread[" in l or "<==" in l)[:400]
+_pl = [l for l in VT.splitlines() if "VirtualThread[" in l or "<==" in l]
+pin_trace = "\n".join(_pl[:2])
 plat, virt = vt["10,000 tasks, 200 platform threads"], vt["10,000 tasks, virtual thread each"]
 pinned, unpinned = vt["100 tasks, synchronized + sleep"], vt["100 tasks, ReentrantLock + sleep"]
 VT_ROWS = [(k, f"{v:.2f} s") for k, v in vt.items()]

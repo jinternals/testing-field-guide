@@ -43,7 +43,7 @@ $J deep.latency.CoordinatedOmission | tee $L/co.txt
 
 echo "== 6 JIT"
 $J deep.jit.WarmUp | tee $L/warmup.txt
-java -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E " (Tier3InvocationThreshold|Tier4InvocationThreshold|Tier3BackEdgeThreshold|Tier4BackEdgeThreshold|TieredStopAtLevel|CICompilerCount|ReservedCodeCacheSize|MaxInlineSize|FreqInlineSize|InlineSmallCode|MaxInlineLevel|TypeProfileWidth|TypeProfileMajorReceiverPercent|DoEscapeAnalysis|EliminateAllocations|ThreadStackSize|LockingMode) " | tee $L/jit-flags.txt
+java -XX:+UnlockExperimentalVMOptions -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E " (Tier3InvocationThreshold|Tier4InvocationThreshold|Tier3BackEdgeThreshold|Tier4BackEdgeThreshold|TieredStopAtLevel|CICompilerCount|ReservedCodeCacheSize|MaxInlineSize|FreqInlineSize|InlineSmallCode|MaxInlineLevel|TypeProfileWidth|TypeProfileMajorReceiverPercent|DoEscapeAnalysis|EliminateAllocations|ThreadStackSize|LockingMode) " | tee $L/jit-flags.txt
 java -Xint -Dstdout.encoding=UTF-8 -cp $CP deep.jit.WarmUp | tee $L/warmup-xint.txt
 java -XX:+PrintCompilation -cp $CP deep.jit.WarmUp | grep "sumOfSquares" | tee $L/warmup-compilation.txt
 $J org.openjdk.jmh.Main DeadCodeBench -f 1 -wi 3 -w 1 -i 5 -r 1 2>&1 | tee $L/jmh-full.txt | tail -12
@@ -51,8 +51,9 @@ sed -n '/^Benchmark/,$p' $L/jmh-full.txt > $L/jmh.txt
 # what C2 does to calls and allocations: inlining, receiver types, escape analysis (-prof gc: bytes allocated per op)
 $J org.openjdk.jmh.Main InliningBench -f 1 -wi 3 -w 1 -i 5 -r 1 -prof gc 2>&1 | tee $L/jmh-inline-full.txt | tail -30
 sed -n '/^Benchmark/,$p' $L/jmh-inline-full.txt > $L/jmh-inline.txt
-java -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining -XX:-BackgroundCompilation -cp $CP deep.jit.CallSites \
-  | grep -E "CallSites[$](Shape|A|B|C|D)::area" | awk '!seen[$0]++' | tee $L/jit-inlining.txt || true
+# C2 only (-XX:-TieredCompilation), so each inlining line follows the compile of its own method
+java -XX:-TieredCompilation -XX:+UnlockDiagnosticVMOptions -XX:+PrintCompilation -XX:+PrintInlining -XX:-BackgroundCompilation \
+  -cp $CP deep.jit.CallSites | grep -E "CallSites::(oneType|fourTypes)|CallSites[$](Shape|A|B|C|D)::area" | tee $L/jit-inlining.txt || true
 
 echo "== 7 GC"
 for gc in G1 ZGC; do

@@ -12,16 +12,16 @@ nag = dlog("nagle.txt").splitlines()
 wire = "\n".join(html.escape(re.sub(r"\s+p90.*?(?=p99)", "  ", l.split("  max")[0])) + " ms" for l in nag[:2])
 
 CHAPTERS = [
-    ("01", "Nagle, delayed ACK and TCP_NODELAY", "Why two small writes can cost 40 ms", CN, [("The mechanism, packet by packet", "nagle"), ("Measured; who sets TCP_NODELAY", "nagle2")]),
+    ("01", "Nagle, delayed ACK and TCP_NODELAY", "Why two small writes can cost 40 ms", CN, [("The mechanism, packet by packet", "nagle"), ("Measured; who sets TCP_NODELAY", "nagle2"), ("When Nagle helps; the settings", "nagle3")]),
     ("02", "Connections", "Handshake, keep-alive, TIME_WAIT, ports", CN, [("A connection’s life", "conn"), ("Measured: reuse and close", "conn2")]),
     ("03", "Timeouts", "Which phase each timeout covers — and the defaults", CN, [("Phases and defaults", "timeouts"), ("Measured: three broken peers", "timeouts2")]),
     ("04", "Pools and Little’s Law", "Sizing a pool from arrival rate and latency", CQ, [("Little’s Law", "pools"), ("Measured: database and CPU pools", "pools2")]),
     ("05", "Measuring latency", "Coordinated omission and percentiles", CQ, [("Open and closed loops", "co"), ("Measured: the same server, three ways", "co2")]),
-    ("06", "JIT and benchmarks", "Warm-up, tiers and JMH", CJ, [("Warm-up", "jit"), ("Dead code and constant folding, with JMH", "jit2")]),
-    ("07", "GC pauses", "G1 and generational ZGC under one workload", CJ, [("Pauses and the G1 cycle", "gc"), ("Measured: the tail", "gc2")]),
-    ("08", "Virtual threads", "Carriers, pinning and compensation", CJ, [("Measured: blocking and pinning", "vt")]),
+    ("06", "JIT and benchmarks", "Warm-up, tiers and JMH", CJ, [("Warm-up", "jit"), ("Dead code and constant folding, with JMH", "jit2"), ("Inside C2: inlining, receiver types, escape analysis", "jit3")]),
+    ("07", "GC pauses", "G1 and generational ZGC under one workload", CJ, [("Pauses and the G1 cycle", "gc"), ("Measured: the tail", "gc2"), ("Regions, cards and barriers", "gc3")]),
+    ("08", "Virtual threads", "Carriers, pinning and compensation", CJ, [("Measured: blocking and pinning", "vt"), ("Where a blocked thread keeps its stack", "vt2")]),
     ("09", "Containers and CPUs", "What the JVM sizes from cgroup limits", CP, [("What the JVM sees", "box"), ("Sized from the CPU count; throttling", "box2")]),
-    ("10", "The Java Memory Model", "Happens-before, measured with jcstress", CJ, [("What another thread may see", "jmm"), ("Visibility and lost updates", "jmm2")]),
+    ("10", "The Java Memory Model", "Happens-before, measured with jcstress", CJ, [("What another thread may see", "jmm"), ("Visibility and lost updates", "jmm2"), ("What volatile compiles to on x86-64", "jmm3")]),
     ("11", "Kafka", "Producer batching, consumer fetching, partitions", CQ, [("Producer batching: linger.ms and batch.size", "kafka"), ("Consumer fetching, partitions, max.poll.interval.ms", "kafka2")]),
 ]
 HAS = {p[0] for p in PAGES}
