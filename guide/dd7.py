@@ -25,7 +25,7 @@ if has("smallwrites.txt"):
         if m:
             cork = int(m.group(1))
             continue
-        m = re.match(r"(.+?)\s{2,}(\d+) ms\s+segments sent by the host\s+([\d,]+)$", line)
+        m = re.match(r"(.+?)\s{2,}(\d+) ms\s+data segments sent by the client\s+([\d,]+)$", line)
         if m and cork is not None:
             SW[(cork, m.group(1).strip())] = (int(m.group(2)), int(m.group(3).replace(",", "")))
 
@@ -55,13 +55,13 @@ if SW:
                 rows.append((n, str(c), f"{ms}", f"{segs:,}"))
     on, nd, buf = SW[(1, names[0])], SW[(1, names[1])], SW[(1, names[2])]
     nd0, on0 = SW.get((0, names[1])), SW.get((0, names[0]))
-    notes = [f"<b>Nagle on</b>: {on[1]:,} segments — bytes waited while earlier ones were unacknowledged, then went together.",
-             f"<b>TCP_NODELAY, autocorking on</b>: {nd[1]:,} — <code>tcp_autocorking</code> merged writes while earlier packets were queued."]
+    notes = [f"<b>Nagle on</b>: {on[1]:,} data segments for 10,000 writes — bytes waited while earlier ones were unacknowledged, then went together."]
     if nd0:
-        notes.append(f"<b>TCP_NODELAY, autocorking off</b>: {nd0[1]:,} — more than the 10,000 writes; the count includes the reader’s ACKs.")
+        notes.append(f"<b>TCP_NODELAY, autocorking off</b>: {nd0[1]:,} data segments" + (" — one per write." if nd0[1] >= 9_900 else "."))
+    notes.append(f"<b>TCP_NODELAY, autocorking on</b> (the default): {nd[1]:,}" + (" — <code>tcp_autocorking</code> merged writes while earlier packets were still queued." if nd0 and nd[1] < 0.9 * nd0[1] else "."))
     notes.append(f"<b>One buffered write</b>: {buf[1]:,} segments in {buf[0]} ms.")
-    sw_html = f'''<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm"><div>{table(["Writer", "tcp_autocorking", "ms", "segments sent by the host"], rows, "xs")}
-    <p class="small muted" style="margin:1mm 0">SmallWrites.java · 10,000 one-byte writes to a reader that sends nothing back · segments from <code>Tcp: OutSegs</code> in <code>/proc/net/snmp</code>: every TCP segment the host sent, including the reader’s ACKs · {RUNNER}</p></div>
+    sw_html = f'''<div class="two top" style="grid-template-columns:1fr 1fr;gap:3mm"><div>{table(["Writer", "tcp_autocorking", "ms", "data segments sent"], rows, "xs")}
+    <p class="small muted" style="margin:1mm 0">SmallWrites.java · 10,000 one-byte writes to a reader that sends nothing back · data segments from the client socket’s <code>data_segs_out</code> counter (<code>ss -ti</code>), read once the reader had every byte · {RUNNER}</p></div>
     {ticks(notes, CN)}</div>'''
 
 page("nagle3", f'''

@@ -123,8 +123,8 @@ if needed(dd6.PROD and dd6.FETCH and dd6.PARTS and dd6.POLL, "kafka-*.txt"):
 # detail pages
 if needed(dd7.SW, "smallwrites.txt"):
     g = lambda c, n: dd7.SW[(c, n)][1]
-    claim(g(1, "Nagle on (default)") < g(1, "TCP_NODELAY") < 10_000, "Nagle sends fewer segments than TCP_NODELAY; autocorking keeps NODELAY under one per write")
-    claim(g(0, "TCP_NODELAY") > 10_000, "with autocorking off, TCP_NODELAY sends more segments than writes")
+    claim(g(0, "Nagle on (default)") < 0.9 * g(0, "TCP_NODELAY") and g(1, "Nagle on (default)") < g(1, "TCP_NODELAY"), "Nagle sends fewer data segments than TCP_NODELAY")
+    claim(g(1, "TCP_NODELAY") <= g(0, "TCP_NODELAY"), "autocorking never adds segments")
     claim(g(1, "BufferedOutputStream, one flush") < 100, "one buffered write: a handful of segments")
 if needed(dd7.IN and dd7.INL, "jmh-inline.txt, jit-inlining.txt"):
     claim(dd7.IN["callNotInlined"][0] > dd7.IN["callInlined"][0], "a call that is not inlined costs more")
