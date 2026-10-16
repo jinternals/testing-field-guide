@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">shop</a> &gt; <span class="el_source">OrderService.java</span></div><h1>OrderService.java</h1><pre class="source lang-java linenums">package shop;
+
+import java.time.Clock;
+import java.util.List;
+import java.util.UUID;
+
+public class OrderService {
+  private final OrderRepository repository;
+  private final PaymentGateway payments;
+  private final EmailSender email;
+  private final DiscountPolicy discounts;
+  private final Clock clock;
+
+  public OrderService(OrderRepository repository, PaymentGateway payments,
+<span class="fc" id="L15">            EmailSender email, DiscountPolicy discounts, Clock clock) {</span>
+<span class="fc" id="L16">    this.repository = repository;</span>
+<span class="fc" id="L17">    this.payments = payments;</span>
+<span class="fc" id="L18">    this.email = email;</span>
+<span class="fc" id="L19">    this.discounts = discounts;</span>
+<span class="fc" id="L20">    this.clock = clock;</span>
+<span class="fc" id="L21">  }</span>
+
+  public Order placeOrder(String customerEmail, List&lt;Item&gt; items) {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">    if (items.isEmpty())</span>
+<span class="fc" id="L25">      throw new IllegalArgumentException(&quot;order has no items&quot;);</span>
+<span class="fc" id="L26">    Money subtotal = items.stream().map(Item::total)</span>
+<span class="fc" id="L27">        .reduce(Money.of(&quot;0&quot;), Money::plus);</span>
+<span class="fc" id="L28">    Money total = subtotal.percentOff(discounts.percentFor(subtotal));</span>
+<span class="fc" id="L29">    payments.charge(customerEmail, total);  // may throw PaymentDeclined…</span>
+<span class="fc" id="L30">    Order order = repository.save(new Order(UUID.randomUUID().toString(),</span>
+<span class="fc" id="L31">        customerEmail, List.copyOf(items), total, clock.instant()));</span>
+<span class="fc" id="L32">    email.send(customerEmail, &quot;Order confirmed&quot;, &quot;Total: &quot; + total);</span>
+<span class="fc" id="L33">    return order;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

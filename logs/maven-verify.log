@@ -1,0 +1,147 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24109 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -----------------------------< shop:shop >------------------------------
+[INFO] Building shop 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:properties (default) @ shop ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (unit) @ shop ---
+[INFO] argLine set to -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/testing-field-guide/testing-field-guide/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shop ---
+[INFO] skip non existing resourceDirectory /home/runner/work/testing-field-guide/testing-field-guide/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ shop ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 12 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- build-helper:3.6.2:add-test-source (add-it-sources) @ shop ---
+[INFO] Test Source directory: /home/runner/work/testing-field-guide/testing-field-guide/src/it/java added.
+[INFO] Test Source directory: /home/runner/work/testing-field-guide/testing-field-guide/src/tools added.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shop ---
+[INFO] skip non existing resourceDirectory /home/runner/work/testing-field-guide/testing-field-guide/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ shop ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 23 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.0:test (default-test) @ shop ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.OrderApiTest
+[INFO] Running shop.OrderApiLifecycleTest
+[INFO] Running shop.LifecycleTest
+[INFO] Running shop.OrderServiceTest
+@BeforeAll
+  new LifecycleTest()
+  @BeforeEach
+    first()
+  @AfterEach
+  new LifecycleTest()
+  @BeforeEach
+    second()
+  @AfterEach
+@AfterAll
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.202 s -- in shop.LifecycleTest
+[INFO] Running shop.DiscountPolicyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.529 s -- in shop.OrderApiLifecycleTest
+[INFO] Running shop.PasswordPolicyTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.355 s -- in shop.DiscountPolicyTest
+[INFO] Running shop.TrickyThingsTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.111 s -- in shop.PasswordPolicyTest
+[INFO] Running shop.MoneyTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.048 s -- in shop.MoneyTest
+[INFO] Running shop.TestDoublesTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s -- in shop.TestDoublesTest
+[INFO] Running shop.OrderServiceBddTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.212 s -- in shop.TrickyThingsTest
+[INFO] Running Item
+[INFO] Running when quantity is valid
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.040 s -- in when quantity is valid
+[INFO] Running when quantity is invalid
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 s -- in when quantity is invalid
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.080 s -- in Item
+[INFO] Running shop.MockitoFeaturesTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.204 s -- in shop.OrderApiTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.451 s -- in shop.OrderServiceBddTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.200 s -- in shop.OrderServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.410 s -- in shop.MockitoFeaturesTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 44, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ shop ---
+[INFO] Building jar: /home/runner/work/testing-field-guide/testing-field-guide/target/shop-1.0.jar
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent-integration (it) @ shop ---
+[INFO] argLine set to -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/testing-field-guide/testing-field-guide/target/jacoco-it.exec
+[INFO] 
+[INFO] --- failsafe:3.6.0:integration-test (default) @ shop ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shop.OrderHeadersIT
+[INFO] Running shop.OrderErrorsIT
+[fork 1 pid 2665] API started on http://127.0.0.1:35641
+[fork 1 pid 2665] OrderHeadersIT uses http://127.0.0.1:35641
+[fork 2 pid 2666] API started on http://127.0.0.1:35043
+[fork 2 pid 2666] OrderErrorsIT uses http://127.0.0.1:35043
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.677 s -- in shop.OrderHeadersIT
+[INFO] Running shop.OrderTableIT
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.686 s -- in shop.OrderErrorsIT
+[INFO] Running shop.OrderLookupIT
+[fork 2 pid 2666] OrderLookupIT uses http://127.0.0.1:35043
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in shop.OrderLookupIT
+[INFO] Running shop.OrderKeyIT
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[fork 1 pid 2665] Postgres 2d7f090afddf on port 32771
+[fork 1 pid 2665] OrderTableIT uses jdbc:postgresql://localhost:32771/test?loggerLevel=OFF
+[fork 2 pid 2666] Postgres f761dd55aa56 on port 32770
+[fork 2 pid 2666] OrderKeyIT uses jdbc:postgresql://localhost:32770/test?loggerLevel=OFF
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.480 s -- in shop.OrderKeyIT
+[INFO] Running shop.OrderMethodsIT
+[fork 2 pid 2666] OrderMethodsIT uses http://127.0.0.1:35043
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in shop.OrderMethodsIT
+[INFO] Running shop.OrderSearchIT
+[fork 2 pid 2666] OrderSearchIT uses jdbc:postgresql://localhost:32770/test?loggerLevel=OFF
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.083 s -- in shop.OrderTableIT
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.074 s -- in shop.OrderSearchIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.6.0:verify (default) @ shop ---
+[INFO] 
+[INFO] --- jacoco:0.8.15:merge (merge) @ shop ---
+[INFO] Loading execution data file /home/runner/work/testing-field-guide/testing-field-guide/target/jacoco-it.exec
+[INFO] Loading execution data file /home/runner/work/testing-field-guide/testing-field-guide/target/jacoco.exec
+[INFO] Writing merged execution data to /home/runner/work/testing-field-guide/testing-field-guide/target/jacoco-merged.exec
+[INFO] 
+[INFO] --- jacoco:0.8.15:report (report) @ shop ---
+[INFO] Loading execution data file /home/runner/work/testing-field-guide/testing-field-guide/target/jacoco-merged.exec
+[INFO] Analyzed bundle 'shop' with 9 classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  26.123 s
+[INFO] Finished at: 2026-10-16T08:52:06Z
+[INFO] ------------------------------------------------------------------------

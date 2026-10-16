@@ -1,0 +1,151 @@
+### it.forks=2
+08:52:12.741 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.164 s -- in shop.LifecycleTest
+08:52:13.026 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.477 s -- in shop.OrderApiLifecycleTest
+08:52:13.072 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.357 s -- in shop.DiscountPolicyTest
+08:52:13.113 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 s -- in shop.PasswordPolicyTest
+08:52:13.162 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 s -- in shop.MoneyTest
+08:52:13.203 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 s -- in shop.TestDoublesTest
+08:52:13.318 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.212 s -- in shop.TrickyThingsTest
+08:52:13.340 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 s -- in when quantity is valid
+08:52:13.382 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s -- in when quantity is invalid
+08:52:13.394 [INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.089 s -- in Item
+08:52:13.611 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.089 s -- in shop.OrderApiTest
+08:52:14.773 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.395 s -- in shop.MockitoFeaturesTest
+08:52:14.836 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.635 s -- in shop.OrderServiceBddTest
+08:52:14.845 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.315 s -- in shop.OrderServiceTest
+08:52:15.196 [INFO] Tests run: 44, Failures: 0, Errors: 0, Skipped: 0
+08:52:15.407 [INFO] --- failsafe:3.6.0:integration-test (default) @ shop ---
+[fork 1 pid 3448] API started on http://127.0.0.1:43743
+[fork 1 pid 3448] OrderHeadersIT uses http://127.0.0.1:43743
+[fork 2 pid 3449] API started on http://127.0.0.1:38065
+[fork 2 pid 3449] OrderErrorsIT uses http://127.0.0.1:38065
+08:52:19.749 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.433 s -- in shop.OrderHeadersIT
+08:52:20.257 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.770 s -- in shop.OrderErrorsIT
+[fork 2 pid 3449] OrderLookupIT uses http://127.0.0.1:38065
+08:52:20.399 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.103 s -- in shop.OrderLookupIT
+[fork 1 pid 3448] Postgres c8d71eeb9beb on port 32774
+[fork 1 pid 3448] OrderTableIT uses jdbc:postgresql://localhost:32774/test?loggerLevel=OFF
+08:52:25.607 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.787 s -- in shop.OrderTableIT
+[fork 1 pid 3448] OrderMethodsIT uses http://127.0.0.1:43743
+08:52:25.660 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 s -- in shop.OrderMethodsIT
+[fork 1 pid 3448] OrderSearchIT uses jdbc:postgresql://localhost:32774/test?loggerLevel=OFF
+08:52:25.759 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 s -- in shop.OrderSearchIT
+[fork 2 pid 3449] Postgres 9f5d0ef65d54 on port 32775
+[fork 2 pid 3449] OrderKeyIT uses jdbc:postgresql://localhost:32775/test?loggerLevel=OFF
+08:52:25.956 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.492 s -- in shop.OrderKeyIT
+08:52:26.308 [INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+08:52:26.312 [INFO] --- failsafe:3.6.0:verify (default) @ shop ---
+08:52:26.618 [INFO] BUILD SUCCESS
+wall: 19636 ms
+### it.forks=1
+08:52:32.257 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.163 s -- in shop.LifecycleTest
+08:52:32.475 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.251 s -- in shop.DiscountPolicyTest
+08:52:32.603 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.523 s -- in shop.OrderApiLifecycleTest
+08:52:32.622 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.141 s -- in shop.PasswordPolicyTest
+08:52:32.667 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.040 s -- in shop.MoneyTest
+08:52:32.698 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s -- in shop.TestDoublesTest
+08:52:32.771 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.198 s -- in shop.TrickyThingsTest
+08:52:32.826 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 s -- in when quantity is valid
+08:52:32.857 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in when quantity is invalid
+08:52:32.867 [INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.089 s -- in Item
+08:52:33.305 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.274 s -- in shop.OrderApiTest
+08:52:34.213 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.354 s -- in shop.MockitoFeaturesTest
+08:52:34.247 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.204 s -- in shop.OrderServiceTest
+08:52:34.253 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.551 s -- in shop.OrderServiceBddTest
+08:52:34.598 [INFO] Tests run: 44, Failures: 0, Errors: 0, Skipped: 0
+08:52:34.830 [INFO] --- failsafe:3.6.0:integration-test (default) @ shop ---
+[fork 1 pid 4372] API started on http://127.0.0.1:41787
+[fork 1 pid 4372] OrderHeadersIT uses http://127.0.0.1:41787
+08:52:37.323 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.966 s -- in shop.OrderHeadersIT
+[fork 1 pid 4372] OrderErrorsIT uses http://127.0.0.1:41787
+08:52:37.418 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s -- in shop.OrderErrorsIT
+[fork 1 pid 4372] Postgres b6a98a1d131f on port 32777
+[fork 1 pid 4372] OrderTableIT uses jdbc:postgresql://localhost:32777/test?loggerLevel=OFF
+08:52:41.067 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.625 s -- in shop.OrderTableIT
+[fork 1 pid 4372] OrderLookupIT uses http://127.0.0.1:41787
+08:52:41.134 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.060 s -- in shop.OrderLookupIT
+[fork 1 pid 4372] OrderKeyIT uses jdbc:postgresql://localhost:32777/test?loggerLevel=OFF
+08:52:41.174 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s -- in shop.OrderKeyIT
+[fork 1 pid 4372] OrderMethodsIT uses http://127.0.0.1:41787
+08:52:41.194 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in shop.OrderMethodsIT
+[fork 1 pid 4372] OrderSearchIT uses jdbc:postgresql://localhost:32777/test?loggerLevel=OFF
+08:52:41.241 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.040 s -- in shop.OrderSearchIT
+08:52:41.595 [INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+08:52:41.598 [INFO] --- failsafe:3.6.0:verify (default) @ shop ---
+08:52:41.925 [INFO] BUILD SUCCESS
+wall: 15323 ms
+### it.forks=2
+08:52:47.474 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.191 s -- in shop.LifecycleTest
+08:52:47.821 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.376 s -- in shop.DiscountPolicyTest
+08:52:47.839 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.587 s -- in shop.OrderApiLifecycleTest
+08:52:47.895 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 s -- in shop.PasswordPolicyTest
+08:52:47.948 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.049 s -- in shop.MoneyTest
+08:52:47.992 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 s -- in shop.TestDoublesTest
+08:52:48.073 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.247 s -- in shop.TrickyThingsTest
+08:52:48.127 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.050 s -- in when quantity is valid
+08:52:48.162 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in when quantity is invalid
+08:52:48.168 [INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.090 s -- in Item
+08:52:48.432 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.209 s -- in shop.OrderApiTest
+08:52:49.484 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.317 s -- in shop.MockitoFeaturesTest
+08:52:49.560 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.559 s -- in shop.OrderServiceBddTest
+08:52:49.565 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.315 s -- in shop.OrderServiceTest
+08:52:49.908 [INFO] Tests run: 44, Failures: 0, Errors: 0, Skipped: 0
+08:52:50.122 [INFO] --- failsafe:3.6.0:integration-test (default) @ shop ---
+[fork 1 pid [fork 2 pid 5022] API started on http://127.0.0.1:40491
+[fork 1 pid 5022] OrderErrorsIT uses http://127.0.0.1:40491
+[fork 2 pid 5024] OrderHeadersIT uses http://127.0.0.1:38649
+08:52:54.337 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.490 s -- in shop.OrderErrorsIT
+08:52:54.343 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.425 s -- in shop.OrderHeadersIT
+[fork 2 pid 5024] OrderLookupIT uses http://127.0.0.1:38649
+08:52:54.532 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.128 s -- in shop.OrderLookupIT
+[fork 1 pid 5022] Postgres 7a202489a899 on port 32780
+[fork 1 pid 5022] OrderTableIT uses jdbc:postgresql://localhost:32780/test?loggerLevel=OFF
+08:53:00.196 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.784 s -- in shop.OrderTableIT
+[fork 1 pid 5022] OrderMethodsIT uses http://127.0.0.1:40491
+[fork 2 pid 5024] Postgres 46175086f98c on port 32781
+[fork 2 pid 5024] OrderKeyIT uses jdbc:postgresql://localhost:32781/test?loggerLevel=OFF
+08:53:00.253 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s -- in shop.OrderMethodsIT
+[fork 1 pid 5022] OrderSearchIT uses jdbc:postgresql://localhost:32780/test?loggerLevel=OFF
+08:53:00.344 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.062 s -- in shop.OrderSearchIT
+08:53:00.409 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.817 s -- in shop.OrderKeyIT
+08:53:00.771 [INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+08:53:00.775 [INFO] --- failsafe:3.6.0:verify (default) @ shop ---
+08:53:01.105 [INFO] BUILD SUCCESS
+wall: 19145 ms
+### it.forks=1
+08:53:06.738 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.163 s -- in shop.LifecycleTest
+08:53:07.004 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.449 s -- in shop.OrderApiLifecycleTest
+08:53:07.067 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s -- in shop.PasswordPolicyTest
+08:53:07.081 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.351 s -- in shop.DiscountPolicyTest
+08:53:07.121 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 s -- in shop.MoneyTest
+08:53:07.172 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 s -- in shop.TestDoublesTest
+08:53:07.250 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.184 s -- in shop.TrickyThingsTest
+08:53:07.289 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 s -- in when quantity is valid
+08:53:07.319 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 s -- in when quantity is invalid
+08:53:07.328 [INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.068 s -- in Item
+08:53:07.592 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.054 s -- in shop.OrderApiTest
+08:53:08.693 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.378 s -- in shop.MockitoFeaturesTest
+08:53:08.749 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.601 s -- in shop.OrderServiceBddTest
+08:53:08.756 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.214 s -- in shop.OrderServiceTest
+08:53:09.114 [INFO] Tests run: 44, Failures: 0, Errors: 0, Skipped: 0
+08:53:09.342 [INFO] --- failsafe:3.6.0:integration-test (default) @ shop ---
+[fork 1 pid 5865] API started on http://127.0.0.1:46001
+[fork 1 pid 5865] OrderHeadersIT uses http://127.0.0.1:46001
+08:53:11.647 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.966 s -- in shop.OrderHeadersIT
+[fork 1 pid 5865] OrderErrorsIT uses http://127.0.0.1:46001
+08:53:11.753 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s -- in shop.OrderErrorsIT
+[fork 1 pid 5865] Postgres 8ee611ae6251 on port 32783
+[fork 1 pid 5865] OrderTableIT uses jdbc:postgresql://localhost:32783/test?loggerLevel=OFF
+08:53:15.413 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.635 s -- in shop.OrderTableIT
+[fork 1 pid 5865] OrderLookupIT uses http://127.0.0.1:46001
+08:53:15.479 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 s -- in shop.OrderLookupIT
+[fork 1 pid 5865] OrderKeyIT uses jdbc:postgresql://localhost:32783/test?loggerLevel=OFF
+08:53:15.501 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in shop.OrderKeyIT
+[fork 1 pid 5865] OrderMethodsIT uses http://127.0.0.1:46001
+08:53:15.515 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in shop.OrderMethodsIT
+[fork 1 pid 5865] OrderSearchIT uses jdbc:postgresql://localhost:32783/test?loggerLevel=OFF
+08:53:15.555 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s -- in shop.OrderSearchIT
+08:53:15.903 [INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+08:53:15.906 [INFO] --- failsafe:3.6.0:verify (default) @ shop ---
+08:53:16.251 [INFO] BUILD SUCCESS
+wall: 15158 ms
