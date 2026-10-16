@@ -1,0 +1,127 @@
+.
+'-- JUnit Jupiter [OK]
+  '-- FailingExamplesTest [OK]
+    +-- f_wantedButNotInvoked() [X] 
+    |     Wanted but not invoked:
+    |     payments.charge(<any>, <any>);
+    |     -> at shop.FailingExamplesTest.f_wantedButNotInvoked(FailingExamplesTest.java:45)
+    |     Actually, there were zero interactions with this mock.
+    +-- c_assertj() [X] 
+    |     Expecting actual:
+    |       ["PEN", "BOOK", "TV"]
+    |     to contain exactly (and in same order):
+    |       ["PEN", "TV", "BOOK"]
+    |     but there were differences at these indexes:
+    |       - element at index 1: expected "TV" but was "BOOK"
+    |       - element at index 2: expected "BOOK" but was "TV"
+    +-- e_argumentMismatch() [X] 
+    |     Argument(s) are different! Wanted:
+    |     email.send(
+    |         "asha@example.com",
+    |         "Order confirmed",
+    |         "Total: ₹1200.00"
+    |     );
+    |     -> at shop.FailingExamplesTest.e_argumentMismatch(FailingExamplesTest.java:41)
+    |     Actual invocations have different arguments at position [2]:
+    |     email.send(
+    |         "asha@example.com",
+    |         "Order confirmed",
+    |         "Total: ₹1140.00"
+    |     );
+    |     -> at shop.FailingExamplesTest.e_argumentMismatch(FailingExamplesTest.java:40)
+    +-- a_assertEquals() [X] expected: <₹900.00> but was: <₹899.99>
+    +-- b_assertAll() [X] arithmetic (2 failures)
+    |     	org.opentest4j.AssertionFailedError: expected: <₹25.00> but was: <₹37.50>
+    |     	org.opentest4j.AssertionFailedError: expected: <Rs 12.50> but was: <₹12.50>
+    '-- d_unnecessaryStubbing() [X] 
+          Unnecessary stubbings detected.
+          Clean & maintainable test code requires zero unnecessary code.
+          Following stubbings are unnecessary (click to navigate to relevant line of code):
+            1. -> at shop.FailingExamplesTest.d_unnecessaryStubbing(FailingExamplesTest.java:35)
+          Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+
+Failures (6):
+  JUnit Jupiter:FailingExamplesTest:f_wantedButNotInvoked()
+    MethodSource [className = 'shop.FailingExamplesTest', methodName = 'f_wantedButNotInvoked', methodParameterTypes = '']
+    => Wanted but not invoked:
+payments.charge(<any>, <any>);
+-> at shop.FailingExamplesTest.f_wantedButNotInvoked(FailingExamplesTest.java:45)
+Actually, there were zero interactions with this mock.
+
+       shop.FailingExamplesTest.f_wantedButNotInvoked(FailingExamplesTest.java:45)
+  JUnit Jupiter:FailingExamplesTest:c_assertj()
+    MethodSource [className = 'shop.FailingExamplesTest', methodName = 'c_assertj', methodParameterTypes = '']
+    => org.opentest4j.AssertionFailedError: 
+Expecting actual:
+  ["PEN", "BOOK", "TV"]
+to contain exactly (and in same order):
+  ["PEN", "TV", "BOOK"]
+but there were differences at these indexes:
+  - element at index 1: expected "TV" but was "BOOK"
+  - element at index 2: expected "BOOK" but was "TV"
+
+       shop.FailingExamplesTest.c_assertj(FailingExamplesTest.java:31)
+  JUnit Jupiter:FailingExamplesTest:e_argumentMismatch()
+    MethodSource [className = 'shop.FailingExamplesTest', methodName = 'e_argumentMismatch', methodParameterTypes = '']
+    => Argument(s) are different! Wanted:
+email.send(
+    "asha@example.com",
+    "Order confirmed",
+    "Total: ₹1200.00"
+);
+-> at shop.FailingExamplesTest.e_argumentMismatch(FailingExamplesTest.java:41)
+Actual invocations have different arguments at position [2]:
+email.send(
+    "asha@example.com",
+    "Order confirmed",
+    "Total: ₹1140.00"
+);
+-> at shop.FailingExamplesTest.e_argumentMismatch(FailingExamplesTest.java:40)
+
+       shop.FailingExamplesTest.e_argumentMismatch(FailingExamplesTest.java:41)
+  JUnit Jupiter:FailingExamplesTest:a_assertEquals()
+    MethodSource [className = 'shop.FailingExamplesTest', methodName = 'a_assertEquals', methodParameterTypes = '']
+    => org.opentest4j.AssertionFailedError: expected: <₹900.00> but was: <₹899.99>
+       org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+       shop.FailingExamplesTest.a_assertEquals(FailingExamplesTest.java:19)
+  JUnit Jupiter:FailingExamplesTest:b_assertAll()
+    MethodSource [className = 'shop.FailingExamplesTest', methodName = 'b_assertAll', methodParameterTypes = '']
+    => org.opentest4j.MultipleFailuresError: arithmetic (2 failures)
+	org.opentest4j.AssertionFailedError: expected: <₹25.00> but was: <₹37.50>
+	org.opentest4j.AssertionFailedError: expected: <Rs 12.50> but was: <₹12.50>
+       org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:80)
+       org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
+       org.junit.jupiter.api.Assertions.assertAll(Assertions.java:3065)
+       shop.FailingExamplesTest.b_assertAll(FailingExamplesTest.java:24)
+       Suppressed: org.opentest4j.AssertionFailedError: expected: <₹25.00> but was: <₹37.50>
+         [...]
+       Suppressed: org.opentest4j.AssertionFailedError: expected: <Rs 12.50> but was: <₹12.50>
+         [...]
+  JUnit Jupiter:FailingExamplesTest:d_unnecessaryStubbing()
+    MethodSource [className = 'shop.FailingExamplesTest', methodName = 'd_unnecessaryStubbing', methodParameterTypes = '']
+    => org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at shop.FailingExamplesTest.d_unnecessaryStubbing(FailingExamplesTest.java:35)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+       org.mockito.junit.jupiter.MockitoExtension.lambda$afterEach$2(MockitoExtension.java:200)
+       java.base/java.util.Optional.ifPresent(Optional.java:178)
+       org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:198)
+       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+Test run finished after 1001 ms
+[         2 containers found      ]
+[         0 containers skipped    ]
+[         2 containers started    ]
+[         0 containers aborted    ]
+[         2 containers successful ]
+[         0 containers failed     ]
+[         6 tests found           ]
+[         0 tests skipped         ]
+[         6 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[         6 tests failed          ]
+

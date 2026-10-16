@@ -1,0 +1,108 @@
+pages: 31
+auto-fitted: ['SpinTest.java — Mode.Termination 6.05pt']
+   {'page': 1, 'id': 'p-dcover', 'spare_mm': 0, 'right_over_mm': 75, 'clipped_pre': [], 'overflow': 0}
+   {'page': 2, 'id': 'p-toc', 'spare_mm': 0, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 3, 'id': 'p-method', 'spare_mm': 3.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 4, 'id': 'p-nagle', 'spare_mm': 11.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 5, 'id': 'p-nagle2', 'spare_mm': 7.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 6, 'id': 'p-nagle3', 'spare_mm': 10, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 7, 'id': 'p-conn', 'spare_mm': 22.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 8, 'id': 'p-conn2', 'spare_mm': 8.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 9, 'id': 'p-timeouts', 'spare_mm': 24.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 10, 'id': 'p-timeouts2', 'spare_mm': 4.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 11, 'id': 'p-pools', 'spare_mm': 8.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 12, 'id': 'p-pools2', 'spare_mm': 21.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 13, 'id': 'p-co', 'spare_mm': 27.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 14, 'id': 'p-co2', 'spare_mm': 25.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 15, 'id': 'p-jit', 'spare_mm': 2.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 16, 'id': 'p-jit2', 'spare_mm': 5.8, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 17, 'id': 'p-jit3', 'spare_mm': 9.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 18, 'id': 'p-gc', 'spare_mm': 29.6, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 19, 'id': 'p-gc2', 'spare_mm': 26, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 20, 'id': 'p-gc3', 'spare_mm': 42.6, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 21, 'id': 'p-vt', 'spare_mm': 7.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 22, 'id': 'p-vt2', 'spare_mm': 47.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 23, 'id': 'p-box', 'spare_mm': 15.6, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 24, 'id': 'p-box2', 'spare_mm': 19.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 25, 'id': 'p-jmm', 'spare_mm': 5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 26, 'id': 'p-jmm2', 'spare_mm': 15.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 27, 'id': 'p-jmm3', 'spare_mm': 48.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 28, 'id': 'p-kafka', 'spare_mm': 8.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 29, 'id': 'p-kafka2', 'spare_mm': 7.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 30, 'id': 'p-dsources', 'spare_mm': 12.8, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 31, 'id': 'p-dindex', 'spare_mm': 89.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+written Java-Performance-Deep-Dives.pdf 31 pages
+0 failing text elements
+ok   Nagle: 2 client writes stall (p50 41.0 ms)
+ok   Nagle: 2 server writes stall
+ok   fast: client 2 writes, TCP_NODELAY (p50 0.07 ms)
+ok   fast: server 2 writes, TCP_NODELAY (p50 0.05 ms)
+ok   fast: client 1 write,  Nagle on (p50 0.05 ms)
+ok   QUICKACK set once: still stalls
+ok   QUICKACK before every read: no stall
+ok   trace: delayed ACK after 40.88 ms ≈ TCP_DELACK_MIN 40 ms
+ok   trace: first request ACKed at once (0.015 ms, quick-ACK mode)
+ok   a new connection per request costs more than keep-alive
+ok   TIME_WAIT: client closes first → 2,000 on the client, 0 on the server
+ok   TIME_WAIT: server closes first → 0 / 2,000
+ok   SO_LINGER(0): no TIME_WAIT
+ok   server never closes: CLOSE_WAIT on server, FIN_WAIT2 on client
+ok   silent server: connectTimeout alone does not help
+ok   silent server: request timeout fires at 2 s
+ok   trickling body: request timeout does not cover the body
+ok   trickling body: soTimeout is per read, no error
+ok   dropped packets: connectTimeout fires at 1 s
+ok   dropped packets: request timeout reports a connect timeout
+ok   Little’s Law within 2% in every row (worst 1.1%)
+ok   pool 1: measured 98/s vs predicted 99/s
+ok   pool 2: measured 197/s vs predicted 197/s
+ok   pools above 4 add no throughput
+ok   a bigger pool moves the wait into the database
+ok   closed-loop p99 1.08 ms hides the stall; open loop 954.10 ms
+ok   the stall only shows at p99.99 / max in the closed loop
+ok   the closed loop sent fewer requests than were due
+ok   compiled code much faster than the interpreter (105×)
+ok   PrintCompilation shows code made not entrant
+ok   ZGC tail below G1's
+ok   ZGC pauses under 1 ms (longest 0.013)
+ok   median unaffected by either collector
+ok   virtual threads 0.23 s vs 200 platform threads 5.04 s
+ok   pinned: 2.5 s ≈ 100 / 4 × 0.1 = 2.50 s
+ok   ReentrantLock: 0.1 s, no pinning
+ok   pinning trace names a monitor
+ok   --cpus=0.5 reported as 1 CPU
+ok   G1 at 2 CPUs/2 GB; Serial at 1 GB, even with 4 CPUs
+ok   ActiveProcessorCount and MaxRAMPercentage take effect
+ok   default heap ≈ 25% of the limit
+ok   commonPool = CPUs − 1, at least 1
+ok   throttling seen under --cpus=0.5
+ok   throttled timer far later than unlimited
+ok   store buffering: 0, 0 observed 281,351,791 times with plain fields
+ok   store buffering: never with volatile
+ok   StaleFlag: plain stuck 5/5, volatile always stopped
+ok   SpinVolatileTest never stale
+ok   racy counter loses updates, atomic never does
+ok   linger.ms cuts requests: 7273 / 915 / 105
+ok   linger.ms=50 adds latency to records that wait for a batch
+ok   fetch.min.bytes 1e6 waits up to fetch.max.wait.ms
+ok   2 partitions, 4 consumers: two idle
+ok   exceeding max.poll.interval.ms fails the commit
+ok   Nagle sends fewer data segments than TCP_NODELAY
+ok   autocorking does not add segments
+ok   one buffered write: a handful of segments
+ok   a call that is not inlined costs more
+ok   4 receiver types much slower than 1
+ok   escape analysis removes the allocation
+ok   PrintInlining: inline in oneType, virtual call in fourTypes
+ok   G1 region size 1M/2M/8M for 1g/4g/16g
+ok   ZGC pauses stay under 1 ms at 4 GB
+ok   platform: an OS thread each; virtual: a few carriers
+ok   virtual threads' stacks are StackChunk objects
+ok   platform stacks reserve far more native memory
+ok   volatile store adds 3.78 ns to the plain store
+ok   volatile load costs the same as a plain load on x86-64
+
+0 problem(s)
+31 pages, 16 top-level bookmarks
+ok: fonts embedded, tagged, language set
+Java-Performance-Deep-Dives.html 0.7 MB, self-contained

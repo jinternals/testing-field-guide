@@ -1,0 +1,12 @@
+# cpus: 4
+# sequential
+Test run finished after 2032 ms
+Test run finished after 1982 ms
+Test run finished after 1979 ms
+# parallel (config/junit-platform.properties on the classpath)
+Test run finished after 1444 ms
+[        44 tests successful      ]
+Test run finished after 1475 ms
+[        44 tests successful      ]
+Test run finished after 1457 ms
+[        44 tests successful      ]

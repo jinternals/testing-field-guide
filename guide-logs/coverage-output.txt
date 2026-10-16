@@ -1,0 +1,45 @@
+== unit tests (everything except *Api*Test)
+[        39 tests successful      ]
+[         0 tests failed          ]
+== integration tests (OrderApi*Test)
+[         5 tests successful      ]
+[         0 tests failed          ]
+
+== UNIT
+class                                lines        branches
+DiscountPolicy                    4/4 100%        4/4 100%
+InMemoryOrderRepository           5/5 100%             n/a
+Item                              4/4 100%        2/2 100%
+Money                           12/12 100%        2/2 100%
+Order                             1/1 100%             n/a
+OrderApi                         0/24   0%        0/4   0%
+OrderService                    17/17 100%        2/2 100%
+PasswordPolicy                    9/9 100%        6/6 100%
+PaymentDeclinedException          1/1 100%             n/a
+TOTAL                           53/77  69%      16/20  80%
+
+== INTEGRATION
+class                                lines        branches
+DiscountPolicy                    0/4   0%        0/4   0%
+InMemoryOrderRepository           5/5 100%             n/a
+Item                              3/4  75%        1/2  50%
+Money                            5/12  42%        1/2  50%
+Order                             1/1 100%             n/a
+OrderApi                        24/24 100%        4/4 100%
+OrderService                     0/17   0%        0/2   0%
+PasswordPolicy                    0/9   0%        0/6   0%
+PaymentDeclinedException          0/1   0%             n/a
+TOTAL                           38/77  49%       6/20  30%
+
+== MERGED
+class                                lines        branches
+DiscountPolicy                    4/4 100%        4/4 100%
+InMemoryOrderRepository           5/5 100%             n/a
+Item                              4/4 100%        2/2 100%
+Money                           12/12 100%        2/2 100%
+Order                             1/1 100%             n/a
+OrderApi                        24/24 100%        4/4 100%
+OrderService                    17/17 100%        2/2 100%
+PasswordPolicy                    9/9 100%        6/6 100%
+PaymentDeclinedException          1/1 100%             n/a
+TOTAL                           77/77 100%      20/20 100%

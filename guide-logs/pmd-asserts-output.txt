@@ -1,0 +1,6 @@
+$ pmd check -d src/test/java -d src/it/java -R …/UnitTestShouldIncludeAssert
+(no violations, exit code 0)
+
+$ pmd check -d demo/pmd -R …/UnitTestShouldIncludeAssert
+demo/pmd/NoAssertTest.java:4:	UnitTestShouldIncludeAssert:	This unit test should include assert() or fail()
+exit code 4

@@ -1,0 +1,18 @@
+users=1  requests=47,209  errors=0  throughput=4,721 req/s
+p50      0.19 ms
+p90      0.28 ms
+p95      0.31 ms
+p99      0.35 ms
+p99.9    0.82 ms
+max      7.56 ms
+mean     0.21 ms
+
+users=50  requests=139,965  errors=0  throughput=13,997 req/s
+p50      3.09 ms
+p90      6.19 ms
+p95      7.66 ms
+p99     10.71 ms
+p99.9   14.26 ms
+max     21.38 ms
+mean     3.57 ms
+

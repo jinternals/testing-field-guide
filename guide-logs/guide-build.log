@@ -1,0 +1,102 @@
+jacoco-unit-index-crop.png (2072, 436)
+jacoco-unit-orderapi-crop.png (1800, 544)
+playwright-checkout.png (560, 260)
+pages: 54
+auto-fitted: ['build.gradle.kts 6.05pt', 'ItemTest.java 6.05pt', 'pom.xml — Mockito as a -javaagent (from Mockito’s docs) 6.05pt', 'committed · OrderFlowIT (@SpringBootTest, no @Transactional) 6.05pt', 'NightlyReport.java — a cron schedule 6.05pt', 'NightlyReportCronTest 6.05pt', 'junit-platform.properties 6.05pt']
+   {'page': 1, 'id': 'p-cover', 'spare_mm': 0, 'right_over_mm': 75, 'clipped_pre': [], 'overflow': 0}
+   {'page': 2, 'id': 'p-toc', 'spare_mm': -0.0, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 3, 'id': 'p-why', 'spare_mm': 12.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 4, 'id': 'p-pyramid', 'spare_mm': 22.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 5, 'id': 'p-whattotest', 'spare_mm': 6.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 6, 'id': 'p-design', 'spare_mm': 4.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 7, 'id': 'p-setup', 'spare_mm': 16.6, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 8, 'id': 'p-junit', 'spare_mm': 7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 9, 'id': 'p-assert', 'spare_mm': 4.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 10, 'id': 'p-params', 'spare_mm': 8.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 11, 'id': 'p-extensions', 'spare_mm': 5.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 12, 'id': 'p-observe', 'spare_mm': 9.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 13, 'id': 'p-doubles', 'spare_mm': 2.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 14, 'id': 'p-mockito', 'spare_mm': 4.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 15, 'id': 'p-mockito2', 'spare_mm': 3.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 16, 'id': 'p-mockpit', 'spare_mm': 22.8, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 17, 'id': 'p-legacy', 'spare_mm': 11, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 18, 'id': 'p-integ', 'spare_mm': 4.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 19, 'id': 'p-spring', 'spare_mm': 15, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 20, 'id': 'p-txtrap', 'spare_mm': 1.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 21, 'id': 'p-migrations', 'spare_mm': 1.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 22, 'id': 'p-caches', 'spare_mm': 3.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 23, 'id': 'p-cacheasync', 'spare_mm': 12.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 24, 'id': 'p-scheduled', 'spare_mm': 18.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 25, 'id': 'p-batch', 'spare_mm': 13.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 26, 'id': 'p-messaging', 'spare_mm': 21.8, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 27, 'id': 'p-email', 'spare_mm': 5.8, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 28, 'id': 'p-cloud', 'spare_mm': 19.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 29, 'id': 'p-authmock', 'spare_mm': 2.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 30, 'id': 'p-wiremock', 'spare_mm': 5.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 31, 'id': 'p-contract', 'spare_mm': 3.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 32, 'id': 'p-tricky', 'spare_mm': 11.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+!! {'page': 33, 'id': 'p-jcstress', 'spare_mm': 33.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 34, 'id': 'p-e2e', 'spare_mm': 18.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 35, 'id': 'p-perf', 'spare_mm': 1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 36, 'id': 'p-sec', 'spare_mm': 3.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 37, 'id': 'p-prod', 'spare_mm': 15.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 38, 'id': 'p-tdd', 'spare_mm': 18.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 39, 'id': 'p-cov', 'spare_mm': 3.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 40, 'id': 'p-pit', 'spare_mm': 20.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 41, 'id': 'p-pitci', 'spare_mm': 6.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 42, 'id': 'p-itcov', 'spare_mm': 2.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 43, 'id': 'p-dupes', 'spare_mm': 22.3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 44, 'id': 'p-plugins', 'spare_mm': 10.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 45, 'id': 'p-archunit', 'spare_mm': 5.5, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 46, 'id': 'p-parallel', 'spare_mm': 2.7, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 47, 'id': 'p-singleton', 'spare_mm': 5.9, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 48, 'id': 'p-speed', 'spare_mm': 8.1, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 49, 'id': 'p-ci', 'spare_mm': 13.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 50, 'id': 'p-conventions', 'spare_mm': 5.2, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 51, 'id': 'p-interview', 'spare_mm': 18.4, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 52, 'id': 'p-cheat', 'spare_mm': 0, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 53, 'id': 'p-check', 'spare_mm': 3, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+   {'page': 54, 'id': 'p-index', 'spare_mm': 3.8, 'right_over_mm': 0, 'clipped_pre': [], 'overflow': 0}
+written Testing-Field-Guide.pdf 54 pages
+0 failing text elements
+ok   PIT run 1: exactly one survivor, the removed call in OrderApi.stop()
+ok   PIT run 2: every mutant detected
+ok   PIT STRONGER run completed
+ok   merged coverage is 100% lines and branches
+ok   unit tests alone leave OrderApi at 0%
+ok   JaCoCo unit report: OrderApi 0%, the other 8 classes 100%
+ok   parallel [1444, 1475, 1457] ms beats sequential [2032, 1982, 1979] ms
+ok   Nagle stall: single-user p50 41.99 ms vs 0.19 ms with TCP_NODELAY
+ok   weak tests pass on the mutant
+ok   boundary tests fail on the mutant
+ok   duplicate match still present: ItemTest.InvalidQuantity.rejected#1
+ok   duplicate match still present: DiscountPolicyTest.percentForSubtotal#4
+ok   duplicate match still present: PasswordPolicyTest.passwordWithoutDigitIsReported
+ok   duplicate match still present: OrderApiTest.pathTricksAreJustNotFound
+ok   CPD exits 4 when it finds duplicates
+ok   CPD: 0 at 100 and 50 tokens, 8 at 25
+ok   build cache: the second run restored :test from the cache
+ok   shards ran 44 tests = the whole suite (44)
+ok   Pact caught the renamed field
+ok   ArchUnit reported the planted violation
+ok   PostgreSQL rejected the duplicate reference
+ok   synthetic check passes against the running jar
+ok   with Redis down: health 503, check exits 1
+ok   jcstress saw lost updates in RacyCounterTest
+ok   AtomicCounterTest: lost update seen 0 times
+ok   async cache writes: 303 of 1000 not yet in Redis
+ok   jcstress run passed (no FORBIDDEN outcome)
+ok   PriceCacheIT ran and passed
+ok   AsyncCacheWritesIT ran and passed
+ok   ImportPricesJobIT ran and passed
+ok   CartCleanupScheduleIT ran and passed
+ok   SyntheticCheckIT ran and passed
+ok   NightlyReportCronTest ran and passed
+ok   CheckoutPricingTest ran and passed
+ok   FeatureWiringTest ran and passed
+ok   the batch job completed
+54 pages, 17 top-level bookmarks
+ok: fonts embedded, tagged, language set
+34 versions in the text, 88 in 63 build files and CI dependency lists
+ok: every version in the text is the one the builds use
+Testing-Field-Guide.html 1.3 MB, self-contained

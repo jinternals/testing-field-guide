@@ -1,0 +1,59 @@
+===== TDD step 1 (red) =====
+.
+'-- JUnit Jupiter [OK]
+  '-- PasswordPolicyTest [OK]
+    +-- passwordWithoutUpperCaseIsReported() [X] 
+    |     Expecting actual:
+    |       []
+    |     to contain exactly (and in same order):
+    |       ["an upper-case letter"]
+    |     but could not find the following elements:
+    |       ["an upper-case letter"]
+    +-- shortPasswordIsReported() [X] 
+    |     Expecting actual:
+    |       []
+    |     to contain exactly (and in same order):
+    |       ["at least 12 characters"]
+    |     but could not find the following elements:
+    |       ["at least 12 characters"]
+    +-- strongPasswordHasNoProblems() [OK]
+    '-- passwordWithoutDigitIsReported() [X] 
+          Expecting actual:
+            []
+          to contain exactly (and in same order):
+            ["a digit"]
+          but could not find the following elements:
+            ["a digit"]
+
+Failures (3):
+  JUnit Jupiter:PasswordPolicyTest:passwordWithoutUpperCaseIsReported()
+    MethodSource [className = 'shop.PasswordPolicyTest', methodName = 'passwordWithoutUpperCaseIsReported', methodParameterTypes = '']
+    => org.opentest4j.AssertionFailedError: 
+===== Weak tests vs ORIGINAL code =====
+Test run finished after 92 ms
+[         2 containers found      ]
+[         0 containers skipped    ]
+===== MUTANT: weak tests =====
+.
+'-- JUnit Jupiter [OK]
+  '-- WeakDiscountPolicyTest [OK]
+    +-- medium() [OK]
+    +-- large() [OK]
+    '-- small() [OK]
+
+Test run finished after 86 ms
+===== MUTANT: boundary tests =====
+.
+'-- JUnit Jupiter [OK]
+  '-- DiscountPolicyTest [OK]
+    '-- percentForSubtotal(String, int) [OK]
+      +-- ₹0 → 0% off [OK]
+      +-- ₹999.99 → 0% off [OK]
+      +-- ₹1000 → 5% off [X] expected: <5> but was: <0>
+      +-- ₹1000.01 → 5% off [OK]
+      +-- ₹4999.99 → 5% off [OK]
+      +-- ₹5000 → 10% off [OK]
+      '-- ₹250000 → 10% off [OK]
+
+Failures (1):
+  JUnit Jupiter:DiscountPolicyTest:percentForSubtotal(String, int):₹1000 → 5% off

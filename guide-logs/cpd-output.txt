@@ -1,0 +1,9 @@
+### pmd cpd --minimum-tokens 100 --dir src --language java
+0
+exit code: 0
+### pmd cpd --minimum-tokens 50 --dir src --language java
+0
+exit code: 0
+### pmd cpd --minimum-tokens 25 --dir src --language java
+8
+exit code: 4

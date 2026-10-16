@@ -1,0 +1,11 @@
+== unit suite
+== failing demos
+== TDD/mutant demo
+== coverage
+== PIT: STRONGER
+== PIT: before the fix (without OrderApiLifecycleTest)
+== PIT: final, full mutation matrix
+== load: Nagle on, then off
+== sequential vs parallel
+== PMD CPD and the no-assert rule (PMD 7.17.0)
+done

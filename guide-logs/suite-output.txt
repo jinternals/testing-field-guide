@@ -1,0 +1,88 @@
+@BeforeAll
+  new LifecycleTest()
+  @BeforeEach
+    second()
+  @AfterEach
+  new LifecycleTest()
+  @BeforeEach
+    first()
+  @AfterEach
+@AfterAll
+╷
+└─ JUnit Jupiter ✔
+   ├─ OrderApiLifecycleTest ✔
+   │  └─ stopReleasesThePort() ✔
+   ├─ OrderServiceTest ✔
+   │  ├─ chargesBeforeSaving() ✔
+   │  ├─ chargesDiscountedTotalSavesAndEmails() ✔
+   │  ├─ declinedPaymentSavesNothingAndSendsNoEmail() ✔
+   │  └─ emptyOrderIsRejectedEarly() ✔
+   ├─ MockitoFeaturesTest ✔
+   │  ├─ finalClassesCanBeMockedByDefault() ✔
+   │  ├─ consecutiveAnswersForRetries() ✔
+   │  ├─ mockStaticIsScopedToTheTryBlock() ✔
+   │  └─ spyWrapsARealObject() ✔
+   ├─ OrderServiceBddTest ✔
+   │  └─ bigOrderGetsTenPercentOff() ✔
+   ├─ MoneyTest ✔
+   │  ├─ 10% off ₹999.99 rounds half-up to ₹899.99 ✔
+   │  ├─ addsAndMultiplies() ✔
+   │  └─ rejectsNegativeAmounts() ✔
+   ├─ LifecycleTest ✔
+   │  ├─ second() ✔
+   │  └─ first() ✔
+   ├─ Item ✔
+   │  ├─ when quantity is invalid ✔
+   │  │  └─ rejected(int) ✔
+   │  │     ├─ quantity 0 is rejected ✔
+   │  │     ├─ quantity -1 is rejected ✔
+   │  │     └─ quantity -2147483648 is rejected ✔
+   │  └─ when quantity is valid ✔
+   │     └─ totalIsPriceTimesQty(int, String, String) ✔
+   │        ├─ 1 × ₹10 = ₹10 ✔
+   │        ├─ 3 × ₹19.99 = ₹59.97 ✔
+   │        └─ 1000 × ₹0.01 = ₹10 ✔
+   ├─ DiscountPolicyTest ✔
+   │  └─ percentForSubtotal(String, int) ✔
+   │     ├─ ₹0 → 0% off ✔
+   │     ├─ ₹999.99 → 0% off ✔
+   │     ├─ ₹1000 → 5% off ✔
+   │     ├─ ₹1000.01 → 5% off ✔
+   │     ├─ ₹4999.99 → 5% off ✔
+   │     ├─ ₹5000 → 10% off ✔
+   │     └─ ₹250000 → 10% off ✔
+   ├─ OrderApiTest ✔
+   │  ├─ wrongMethodReturns405WithAllowHeader() ✔
+   │  ├─ unknownOrderReturns404() ✔
+   │  ├─ pathTricksAreJustNotFound() ✔
+   │  └─ existingOrderReturns200WithJson() ✔
+   ├─ PasswordPolicyTest ✔
+   │  ├─ passwordWithoutUpperCaseIsReported() ✔
+   │  ├─ shortPasswordIsReported() ✔
+   │  ├─ strongPasswordHasNoProblems() ✔
+   │  └─ passwordWithoutDigitIsReported() ✔
+   ├─ TrickyThingsTest ✔
+   │  ├─ randomnessComesFromASeed() ✔
+   │  ├─ timeComesFromAnInjectedClock() ✔
+   │  ├─ filesGoInAFreshTempDir(Path) ✔
+   │  ├─ concurrentSavesAreAllKept() ✔
+   │  └─ slowCodeFailsFastInsteadOfHangingTheBuild() ✔
+   └─ TestDoublesTest ✔
+      ├─ dummyIsNeverTouchedWhenValidationFails() ✔
+      ├─ spyLetsUsCheckBehaviour() ✔
+      └─ stubAndFakeLetUsCheckState() ✔
+
+Test run finished after 2253 ms
+[        18 containers found      ]
+[         0 containers skipped    ]
+[        18 containers started    ]
+[         0 containers aborted    ]
+[        18 containers successful ]
+[         0 containers failed     ]
+[        44 tests found           ]
+[         0 tests skipped         ]
+[        44 tests started         ]
+[         0 tests aborted         ]
+[        44 tests successful      ]
+[         0 tests failed          ]
+
